@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (3.1.4)
+  - AlamofireImage (2.2.0):
+    - Alamofire (~> 3.1)
   - Bolts/Tasks (1.6.0)
   - Cartography (0.6.0)
   - EZSwipeController (0.4)
@@ -33,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AlamofireImage
   - Cartography
   - EZSwipeController
   - JSQMessagesViewController
@@ -44,6 +47,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  AlamofireImage: bedb8a4bdfb98eda81ba12952fba6e9e90420922
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
   EZSwipeController: 49aa0f869e66049ac433483120f458434272ee32

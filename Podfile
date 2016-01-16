@@ -6,6 +6,7 @@ use_frameworks!
 pod 'ZLSwipeableViewSwift'
 pod 'Cartography'
 pod 'Alamofire'
+pod 'AlamofireImage'
 pod 'SwiftyJSON'
 pod 'PromiseKit'
 pod 'EZSwipeController'

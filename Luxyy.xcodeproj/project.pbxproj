@@ -11,6 +11,12 @@
 		F64F92061C4AB2A9003257A6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F64F92051C4AB2A9003257A6 /* README.md */; };
 		F64F92081C4ABC9E003257A6 /* AHPagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */; };
 		F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92091C4ABF46003257A6 /* MessagesViewController.swift */; };
+		F64F92101C4AD33C003257A6 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F920F1C4AD33C003257A6 /* CardView.swift */; };
+		F64F92121C4AD385003257A6 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92111C4AD385003257A6 /* BrowseViewController.swift */; };
+		F64F92151C4AD3C7003257A6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92131C4AD3C7003257A6 /* DetailView.swift */; };
+		F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92141C4AD3C7003257A6 /* expandedImageView.swift */; };
+		F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92171C4AD3F5003257A6 /* ShareButton.swift */; };
+		F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92191C4AD437003257A6 /* CardModel.swift */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
@@ -43,6 +49,12 @@
 		F64F92051C4AB2A9003257A6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AHPagingMenuViewController.swift; sourceTree = "<group>"; };
 		F64F92091C4ABF46003257A6 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		F64F920F1C4AD33C003257A6 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F64F92111C4AD385003257A6 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		F64F92131C4AD3C7003257A6 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		F64F92141C4AD3C7003257A6 /* expandedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = expandedImageView.swift; sourceTree = "<group>"; };
+		F64F92171C4AD3F5003257A6 /* ShareButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
+		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -129,7 +141,13 @@
 				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
 				F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */,
 				F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */,
+				F64F920F1C4AD33C003257A6 /* CardView.swift */,
+				F64F92111C4AD385003257A6 /* BrowseViewController.swift */,
 				F64F92091C4ABF46003257A6 /* MessagesViewController.swift */,
+				F64F92131C4AD3C7003257A6 /* DetailView.swift */,
+				F64F92141C4AD3C7003257A6 /* expandedImageView.swift */,
+				F64F92171C4AD3F5003257A6 /* ShareButton.swift */,
+				F64F92191C4AD437003257A6 /* CardModel.swift */,
 				F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */,
 				F6FB6B401C4AAACD00B167AF /* Info.plist */,
 				F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */,
@@ -336,11 +354,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F64F92101C4AD33C003257A6 /* CardView.swift in Sources */,
+				F64F92151C4AD3C7003257A6 /* DetailView.swift in Sources */,
 				F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */,
+				F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */,
 				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
+				F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */,
 				F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */,
 				F64F92061C4AB2A9003257A6 /* README.md in Sources */,
 				F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */,
+				F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */,
+				F64F92121C4AD385003257A6 /* BrowseViewController.swift in Sources */,
 				F64F92081C4ABC9E003257A6 /* AHPagingMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

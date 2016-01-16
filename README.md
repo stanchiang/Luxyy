@@ -10,8 +10,8 @@
 
 ### browse page
 - save swipe decisions to backend
-- "swipe to decide" animation
-- "tap to decide" with animation
+- ~~"swipe to decide" animation~~
+- ~~"tap to decide" with animation~~
 - card UI --needs polish
 - button UI --needs polish
 
@@ -19,7 +19,7 @@
 - update UI for buttons
 - zoom in on images -- in progress
 - needs to set min,max, and initial zoom on images
-- image gallery
+- ~~image gallery~~
 - spec out the rest of this page
 
 ### profile page

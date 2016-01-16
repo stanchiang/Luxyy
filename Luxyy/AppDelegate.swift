@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let profileVC = MessengerContainerViewController()
-        let browseVC = MessengerContainerViewController()
+        let profileVC = UIViewController()
+        let browseVC = BrowseViewController()
         let messageVC = MessengerContainerViewController()
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
