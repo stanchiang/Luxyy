@@ -16,12 +16,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let profileVC = ViewController()
+        profileVC.view.backgroundColor = UIColor.grayColor()
+        let browseVC = ViewController()
+        browseVC.view.backgroundColor = UIColor.greenColor()
+        let messageVC = ViewController()
+        messageVC.view.backgroundColor = UIColor.redColor()
+        
+        let vcArray:NSArray = [profileVC, browseVC, messageVC]
+        
+        let controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
+        controller.setShowArrow(false)
+        controller.setTransformScale(true)
+        controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
+        controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        if let window = window {
-            let rootVC = ViewController()
-            self.window?.rootViewController = rootVC
-            window.makeKeyAndVisible()
-        }
+        self.window!.rootViewController = controller
+        window!.makeKeyAndVisible()
         return true
     }
 
