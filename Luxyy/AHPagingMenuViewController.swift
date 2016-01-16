@@ -31,6 +31,8 @@ import ObjectiveC
     - parameter to:   obj final
     */
     optional func AHPagingMenuDidChangeMenuFrom(form: AnyObject, to: AnyObject);
+    
+    func AHPagingMenuDidUpdateCurrentPage(currentPage: Int)
 }
 
 
@@ -256,6 +258,7 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
     internal func setPosition(position: NSInteger, animated:Bool)
     {
         self.currentPage = position
+        delegate?.AHPagingMenuDidUpdateCurrentPage(currentPage)
         self.viewContainer?.setContentOffset(CGPointMake( CGFloat(self.currentPage!) * self.viewContainer!.frame.size.width, self.viewContainer!.contentOffset.y), animated: animated)
     }
     
@@ -350,11 +353,6 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
                 imageView.image = imageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
                 imageView.contentMode = UIViewContentMode.ScaleAspectFill
                 iconsController.addObject(imageView)
-
-                let badge = GIBadgeView()
-                imageView.addSubview(badge)
-                badge.badgeValue = 5
-
             }
             else
             {
@@ -675,6 +673,7 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
                 self.delegate?.AHPagingMenuDidChangeMenuPosition?(self.currentPage, to: currentPage)
                 self.delegate?.AHPagingMenuDidChangeMenuFrom?(self.viewControllers!.objectAtIndex(self.currentPage), to: self.viewControllers!.objectAtIndex(currentPage))
                 self.currentPage = currentPage;
+                delegate?.AHPagingMenuDidUpdateCurrentPage(currentPage)
                 
             }
             

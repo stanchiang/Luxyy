@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import Sheriff
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
 
     var window: UIWindow?
-
-
+    var controller: AHPagingMenuViewController!
+    var unreadMessagesBadge:GIBadgeView!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         let profileVC = UIViewController()
@@ -23,12 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
-        let controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
+        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
         controller.setShowArrow(false)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
         controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
 
+        controller.delegate = self
+        
+        unreadMessagesBadge = GIBadgeView()
+        controller.iconsMenu?.lastObject!.addSubview(unreadMessagesBadge)
+        unreadMessagesBadge.badgeValue = 5
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = controller
@@ -36,6 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func AHPagingMenuDidUpdateCurrentPage(currentPage: Int) {
+        if currentPage == 2 {
+            clearUnreadBadgeCount()
+        }
+    }
+    
+    func clearUnreadBadgeCount() {
+        unreadMessagesBadge.badgeValue = 0
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

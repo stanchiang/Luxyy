@@ -5,8 +5,10 @@
 - ~~have icon animation like tinder (AHPagingMenuViewController)~~
 - ~~controller swiping animation like tinder~~
 - ~~get unread messages badge on message icon~~
-- need to be able to pick which icon to set badge on
-- set up delegate or extension to update badge count
+- ~~need to be able to pick which icon to set badge on~~
+- ~~clear unread when user goes to message page~~
+- update badge count on push notification when user is not on the message page
+
 
 ### browse page
 - save swipe decisions to backend
@@ -35,4 +37,4 @@
 - ~~send and receive text messages with JSQMessagesViewController~~
 - integrate with parse server
 - setup push notifications
-- setup onboarding through the message page
+- automate onboarding through the message page
