@@ -2,9 +2,11 @@
 
 ## Specs
 ### navigation controller
-- have icon animation like tinder (AHPagingMenuViewController)
-- get unread messages badge on message icon
-- controller swiping animation like tinder (ezSwipeController)
+- ~~have icon animation like tinder (AHPagingMenuViewController)~~
+- ~~controller swiping animation like tinder~~
+- ~~get unread messages badge on message icon~~
+- need to be able to pick which icon to set badge on
+- set up delegate or extension to update badge count
 
 ### browse page
 - save swipe decisions to backend
@@ -30,6 +32,7 @@
 - allow getting/setting swipe decision
 
 #### message page
-send and receive text messages with parse server
-get push notifications
-setup onboarding through the message page
+- ~~send and receive text messages with JSQMessagesViewController~~
+- integrate with parse server
+- setup push notifications
+- setup onboarding through the message page

@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Sheriff
 import ObjectiveC
 
 @objc protocol AHPagingMenuDelegate
@@ -349,6 +350,11 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
                 imageView.image = imageView.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
                 imageView.contentMode = UIViewContentMode.ScaleAspectFill
                 iconsController.addObject(imageView)
+
+                let badge = GIBadgeView()
+                imageView.addSubview(badge)
+                badge.badgeValue = 5
+
             }
             else
             {

@@ -93,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/PromiseKit.framework"
+  install_framework "Pods/Sheriff.framework"
   install_framework "Pods/SwiftyJSON.framework"
   install_framework "Pods/ZLSwipeableViewSwift.framework"
 fi
@@ -106,6 +107,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/PromiseKit.framework"
+  install_framework "Pods/Sheriff.framework"
   install_framework "Pods/SwiftyJSON.framework"
   install_framework "Pods/ZLSwipeableViewSwift.framework"
 fi

@@ -27,6 +27,7 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (3.0.1):
     - PromiseKit/CorePromise
+  - Sheriff (0.3.2)
   - SwiftyJSON (2.3.2)
   - ZLSwipeableViewSwift (0.0.5)
 
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - JSQMessagesViewController
   - Parse
   - PromiseKit
+  - Sheriff
   - SwiftyJSON
   - ZLSwipeableViewSwift
 
@@ -50,6 +52,7 @@ SPEC CHECKSUMS:
   OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   PromiseKit: 19d12914484a15c25a46f72fde38579204a5dac6
+  Sheriff: d3d03fe6d35aa781e3f42d48f3fb53ed7d04958d
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   ZLSwipeableViewSwift: 2a276a5d6132e8030ae3b329e2b843688b264b99
 
