@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
+		F6FB6B341C4AAACD00B167AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* ViewController.swift */; };
+		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
+		F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */; };
+		F6FB6B3F1C4AAACD00B167AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6FB6B3D1C4AAACD00B167AF /* LaunchScreen.storyboard */; };
+		F6FB6B4A1C4AAACD00B167AF /* LuxyyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B491C4AAACD00B167AF /* LuxyyTests.swift */; };
+		F6FB6B551C4AAACD00B167AF /* LuxyyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B541C4AAACD00B167AF /* LuxyyUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F6FB6B461C4AAACD00B167AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6FB6B261C4AAACD00B167AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6FB6B2D1C4AAACD00B167AF;
+			remoteInfo = Luxyy;
+		};
+		F6FB6B511C4AAACD00B167AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F6FB6B261C4AAACD00B167AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6FB6B2D1C4AAACD00B167AF;
+			remoteInfo = Luxyy;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F6FB6B331C4AAACD00B167AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F6FB6B391C4AAACD00B167AF /* Luxyy.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Luxyy.xcdatamodel; sourceTree = "<group>"; };
+		F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F6FB6B3E1C4AAACD00B167AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F6FB6B401C4AAACD00B167AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FB6B451C4AAACD00B167AF /* LuxyyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuxyyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FB6B491C4AAACD00B167AF /* LuxyyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuxyyTests.swift; sourceTree = "<group>"; };
+		F6FB6B4B1C4AAACD00B167AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FB6B501C4AAACD00B167AF /* LuxyyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuxyyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6FB6B541C4AAACD00B167AF /* LuxyyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuxyyUITests.swift; sourceTree = "<group>"; };
+		F6FB6B561C4AAACD00B167AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6FB6B2B1C4AAACD00B167AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B421C4AAACD00B167AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B4D1C4AAACD00B167AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6FB6B251C4AAACD00B167AF = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B301C4AAACD00B167AF /* Luxyy */,
+				F6FB6B481C4AAACD00B167AF /* LuxyyTests */,
+				F6FB6B531C4AAACD00B167AF /* LuxyyUITests */,
+				F6FB6B2F1C4AAACD00B167AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F6FB6B2F1C4AAACD00B167AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */,
+				F6FB6B451C4AAACD00B167AF /* LuxyyTests.xctest */,
+				F6FB6B501C4AAACD00B167AF /* LuxyyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6FB6B301C4AAACD00B167AF /* Luxyy */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
+				F6FB6B331C4AAACD00B167AF /* ViewController.swift */,
+				F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */,
+				F6FB6B3D1C4AAACD00B167AF /* LaunchScreen.storyboard */,
+				F6FB6B401C4AAACD00B167AF /* Info.plist */,
+				F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */,
+			);
+			path = Luxyy;
+			sourceTree = "<group>";
+		};
+		F6FB6B481C4AAACD00B167AF /* LuxyyTests */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B491C4AAACD00B167AF /* LuxyyTests.swift */,
+				F6FB6B4B1C4AAACD00B167AF /* Info.plist */,
+			);
+			path = LuxyyTests;
+			sourceTree = "<group>";
+		};
+		F6FB6B531C4AAACD00B167AF /* LuxyyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B541C4AAACD00B167AF /* LuxyyUITests.swift */,
+				F6FB6B561C4AAACD00B167AF /* Info.plist */,
+			);
+			path = LuxyyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6FB6B2D1C4AAACD00B167AF /* Luxyy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6FB6B591C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "Luxyy" */;
+			buildPhases = (
+				F6FB6B2A1C4AAACD00B167AF /* Sources */,
+				F6FB6B2B1C4AAACD00B167AF /* Frameworks */,
+				F6FB6B2C1C4AAACD00B167AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Luxyy;
+			productName = Luxyy;
+			productReference = F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F6FB6B441C4AAACD00B167AF /* LuxyyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6FB6B5C1C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "LuxyyTests" */;
+			buildPhases = (
+				F6FB6B411C4AAACD00B167AF /* Sources */,
+				F6FB6B421C4AAACD00B167AF /* Frameworks */,
+				F6FB6B431C4AAACD00B167AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6FB6B471C4AAACD00B167AF /* PBXTargetDependency */,
+			);
+			name = LuxyyTests;
+			productName = LuxyyTests;
+			productReference = F6FB6B451C4AAACD00B167AF /* LuxyyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F6FB6B4F1C4AAACD00B167AF /* LuxyyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6FB6B5F1C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "LuxyyUITests" */;
+			buildPhases = (
+				F6FB6B4C1C4AAACD00B167AF /* Sources */,
+				F6FB6B4D1C4AAACD00B167AF /* Frameworks */,
+				F6FB6B4E1C4AAACD00B167AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F6FB6B521C4AAACD00B167AF /* PBXTargetDependency */,
+			);
+			name = LuxyyUITests;
+			productName = LuxyyUITests;
+			productReference = F6FB6B501C4AAACD00B167AF /* LuxyyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6FB6B261C4AAACD00B167AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Stanley Chiang";
+				TargetAttributes = {
+					F6FB6B2D1C4AAACD00B167AF = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 4C8V97R8N3;
+					};
+					F6FB6B441C4AAACD00B167AF = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = F6FB6B2D1C4AAACD00B167AF;
+					};
+					F6FB6B4F1C4AAACD00B167AF = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = F6FB6B2D1C4AAACD00B167AF;
+					};
+				};
+			};
+			buildConfigurationList = F6FB6B291C4AAACD00B167AF /* Build configuration list for PBXProject "Luxyy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F6FB6B251C4AAACD00B167AF;
+			productRefGroup = F6FB6B2F1C4AAACD00B167AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6FB6B2D1C4AAACD00B167AF /* Luxyy */,
+				F6FB6B441C4AAACD00B167AF /* LuxyyTests */,
+				F6FB6B4F1C4AAACD00B167AF /* LuxyyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6FB6B2C1C4AAACD00B167AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FB6B3F1C4AAACD00B167AF /* LaunchScreen.storyboard in Resources */,
+				F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B431C4AAACD00B167AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B4E1C4AAACD00B167AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6FB6B2A1C4AAACD00B167AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
+				F6FB6B341C4AAACD00B167AF /* ViewController.swift in Sources */,
+				F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B411C4AAACD00B167AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FB6B4A1C4AAACD00B167AF /* LuxyyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6FB6B4C1C4AAACD00B167AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6FB6B551C4AAACD00B167AF /* LuxyyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F6FB6B471C4AAACD00B167AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6FB6B2D1C4AAACD00B167AF /* Luxyy */;
+			targetProxy = F6FB6B461C4AAACD00B167AF /* PBXContainerItemProxy */;
+		};
+		F6FB6B521C4AAACD00B167AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6FB6B2D1C4AAACD00B167AF /* Luxyy */;
+			targetProxy = F6FB6B511C4AAACD00B167AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F6FB6B3D1C4AAACD00B167AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6FB6B3E1C4AAACD00B167AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F6FB6B571C4AAACD00B167AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F6FB6B581C4AAACD00B167AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F6FB6B5A1C4AAACD00B167AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Luxyy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F6FB6B5B1C4AAACD00B167AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Luxyy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F6FB6B5D1C4AAACD00B167AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LuxyyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.LuxyyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luxyy.app/Luxyy";
+			};
+			name = Debug;
+		};
+		F6FB6B5E1C4AAACD00B167AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LuxyyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.LuxyyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luxyy.app/Luxyy";
+			};
+			name = Release;
+		};
+		F6FB6B601C4AAACD00B167AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LuxyyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.LuxyyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Luxyy;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		F6FB6B611C4AAACD00B167AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LuxyyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.stan.LuxyyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Luxyy;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6FB6B291C4AAACD00B167AF /* Build configuration list for PBXProject "Luxyy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6FB6B571C4AAACD00B167AF /* Debug */,
+				F6FB6B581C4AAACD00B167AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6FB6B591C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "Luxyy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6FB6B5A1C4AAACD00B167AF /* Debug */,
+				F6FB6B5B1C4AAACD00B167AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F6FB6B5C1C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "LuxyyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6FB6B5D1C4AAACD00B167AF /* Debug */,
+				F6FB6B5E1C4AAACD00B167AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F6FB6B5F1C4AAACD00B167AF /* Build configuration list for PBXNativeTarget "LuxyyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6FB6B601C4AAACD00B167AF /* Debug */,
+				F6FB6B611C4AAACD00B167AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F6FB6B391C4AAACD00B167AF /* Luxyy.xcdatamodel */,
+			);
+			currentVersion = F6FB6B391C4AAACD00B167AF /* Luxyy.xcdatamodel */;
+			path = Luxyy.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F6FB6B261C4AAACD00B167AF /* Project object */;
+}
