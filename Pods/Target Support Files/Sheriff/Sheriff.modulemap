@@ -1,0 +1,6 @@
+framework module Sheriff {
+  umbrella header "Sheriff-umbrella.h"
+
+  export *
+  module * { export * }
+}

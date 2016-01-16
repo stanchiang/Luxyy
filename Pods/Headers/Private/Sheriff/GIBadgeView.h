@@ -1,0 +1,1 @@
+../../../Sheriff/Source/GIBadgeView.h
