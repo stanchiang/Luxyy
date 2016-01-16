@@ -1,0 +1,56 @@
+PODS:
+  - Alamofire (3.1.4)
+  - Bolts/Tasks (1.6.0)
+  - Cartography (0.6.0)
+  - EZSwipeController (0.4)
+  - JSQMessagesViewController (7.2.0):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - OMGHTTPURLRQ (3.0.2):
+    - OMGHTTPURLRQ/RQ (= 3.0.2)
+  - OMGHTTPURLRQ/FormURLEncode (3.0.2)
+  - OMGHTTPURLRQ/RQ (3.0.2):
+    - OMGHTTPURLRQ/FormURLEncode
+    - OMGHTTPURLRQ/UserAgent
+  - OMGHTTPURLRQ/UserAgent (3.0.2)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
+  - PromiseKit (3.0.1):
+    - PromiseKit/Foundation (= 3.0.1)
+    - PromiseKit/QuartzCore (= 3.0.1)
+    - PromiseKit/UIKit (= 3.0.1)
+  - PromiseKit/CorePromise (3.0.1)
+  - PromiseKit/Foundation (3.0.1):
+    - OMGHTTPURLRQ (~> 3.0.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (3.0.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (3.0.1):
+    - PromiseKit/CorePromise
+  - SwiftyJSON (2.3.2)
+  - ZLSwipeableViewSwift (0.0.5)
+
+DEPENDENCIES:
+  - Alamofire
+  - Cartography
+  - EZSwipeController
+  - JSQMessagesViewController
+  - Parse
+  - PromiseKit
+  - SwiftyJSON
+  - ZLSwipeableViewSwift
+
+SPEC CHECKSUMS:
+  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
+  EZSwipeController: 49aa0f869e66049ac433483120f458434272ee32
+  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  PromiseKit: 19d12914484a15c25a46f72fde38579204a5dac6
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  ZLSwipeableViewSwift: 2a276a5d6132e8030ae3b329e2b843688b264b99
+
+COCOAPODS: 0.39.0
