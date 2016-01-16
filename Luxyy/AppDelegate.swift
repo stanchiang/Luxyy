@@ -17,12 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let profileVC = ViewController()
-        profileVC.view.backgroundColor = UIColor.grayColor()
-        let browseVC = ViewController()
-        browseVC.view.backgroundColor = UIColor.greenColor()
-        let messageVC = ViewController()
-        messageVC.view.backgroundColor = UIColor.redColor()
+        let profileVC = MessengerContainerViewController()
+        let browseVC = MessengerContainerViewController()
+        let messageVC = MessengerContainerViewController()
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
@@ -31,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
         controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
+
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = controller
