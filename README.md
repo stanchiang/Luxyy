@@ -18,11 +18,10 @@
 - button UI --needs polish
 
 ##### browseDetail
-- update UI for buttons
-- zoom in on images -- in progress
-- needs to set min,max, and initial zoom on images
-- allow getting/setting swipe decision
+- ~~initial zoom on image is set by width of view~~
 - ~~image gallery~~
+- allow getting/setting swipe decision
+- update UI for buttons
 - spec out the rest of this page
 
 ### profile page

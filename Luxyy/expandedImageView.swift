@@ -59,8 +59,8 @@ class expandedImageView: UIView, UIScrollViewDelegate {
         scrollView.minimumZoomScale = minScale;
         
         // 5
-        scrollView.maximumZoomScale = 1.0
-        scrollView.zoomScale = minScale
+        scrollView.maximumZoomScale = 4.0
+        scrollView.zoomScale = scaleWidth
         
         // 6
         centerScrollViewContents()
