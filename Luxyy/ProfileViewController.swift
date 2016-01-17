@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, fullListDelegate {
 
     var collectionView: UICollectionView!
+    var fullList:FullListView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +42,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("tapped cell \(indexPath.item + 1)")
         
-        let fullList = FullListView(frame: self.view.frame)
+        fullList = FullListView(frame: self.view.frame)
+        fullList.delegate = self
         fullList.setUp()
         self.view.addSubview(fullList)
-        
+    }
+    
+    func dismissFullList() {
+        fullList.removeFromSuperview()
     }
 }

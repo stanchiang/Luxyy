@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol fullListDelegate{
+    func dismissFullList()
+}
+
 class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var collectionView: UICollectionView!
+    var delegate:fullListDelegate!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,5 +52,8 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("tapped cell \(indexPath.item + 1)")
+        if indexPath.item == 0 {
+            delegate.dismissFullList()
+        }
     }
 }

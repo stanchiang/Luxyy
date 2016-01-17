@@ -27,11 +27,12 @@
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
-- desgn a UI for the cells
+- design a UI for the cells
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
-- add a back button
+- ~~add a back button (its the first cell)~~
+- load list from parse
 - tapping on the item loads the item's browseDetail
 
 #### message page
