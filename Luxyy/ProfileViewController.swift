@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let cellWidth = self.view.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         

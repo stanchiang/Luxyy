@@ -71,16 +71,8 @@ class CardView: UIView {
             distribute(by: 0, horizontally: obj1, obj2)
         }
         
-        // Shadow
-        layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.25
-        layer.shadowOffset = CGSizeMake(0, 1.5)
-        layer.shadowRadius = 4.0
-        layer.shouldRasterize = true
-        layer.rasterizationScale = UIScreen.mainScreen().scale
-        
         // Corner Radius
-        layer.cornerRadius = 10.0;
+        layer.cornerRadius = 5.0;
         
     }
     

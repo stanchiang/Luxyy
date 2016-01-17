@@ -115,13 +115,4 @@ class MessagesViewController: JSQMessagesViewController {
         return cell
     }
     
-    //    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
-    //        if indexPath.item % 3 == 0 {
-    //            let message: JSQMessage = self.messages[indexPath.item]
-    //            let date = JSQMessagesTimestampFormatter.sharedFormatter().attributedTimestampForDate(message.date)
-    //            return date
-    //        }
-    //        return nil
-    //    }
-    
 }

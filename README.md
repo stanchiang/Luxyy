@@ -14,7 +14,7 @@
 - save swipe decisions to backend
 - ~~"swipe to decide" animation~~
 - ~~"tap to decide" with animation~~
-- card UI --needs polish
+- ~~card UI~~
 - button UI --needs polish
 
 ##### browseDetail

@@ -37,7 +37,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         swipeableView.nextView = {
             return self.nextCardView()
         }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -60,10 +59,10 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         view.addSubview(swipeableView)
         
         cardsizeconstraints = constrain(swipeableView) { view1 in
-            view1.leading == view1.superview!.leading + 50
-            view1.trailing == view1.superview!.trailing - 50
-            view1.top == view1.superview!.top + 120
-            view1.bottom == view1.superview!.bottom - 200
+            view1.leading == view1.superview!.leading + 20
+            view1.trailing == view1.superview!.trailing - 20
+            view1.top == view1.superview!.top + 20
+            view1.bottom == view1.superview!.bottom - 150
         }
         
         //skip button
@@ -113,15 +112,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             }
             self.previousY = location.y
             
-            
             if location.y > 420 {
                 self.shareAction(self)
             }
-            
         }
         
         swipeableView.didEnd = { view in
             self.shareButton.layer.borderWidth = 5
+        }
+        
+        swipeableView.animateView = { (view: UIView, index: Int, views: [UIView], swipeableView: ZLSwipeableView) in
+            //override default card offset
         }
         
     }
