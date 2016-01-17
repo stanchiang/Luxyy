@@ -46,11 +46,11 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        let testObject = PFObject(className: "TestObject")
-        //        testObject["foo"] = "bar"
-        //        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-        //            print("Object has been saved.")
-        //        }
+//        let testObject = PFObject(className: "TestObject")
+//        testObject["foo"] = "bar"
+//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+//            print("Object has been saved.")
+//        }
         
         view.backgroundColor = UIColor.whiteColor()
         view.clipsToBounds = true
@@ -83,9 +83,10 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         for button in buttons {
             view.addSubview(button)
             constrain(button, swipeableView) { obj1, obj2 in
-                distribute(by: 50 , vertically: obj2, obj1)
+//                distribute(by: 50 , vertically: obj2, obj1)
                 obj1.width == 50
                 obj1.height == 50
+                obj1.bottom == obj1.superview!.bottom - 10
             }
             
             button.layoutIfNeeded()
@@ -94,15 +95,14 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             button.backgroundColor = UIColor.clearColor()
         }
         
-        constrain(buttons.first!, swipeableView) { obj1, obj2 in
-            obj1.left == obj2.left
+        constrain(buttons[1]){ obj1 in
+            obj1.centerX == obj1.superview!.centerX
         }
+        
         constrain(skipButton, shareButton, likeButton) { obj1, obj2, obj3 in
-            distribute(by: 10, horizontally: obj1, obj2, obj3)
+            distribute(by: 30, horizontally: obj1, obj2, obj3)
         }
-        
-        tabBarController?.tabBar.hidden = true
-        
+
         swipeableView.allowedDirection = Direction.Horizontal
         
         swipeableView.swiping = {view, location, translation in
@@ -192,25 +192,25 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func setleftLabelText(myCardView:CardView) {
-        //        let cardData = CardModel()
-        //
-        //        var urlString:String!
-        //
-        //        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
-        //
-        //            switch (response){
-        //            case "0":
-        //                urlString = "Hello"
-        //            case "1":
-        //                urlString = "World"
-        //            default:
-        //                urlString = "!"
-        //            }
-        //
-        //            myCardView.leftLabel.text = urlString
-        //            }) { (error) -> Void in
-        //                print(error)
-        //        }
+//        let cardData = CardModel()
+//
+//        var urlString:String!
+//
+//        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
+//
+//            switch (response){
+//            case "0":
+//                urlString = "Hello"
+//            case "1":
+//                urlString = "World"
+//            default:
+//                urlString = "!"
+//            }
+//
+//            myCardView.leftLabel.text = urlString
+//            }) { (error) -> Void in
+//                print(error)
+//        }
     }
     
     func expandedView(myCardView: CardView) {

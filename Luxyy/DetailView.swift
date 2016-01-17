@@ -92,12 +92,15 @@ class DetailView: UIView, UIScrollViewDelegate {
             view1.bottom == (view1.superview?.bottom)!
         }
         
-        addToStack()
+        addItemDetails()
+//        addLocationButton()
+//        addBlogPosts()
+        
         addDismissButton()
         addActionButtons()
     }
     
-    func addToStack(){
+    func addItemDetails() {
         let nameLabel = UILabel()
         nameLabel.text = watchName
         
@@ -108,12 +111,17 @@ class DetailView: UIView, UIScrollViewDelegate {
         for label in infoArray {
             stackView.addArrangedSubview(label)
         }
-        
+    }
+    
+    func addLocationButton(){
         let locateButton = UIButton()
         locateButton.backgroundColor = UIColor.greenColor()
         locateButton.setTitle("Locate this Item", forState: UIControlState.Normal)
         locateButton.addTarget(self, action: "locate:", forControlEvents: .TouchUpInside)
         stackView.addArrangedSubview(locateButton)
+    }
+    
+    func addBlogPosts(){
         
         let blogStart = UILabel()
         blogStart.text = "What the Experts Say"
@@ -319,23 +327,28 @@ class DetailView: UIView, UIScrollViewDelegate {
         
         for action in actionArray {
             addSubview(action)
-            
+
             constrain(action) { view in
                 view.height == 50
                 view.width == 50
                 view.bottom == view.superview!.bottom - 10
             }
+            
+            action.layoutIfNeeded()
+            action.layer.cornerRadius = 0.5 * action.bounds.size.width
+            action.layer.borderWidth = 5
+            action.backgroundColor = UIColor.clearColor()
+
         }
         
-        constrain(skip) { view in
-            view.leading == view.superview!.leading + 10
+        constrain(actionArray[1]){ obj1 in
+            obj1.centerX == obj1.superview!.centerX
         }
 
         constrain(skip, share, save) { obj1, obj2, obj3 in
-            distribute(by: 10, horizontally: obj1, obj2, obj3)
+            distribute(by: 30, horizontally: obj1, obj2, obj3)
         }
 
-        
     }
     
     func itemSkipAction(sender: UIButton) {
