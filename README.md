@@ -21,17 +21,18 @@
 - update UI for buttons
 - zoom in on images -- in progress
 - needs to set min,max, and initial zoom on images
+- allow getting/setting swipe decision
 - ~~image gallery~~
 - spec out the rest of this page
 
 ### profile page
-- show page, but only allow usage if logged in
-- have a collection view with 2 playlists liked and disliked
+- ~~have a collection view with 2 playlists liked and disliked~~
+- desgn a UI for the cells
 
 ##### playlistDetail
-- tapping on playlist loads a collection view of items
+- ~~tapping on playlist loads a collection view of items~~
+- add a back button
 - tapping on the item loads the item's browseDetail
-- allow getting/setting swipe decision
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~

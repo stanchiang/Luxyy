@@ -17,12 +17,15 @@
 		F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92141C4AD3C7003257A6 /* expandedImageView.swift */; };
 		F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92171C4AD3F5003257A6 /* ShareButton.swift */; };
 		F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92191C4AD437003257A6 /* CardModel.swift */; };
+		F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F921B1C4B0638003257A6 /* ProfileViewController.swift */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
 		F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */; };
 		F6FB6B4A1C4AAACD00B167AF /* LuxyyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B491C4AAACD00B167AF /* LuxyyTests.swift */; };
 		F6FB6B551C4AAACD00B167AF /* LuxyyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B541C4AAACD00B167AF /* LuxyyUITests.swift */; };
+		F6FF69BE1C4B179A00230FB4 /* PlayListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */; };
+		F6FF69C01C4B1C9100230FB4 /* FullListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,7 @@
 		F64F92141C4AD3C7003257A6 /* expandedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = expandedImageView.swift; sourceTree = "<group>"; };
 		F64F92171C4AD3F5003257A6 /* ShareButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		F64F921B1C4B0638003257A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 		F6FB6B501C4AAACD00B167AF /* LuxyyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuxyyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B541C4AAACD00B167AF /* LuxyyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuxyyUITests.swift; sourceTree = "<group>"; };
 		F6FB6B561C4AAACD00B167AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayListCollectionViewCell.swift; sourceTree = "<group>"; };
+		F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,9 @@
 			isa = PBXGroup;
 			children = (
 				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
+				F64F921B1C4B0638003257A6 /* ProfileViewController.swift */,
+				F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */,
+				F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */,
 				F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */,
 				F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */,
 				F64F920F1C4AD33C003257A6 /* CardView.swift */,
@@ -358,12 +367,15 @@
 				F64F92151C4AD3C7003257A6 /* DetailView.swift in Sources */,
 				F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */,
 				F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */,
+				F6FF69BE1C4B179A00230FB4 /* PlayListCollectionViewCell.swift in Sources */,
 				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
 				F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */,
 				F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */,
 				F64F92061C4AB2A9003257A6 /* README.md in Sources */,
+				F6FF69C01C4B1C9100230FB4 /* FullListView.swift in Sources */,
 				F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */,
 				F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */,
+				F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */,
 				F64F92121C4AD385003257A6 /* BrowseViewController.swift in Sources */,
 				F64F92081C4ABC9E003257A6 /* AHPagingMenuViewController.swift in Sources */,
 			);

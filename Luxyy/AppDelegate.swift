@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let profileVC = UIViewController()
+        let profileVC = ProfileViewController()
         let browseVC = BrowseViewController()
         let messageVC = MessengerContainerViewController()
         
