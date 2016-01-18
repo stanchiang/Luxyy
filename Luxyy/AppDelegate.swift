@@ -30,6 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         login.delegate = self
         self.window!.rootViewController = login
         window!.makeKeyAndVisible()
+        
+        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
+        
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
         return true
     }
 
@@ -75,6 +81,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         self.window!.rootViewController = controller
 
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("registering for notifications")
+        let installation = PFInstallation.currentInstallation()
+        installation.setValue(PFUser.currentUser(), forKey: "user")
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackground()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("got push notification")
+        
+        if let payLoad = userInfo["aps"], alert = payLoad["alert"] {
+            print(alert)
+            if controller.currentPage == 2 {
+                //reload page
+                print("reload page")
+            }else{
+                unreadMessagesBadge.increment()
+            }
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {

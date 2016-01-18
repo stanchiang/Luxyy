@@ -26,9 +26,15 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
     
+    func refreshView() {
+        print("refreshing")
+        self.view.setNeedsLayout()
+        self.view.setNeedsDisplay()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
         self.senderDisplayName = (PFUser.currentUser()?.username!)!
         self.senderId = (PFUser.currentUser()?.objectId!)!
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -52,7 +58,14 @@ class MessagesViewController: JSQMessagesViewController {
     
     func loadMessages() {
         let query = PFQuery(className: "Message")
-        let groupId = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+        let groupId: String!
+        
+        if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
+            groupId = "E0u5zMTSEWjHCAZoBM2M"
+        } else {
+            groupId = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+        }
+        
         print(groupId)
         query.whereKey("groupId", equalTo: groupId)
         query.orderByAscending("createdAt")
@@ -122,21 +135,6 @@ class MessagesViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
 
-//        if (PFUser.currentUser() == nil) {
-//            let newUser = PFUser()
-//            newUser.email = ""
-//            newUser.username = ""
-//            newUser.password = ""
-//            
-//            newUser.signUpInBackgroundWithBlock({ (success: Bool, error: NSError?) -> Void in
-//                if !success {
-//                    print("Failed Creating New User with error:\(error)")
-//                }else {
-//                    print("New User Saved")
-//                }
-//            })
-//        }
-//        
         guard let currentUser = PFUser.currentUser() else {
             print("no current user")
             return
@@ -146,11 +144,39 @@ class MessagesViewController: JSQMessagesViewController {
 
         let messageObject = PFObject(className: "Message")
         messageObject["user"] = currentUser
-        messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+
+        if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
+            messageObject["groupId"] = "E0u5zMTSEWjHCAZoBM2M"
+        } else {
+            messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+        }
+        
         messageObject["text"] = text
         messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             self.messages.append(message)
             self.finishSendingMessage()
+            
+//            let findLuxyy = PFQuery(className: "User")
+//            let luxyyUser:PFUser!
+//            
+//            findLuxyy.whereKey("objectId", equalTo: "E0u5zMTSEW")
+//            do{
+//                luxyyUser = try findLuxyy.findObjects().first as! PFUser
+//                
+//                let data = ["alert":"hello there","sound":"chime.aiff", "content":"hello there!"]
+//                let pushQuery = PFInstallation.query()
+//                pushQuery?.whereKey("user", equalTo: luxyyUser)
+//                
+//                let push = PFPush()
+//                push.setQuery(pushQuery)
+//                push.setData(data)
+//                push.sendPushInBackground()
+//            } catch {
+//                print(error)
+//            }
+//            
+            
+            
         }
     }
     
