@@ -20,7 +20,7 @@
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
 - ~~image gallery~~
-- allow getting/setting swipe decision
+- allow getting/updating swipe decision
 - update UI for buttons
 - spec out the rest of this page
 
@@ -36,6 +36,6 @@
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~
-- integrate with parse server
-- setup push notifications
-- automate onboarding through the message page
+- ~~integrate with parse server~~
+- ~~add login page~~
+- setup push notifications / real time updating

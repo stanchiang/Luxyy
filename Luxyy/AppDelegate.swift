@@ -8,37 +8,27 @@
 
 import UIKit
 import Sheriff
+import Parse
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, loggedInDelegate {
 
     var window: UIWindow?
     var controller: AHPagingMenuViewController!
     var unreadMessagesBadge:GIBadgeView!
     
+    let ParseAppIDString: String = "HxJxd5msq4LlDti4HkzBWtXp0A7djc0D6JUYikO4"
+    let ParseClientKeyString: String = "Z6k85eiuum4IfAqLkfVXmeqrXWvKaCrdSd3nsCN0"
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let profileVC = ProfileViewController()
-        let browseVC = BrowseViewController()
-        let messageVC = MessengerContainerViewController()
-        
-        let vcArray:NSArray = [profileVC, browseVC, messageVC]
-        
-        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
-        controller.setShowArrow(false)
-        controller.setTransformScale(true)
-        controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
-        controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
-
-        controller.delegate = self
-        
-        unreadMessagesBadge = GIBadgeView()
-        controller.iconsMenu?.lastObject!.addSubview(unreadMessagesBadge)
-        unreadMessagesBadge.badgeValue = 5
+        setupParse()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.rootViewController = controller
+        let login = loginViewController()
+        login.delegate = self
+        self.window!.rootViewController = login
         window!.makeKeyAndVisible()
         return true
     }
@@ -51,6 +41,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate {
     
     func clearUnreadBadgeCount() {
         unreadMessagesBadge.badgeValue = 0
+    }
+    
+    func setupParse() {
+        // Enable Parse local data store for user persistence
+        Parse.enableLocalDatastore()
+        Parse.setApplicationId(ParseAppIDString, clientKey: ParseClientKeyString)
+        
+        // Set default ACLs
+        let defaultACL: PFACL = PFACL()
+        defaultACL.publicReadAccess = true
+        PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
+    }
+    
+    func userAuthenticated() {
+        let profileVC = ProfileViewController()
+        let browseVC = BrowseViewController()
+        let messageVC = MessengerContainerViewController()
+        
+        let vcArray:NSArray = [profileVC, browseVC, messageVC]
+        
+        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:2)
+        controller.setShowArrow(false)
+        controller.setTransformScale(true)
+        controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
+        controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
+        
+        controller.delegate = self
+        
+        unreadMessagesBadge = GIBadgeView()
+        controller.iconsMenu?.lastObject!.addSubview(unreadMessagesBadge)
+        unreadMessagesBadge.badgeValue = 5
+        
+        self.window!.rootViewController = controller
+
     }
     
     func applicationWillResignActive(application: UIApplication) {

@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ParseUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,12 +87,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>24AADC7B49A9D15C58DAB045FA8FA75A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2ECF996C857313F919A7E5403DFE25C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3BD19BEB6FED67FA8BACDE7CB332AC9B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>452189162D3D2A50935B6F19BA15ECE6</key>
+		<key>824CCA7B022EE9F22AA49D8E7BDD7168</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,16 +127,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B452208E9DD5FB06054A99C87F5CFB8B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BB8261A0EEFA2169D4CE1838C95AF4AE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>BCA053B6430690326435042FEB61B458</key>
 		<dict>
 			<key>primary</key>
@@ -127,17 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C9AF7D0E0A8533F44DB76A361DB3EB85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D168A90FC275B7C8B0DDF59974BBE8BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D8BB52D4899424658D14BECECF9EA863</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DFB83CB362A6C16DA9AF111A62168184</key>
+		<key>E1F78B1C5F8F2CCD0E68552EAF2B9B52</key>
 		<dict>
 			<key>primary</key>
 			<true/>
