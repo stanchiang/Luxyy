@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
-        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:2)
+        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:0)
         controller.setShowArrow(false)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));

@@ -35,7 +35,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-        cell.backgroundColor = UIColor.orangeColor()
+        
+        if indexPath.item == 0 {
+            cell.label.text = "Cell\(indexPath.item): Liked"
+            cell.backgroundColor = UIColor.greenColor()
+        } else {
+            cell.label.text = "Cell\(indexPath.item): Passed"
+            cell.backgroundColor = UIColor.redColor()
+        }
+        
         return cell
     }
     

@@ -10,15 +10,13 @@ import UIKit
 
 class PlayListCollectionViewCell: UICollectionViewCell {
     
+    var label:UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let cell = UIView(frame: self.frame)
-        let label = UILabel(frame: self.frame)
-        label.text = "Liked"
-        cell.addSubview(label)
-        self.addSubview(cell)
-        cell.backgroundColor = UIColor.lightGrayColor()
+        label = UILabel()
+        contentView.addSubview(label)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,4 +24,9 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     }
     
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.label.frame = self.bounds
+    }
+
 }
