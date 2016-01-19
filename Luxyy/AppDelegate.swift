@@ -45,6 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         }
     }
     
+    func AHPagingMenuDidChangeMenuPosition(form: NSInteger, to: NSInteger) {
+        if form == 2 && to == 1 {
+            print("moving from messages to browser tab")
+            NSNotificationCenter.defaultCenter().postNotificationName("dismissKeyBoard", object: nil)
+        }
+    }
+    
     func clearUnreadBadgeCount() {
         unreadMessagesBadge.badgeValue = 0
     }

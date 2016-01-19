@@ -16,7 +16,7 @@ class MessagesViewController: JSQMessagesViewController {
     var signUpButton: UIButton!
     var logInButton: UIButton!
     
-    var messages:[JSQMessage] = []
+    var messages:[JSQMessage]!
     var incomingBubble:JSQMessagesBubbleImage!
     var outgoingBubble:JSQMessagesBubbleImage!
     
@@ -30,6 +30,8 @@ class MessagesViewController: JSQMessagesViewController {
         super.viewDidLoad()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateChat:", name: "updateChat", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissKeyBoard:", name: "dismissKeyBoard", object: nil)
         
         self.senderDisplayName = (PFUser.currentUser()?.username!)!
         self.senderId = (PFUser.currentUser()?.objectId!)!
@@ -54,11 +56,17 @@ class MessagesViewController: JSQMessagesViewController {
     
     func updateChat(note: NSNotification) {
         print("reloading the page")
+        loadMessages()
     }
     
-
+    func dismissKeyBoard(note: NSNotification) {
+        self.inputToolbar?.contentView?.textView?.resignFirstResponder()
+    }
     
     func loadMessages() {
+        
+        messages = []
+        
         let query = PFQuery(className: "Message")
         let groupId: String!
         
