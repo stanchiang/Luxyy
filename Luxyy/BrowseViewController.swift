@@ -158,30 +158,28 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func setImage(myCardView: CardView) {
+        //needs a way to get a random image
         
-        var urlString:String!
-        
-        let cardData = CardModel()
-        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
-            
-            switch (response){
-            case "0":
-                urlString = "http://www.stanleychiang.com/watchProject/00053.jpeg"
-            case "1":
-                urlString = "http://www.stanleychiang.com/watchProject/00100.jpeg"
-            default:
-                urlString = "http://www.stanleychiang.com/watchProject/00111.jpeg"
+        let item = PFQuery(className: "Item")
+        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
+            guard let object = object else {
+                print("error \(error)")
+                return
             }
             
-            Alamofire.request(.GET, urlString)
-                .responseImage { response in
-                    if let image = response.result.value {
-                        myCardView.imageView.image = image
-                    }
-            }
+            let result = object[0] as PFObject
+            print(result.objectForKey("itemName")!)
             
-            }) { (error) -> Void in
-                print(error)
+            let imageFile:PFFile = (object[0] as PFObject).objectForKey("image")! as! PFFile
+            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                guard let data = data else {
+                    print("error \(error)")
+                    return
+                }
+                myCardView.imageView.image = UIImage(data: data)
+                
+            })
         }
     }
     
