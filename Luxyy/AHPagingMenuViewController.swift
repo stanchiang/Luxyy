@@ -32,7 +32,7 @@ import ObjectiveC
     */
     optional func AHPagingMenuDidChangeMenuFrom(form: AnyObject, to: AnyObject);
     
-    func AHPagingMenuDidUpdateCurrentPage(currentPage: Int)
+    optional func AHPagingMenuDidUpdateCurrentPage(currentPage: Int)
 }
 
 
@@ -258,7 +258,7 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
     internal func setPosition(position: NSInteger, animated:Bool)
     {
         self.currentPage = position
-        delegate?.AHPagingMenuDidUpdateCurrentPage(currentPage)
+        delegate?.AHPagingMenuDidUpdateCurrentPage!(currentPage)
         self.viewContainer?.setContentOffset(CGPointMake( CGFloat(self.currentPage!) * self.viewContainer!.frame.size.width, self.viewContainer!.contentOffset.y), animated: animated)
     }
     
@@ -673,7 +673,7 @@ class AHPagingMenuViewController: UIViewController, UIScrollViewDelegate
                 self.delegate?.AHPagingMenuDidChangeMenuPosition?(self.currentPage, to: currentPage)
                 self.delegate?.AHPagingMenuDidChangeMenuFrom?(self.viewControllers!.objectAtIndex(self.currentPage), to: self.viewControllers!.objectAtIndex(currentPage))
                 self.currentPage = currentPage;
-                delegate?.AHPagingMenuDidUpdateCurrentPage(currentPage)
+                delegate?.AHPagingMenuDidUpdateCurrentPage!(currentPage)
                 
             }
             

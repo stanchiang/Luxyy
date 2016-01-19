@@ -26,15 +26,11 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
     
-    func refreshView() {
-        print("refreshing")
-        self.view.setNeedsLayout()
-        self.view.setNeedsDisplay()
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateChat:", name: "updateChat", object: nil)
+        
         self.senderDisplayName = (PFUser.currentUser()?.username!)!
         self.senderId = (PFUser.currentUser()?.objectId!)!
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -55,6 +51,12 @@ class MessagesViewController: JSQMessagesViewController {
         loadMessages()
         
     }
+    
+    func updateChat(note: NSNotification) {
+        print("reloading the page")
+    }
+    
+
     
     func loadMessages() {
         let query = PFQuery(className: "Message")

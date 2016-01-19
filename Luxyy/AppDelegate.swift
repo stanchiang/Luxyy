@@ -99,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             if controller.currentPage == 2 {
                 //reload page
                 print("reload page")
+                NSNotificationCenter.defaultCenter().postNotificationName("updateChat", object: nil)
             }else{
                 unreadMessagesBadge.increment()
             }
