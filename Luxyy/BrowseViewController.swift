@@ -30,6 +30,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     var tapToExpand: UIGestureRecognizer!
     var expanded: expandedImageView!
     
+    var currentObjectId:String!
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -119,20 +121,30 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             //override default card offset
         }
         
+        swipeableView.didSwipe = { (view: UIView, inDirection: Direction, directionVector: CGVector) in
+            if inDirection == Direction.Right {
+                print("swiped Right on \(self.currentObjectId)")
+            } else  {
+                print("swiped Left on \(self.currentObjectId)")
+            }
+        }
     }
     
     func skipAction(sender: UIButton){
         self.swipeableView.swipeTopView(inDirection: .Left)
+        print("tapped Skip on \(self.currentObjectId)")
     }
     
     func shareAction(sender: AnyObject){
         let toShare = ["hey"]
         let activityViewController = UIActivityViewController(activityItems: toShare, applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: {})
+        print("engaged Share on \(self.currentObjectId)")
     }
     
     func likeAction(sender: UIButton){
         self.swipeableView.swipeTopView(inDirection: .Right)
+        print("tapped Like on \(self.currentObjectId)")
     }
     
     func handleExpand(sender: UIGestureRecognizer){
@@ -169,16 +181,15 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             }
             
             let result = object[0] as PFObject
-            print(result.objectForKey("itemName")!)
             
-            let imageFile:PFFile = (object[0] as PFObject).objectForKey("image")! as! PFFile
+            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
             imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 guard let data = data else {
                     print("error \(error)")
                     return
                 }
                 myCardView.imageView.image = UIImage(data: data)
-                
+                self.currentObjectId = result.objectId!
             })
         }
     }

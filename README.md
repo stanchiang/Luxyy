@@ -7,11 +7,13 @@
 - ~~get unread messages badge on message icon~~
 - ~~need to be able to pick which icon to set badge on~~
 - ~~clear unread when user goes to message page~~
-- update badge count on push notification when user is not on the message page
+- ~~update badge count on push notification when user is not on the message page~~
+- start with correct badge number
 
 
 ### browse page
 - save swipe decisions to backend
+- ~~load images from parse~~
 - ~~"swipe to decide" animation~~
 - ~~"tap to decide" with animation~~
 - ~~card UI~~
@@ -38,4 +40,4 @@
 - ~~send and receive text messages with JSQMessagesViewController~~
 - ~~integrate with parse server~~
 - ~~add login page~~
-- setup push notifications / real time updating
+- ~~setup push notifications / real time updating~~
