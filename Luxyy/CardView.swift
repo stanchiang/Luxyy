@@ -9,6 +9,7 @@
 import UIKit
 import Cartography
 import Alamofire
+import Parse
 
 protocol cardDelegate {
     func setleftLabelText(myCardView:CardView)
@@ -27,6 +28,8 @@ class CardView: UIView {
     
     var leftLabel:UILabel!
     var rightLabel:UILabel!
+    
+    var itemObject: PFObject!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

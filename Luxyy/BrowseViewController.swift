@@ -116,18 +116,14 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             }
             
             print("evaluating")
-//            print((self.swipeableView.topView() as! CardView).center.x)
-//            print(self.view.frame.width / 2)
             if (self.swipeableView.topView() as! CardView).center.x > self.cardDefaultCenter.x {
                 print("liking")
-//                print((self.swipeableView.topView() as! CardView).center.x)
                 (self.swipeableView.topView() as! CardView).likeImage.alpha = 1
                 (self.swipeableView.topView() as! CardView).skipImage.alpha = 0
             }
             
             if (self.swipeableView.topView() as! CardView).center.x < self.cardDefaultCenter.y {
                 print("skipping")
-//                print((self.swipeableView.topView() as! CardView).center.x)
                 (self.swipeableView.topView() as! CardView).likeImage.alpha = 0
                 (self.swipeableView.topView() as! CardView).skipImage.alpha = 1
             }
@@ -174,15 +170,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             print("skipped")
         }
         
-//        let save = PFObject(className: "Decision")
-//        save["user"] = PFUser.currentUser()
-//        save["liked"] = liked
-//        save["item"] = currentItem
-//        let testObject = PFObject(className: "TestObject")
-//        testObject["foo"] = "bar"
-//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-//            print("Object has been saved.")
-//        }
+        let save = PFObject(className: "Decision")
+        save["user"] = PFUser.currentUser()
+        save["liked"] = liked
+        save["item"] = (self.swipeableView.topView() as! CardView).itemObject
+        save.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+               print("saved")
+            } else{
+                print("error: \(error)")
+            }
+        }
     }
     
     func handleExpand(sender: UIGestureRecognizer){
@@ -210,52 +208,52 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     func setImage(myCardView: CardView) {
         //needs a way to get a random image
         
-//        let item = PFQuery(className: "Item")
-//        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
-//        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
-//            guard let object = object else {
-//                print("error \(error)")
-//                return
+        let item = PFQuery(className: "Item")
+        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
+            guard let object = object else {
+                print("error \(error)")
+                return
+            }
+            
+            let result = object[0] as PFObject
+            
+            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
+            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                guard let data = data else {
+                    print("error \(error)")
+                    return
+                }
+                myCardView.imageView.image = UIImage(data: data)
+                self.currentObjectId = result.objectId!
+                myCardView.itemObject = result
+            })
+        }
+        
+//        var urlString:String!
+//        
+//        let cardData = CardModel()
+//        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
+//            
+//            switch (response){
+//            case "0":
+//                urlString = "http://www.stanleychiang.com/watchProject/00053.jpeg"
+//            case "1":
+//                urlString = "http://www.stanleychiang.com/watchProject/00100.jpeg"
+//            default:
+//                urlString = "http://www.stanleychiang.com/watchProject/00111.jpeg"
 //            }
 //            
-//            let result = object[0] as PFObject
+//            Alamofire.request(.GET, urlString)
+//                .responseImage { response in
+//                    if let image = response.result.value {
+//                        myCardView.imageView.image = image
+//                    }
+//            }
 //            
-//            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
-//            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-//                guard let data = data else {
-//                    print("error \(error)")
-//                    return
-//                }
-//                myCardView.imageView.image = UIImage(data: data)
-//                self.currentObjectId = result.objectId!
-//                self.currentItem = result
-//            })
+//            }) { (error) -> Void in
+//                print(error)
 //        }
-        
-        var urlString:String!
-        
-        let cardData = CardModel()
-        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
-            
-            switch (response){
-            case "0":
-                urlString = "http://www.stanleychiang.com/watchProject/00053.jpeg"
-            case "1":
-                urlString = "http://www.stanleychiang.com/watchProject/00100.jpeg"
-            default:
-                urlString = "http://www.stanleychiang.com/watchProject/00111.jpeg"
-            }
-            
-            Alamofire.request(.GET, urlString)
-                .responseImage { response in
-                    if let image = response.result.value {
-                        myCardView.imageView.image = image
-                    }
-            }
-            
-            }) { (error) -> Void in
-                print(error)
-        }
     }
     
     func setleftLabelText(myCardView:CardView) {
