@@ -18,6 +18,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     var swipeableView: ZLSwipeableView!
     var thecardView: CardView!
     var cardsizeconstraints:ConstraintGroup!
+    var cardDefaultCenter:CGPoint!
     
     var detailView:DetailView!
     
@@ -30,7 +31,9 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     var tapToExpand: UIGestureRecognizer!
     var expanded: expandedImageView!
     
+    var currentItem: PFObject!
     var currentObjectId:String!
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -111,10 +114,30 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             if location.y > 420 {
                 self.shareAction(self)
             }
+            
+            print("evaluating")
+//            print((self.swipeableView.topView() as! CardView).center.x)
+//            print(self.view.frame.width / 2)
+            if (self.swipeableView.topView() as! CardView).center.x > self.cardDefaultCenter.x {
+                print("liking")
+//                print((self.swipeableView.topView() as! CardView).center.x)
+                (self.swipeableView.topView() as! CardView).likeImage.alpha = 1
+                (self.swipeableView.topView() as! CardView).skipImage.alpha = 0
+            }
+            
+            if (self.swipeableView.topView() as! CardView).center.x < self.cardDefaultCenter.y {
+                print("skipping")
+//                print((self.swipeableView.topView() as! CardView).center.x)
+                (self.swipeableView.topView() as! CardView).likeImage.alpha = 0
+                (self.swipeableView.topView() as! CardView).skipImage.alpha = 1
+            }
         }
+        
         
         swipeableView.didEnd = { view in
             self.shareButton.layer.borderWidth = 5
+            (self.swipeableView.topView() as! CardView).likeImage.alpha = 0
+            (self.swipeableView.topView() as! CardView).skipImage.alpha = 0
         }
         
         swipeableView.animateView = { (view: UIView, index: Int, views: [UIView], swipeableView: ZLSwipeableView) in
@@ -123,28 +146,43 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         
         swipeableView.didSwipe = { (view: UIView, inDirection: Direction, directionVector: CGVector) in
             if inDirection == Direction.Right {
-                print("swiped Right on \(self.currentObjectId)")
+                self.saveDecision(true)
             } else  {
-                print("swiped Left on \(self.currentObjectId)")
+                self.saveDecision(false)
             }
         }
     }
     
-    func skipAction(sender: UIButton){
+    func skipAction(sender: AnyObject){
         self.swipeableView.swipeTopView(inDirection: .Left)
-        print("tapped Skip on \(self.currentObjectId)")
     }
     
     func shareAction(sender: AnyObject){
         let toShare = ["hey"]
         let activityViewController = UIActivityViewController(activityItems: toShare, applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: {})
-        print("engaged Share on \(self.currentObjectId)")
     }
     
-    func likeAction(sender: UIButton){
+    func likeAction(sender: AnyObject){
         self.swipeableView.swipeTopView(inDirection: .Right)
-        print("tapped Like on \(self.currentObjectId)")
+    }
+    
+    func saveDecision(liked: Bool){
+        if liked {
+            print("liked")
+        } else {
+            print("skipped")
+        }
+        
+//        let save = PFObject(className: "Decision")
+//        save["user"] = PFUser.currentUser()
+//        save["liked"] = liked
+//        save["item"] = currentItem
+//        let testObject = PFObject(className: "TestObject")
+//        testObject["foo"] = "bar"
+//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+//            print("Object has been saved.")
+//        }
     }
     
     func handleExpand(sender: UIGestureRecognizer){
@@ -165,32 +203,58 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         tapToExpand = UITapGestureRecognizer(target: self, action: "handleExpand:")
         thecardView.addGestureRecognizer(self.tapToExpand)
         
-        
+        cardDefaultCenter = thecardView.convertPoint(thecardView.center, toCoordinateSpace: self.view)
         return thecardView
     }
     
     func setImage(myCardView: CardView) {
         //needs a way to get a random image
         
-        let item = PFQuery(className: "Item")
-        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
-        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
-            guard let object = object else {
-                print("error \(error)")
-                return
+//        let item = PFQuery(className: "Item")
+//        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+//        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
+//            guard let object = object else {
+//                print("error \(error)")
+//                return
+//            }
+//            
+//            let result = object[0] as PFObject
+//            
+//            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
+//            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+//                guard let data = data else {
+//                    print("error \(error)")
+//                    return
+//                }
+//                myCardView.imageView.image = UIImage(data: data)
+//                self.currentObjectId = result.objectId!
+//                self.currentItem = result
+//            })
+//        }
+        
+        var urlString:String!
+        
+        let cardData = CardModel()
+        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
+            
+            switch (response){
+            case "0":
+                urlString = "http://www.stanleychiang.com/watchProject/00053.jpeg"
+            case "1":
+                urlString = "http://www.stanleychiang.com/watchProject/00100.jpeg"
+            default:
+                urlString = "http://www.stanleychiang.com/watchProject/00111.jpeg"
             }
             
-            let result = object[0] as PFObject
+            Alamofire.request(.GET, urlString)
+                .responseImage { response in
+                    if let image = response.result.value {
+                        myCardView.imageView.image = image
+                    }
+            }
             
-            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
-            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-                guard let data = data else {
-                    print("error \(error)")
-                    return
-                }
-                myCardView.imageView.image = UIImage(data: data)
-                self.currentObjectId = result.objectId!
-            })
+            }) { (error) -> Void in
+                print(error)
         }
     }
     
@@ -246,7 +310,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         expanded.removeFromSuperview()
     }
     
-    
     func dismissDetailView(sender: AnyObject) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         detailView.removeFromSuperview()
@@ -259,6 +322,12 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         view.addSubview(expanded)
         expanded.expandedDel = self
         expanded.setup(theImageView)
+    }
+    
+    func updateOverlayImage(myCardView: CardView) {
+        swipeableView.swiping = { (view: UIView, atLocation: CGPoint, translation: CGPoint) in
+            print(atLocation)
+        }
     }
     
     func locate() {

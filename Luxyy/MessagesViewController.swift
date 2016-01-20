@@ -56,6 +56,9 @@ class MessagesViewController: JSQMessagesViewController {
     
     func updateChat(note: NSNotification) {
         print("reloading the page")
+        if messages.count > 0 {
+            JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+        }
         loadMessages()
     }
     
@@ -165,7 +168,7 @@ class MessagesViewController: JSQMessagesViewController {
         messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             self.messages.append(message)
             self.finishSendingMessage()
-            
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
 //            let findLuxyy = PFQuery(className: "User")
 //            let luxyyUser:PFUser!
 //            

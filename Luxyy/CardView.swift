@@ -13,7 +13,6 @@ import Alamofire
 protocol cardDelegate {
     func setleftLabelText(myCardView:CardView)
     func setImage(myCardView:CardView)
-    
     func expandedView(myCardView:CardView)
 }
 
@@ -22,6 +21,9 @@ class CardView: UIView {
     var delegate: cardDelegate!
     
     var imageView:UIImageView!
+    
+    var likeImage:UIImageView!
+    var skipImage:UIImageView!
     
     var leftLabel:UILabel!
     var rightLabel:UILabel!
@@ -46,6 +48,22 @@ class CardView: UIView {
         self.addSubview(imageView)
         
         imageView.frame = self.frame
+        
+        //like image
+        likeImage = UIImageView(frame: imageView.frame)
+        likeImage.image = UIImage(named: "heart")
+        likeImage.alpha = 0
+        imageView.addSubview(likeImage)
+        
+        //skip image
+        skipImage = UIImageView(frame: imageView.frame)
+        skipImage.image = UIImage(named: "conf")
+        skipImage.alpha = 0
+        imageView.addSubview(skipImage)
+        
+        setNeedsDisplay()
+        setNeedsLayout()
+        setNeedsUpdateConstraints()
         
         //left label
         leftLabel = UILabel()

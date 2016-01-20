@@ -47,7 +47,15 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         cell.backgroundColor = UIColor.lightGrayColor()
-        cell.label.text = "full list"
+
+        if indexPath.item == 0 {
+            cell.label.text = "Back"
+        } else if indexPath.item == 1 {
+            cell.label.text = "Filter"
+        } else {
+            cell.label.text = "item"
+        }
+        
         return cell
     }
     

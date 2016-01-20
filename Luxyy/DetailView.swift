@@ -14,9 +14,9 @@ protocol detailDelegate {
     func addDismissHandler(sender: AnyObject)
     func addImageHandler(sender: UIGestureRecognizer)
     func getParentData() -> [String:AnyObject]
-    func skipAction(sender: UIButton)
+    func skipAction(sender: AnyObject)
     func shareAction(sender: AnyObject)
-    func likeAction(sender: UIButton)
+    func likeAction(sender: AnyObject)
     func locate()
 }
 

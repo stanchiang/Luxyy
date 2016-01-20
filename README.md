@@ -8,16 +8,18 @@
 - ~~need to be able to pick which icon to set badge on~~
 - ~~clear unread when user goes to message page~~
 - ~~update badge count on push notification when user is not on the message page~~
-- start with correct badge number
+- set up system to save correct badge number
 
 
 ### browse page
-- save swipe decisions to backend
 - ~~load images from parse~~
 - ~~"swipe to decide" animation~~
 - ~~"tap to decide" with animation~~
 - ~~card UI~~
+- need to build system to get "random" records from parse
+- save swipe decisions to backend
 - button UI --needs polish
+- add image transition effect to swipe action to emphasize user is making decision
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~

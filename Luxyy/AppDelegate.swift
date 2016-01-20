@@ -10,6 +10,7 @@ import UIKit
 import Sheriff
 import Parse
 import CoreData
+import JSQSystemSoundPlayer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, loggedInDelegate {
@@ -38,22 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         application.registerForRemoteNotifications()
         return true
     }
-
-    func AHPagingMenuDidUpdateCurrentPage(currentPage: Int) {
-        if currentPage == 2 {
-            clearUnreadBadgeCount()
-        }
-    }
     
     func AHPagingMenuDidChangeMenuPosition(form: NSInteger, to: NSInteger) {
         if form == 2 && to == 1 {
             print("moving from messages to browser tab")
             NSNotificationCenter.defaultCenter().postNotificationName("dismissKeyBoard", object: nil)
         }
+        
+        if form == 1 && to == 2 {
+            print("moving from browser to messages tab")
+            clearUnreadBadgeCount()
+        }
     }
     
     func clearUnreadBadgeCount() {
         unreadMessagesBadge.badgeValue = 0
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
     
     func setupParse() {
@@ -74,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
-        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:0)
+        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
         controller.setShowArrow(false)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
@@ -84,8 +85,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         unreadMessagesBadge = GIBadgeView()
         controller.iconsMenu?.lastObject!.addSubview(unreadMessagesBadge)
-        unreadMessagesBadge.badgeValue = 5
+
+        //need to get correct badgevalue when app loads
         
+        unreadMessagesBadge.badgeValue = 5
+        UIApplication.sharedApplication().applicationIconBadgeNumber = unreadMessagesBadge.badgeValue
         self.window!.rootViewController = controller
 
     }
@@ -103,14 +107,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         if let payLoad = userInfo["aps"], alert = payLoad["alert"] {
             print(alert)
-            if controller.currentPage == 2 {
-                //reload page
-                print("reload page")
-                NSNotificationCenter.defaultCenter().postNotificationName("updateChat", object: nil)
-            }else{
+            if controller.currentPage != 2 {
                 unreadMessagesBadge.increment()
+                UIApplication.sharedApplication().applicationIconBadgeNumber++
             }
+            print("reload page")
+            NSNotificationCenter.defaultCenter().postNotificationName("updateChat", object: nil)
         }
+    }
+    
+    func application(application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
     }
     
     func applicationWillResignActive(application: UIApplication) {
