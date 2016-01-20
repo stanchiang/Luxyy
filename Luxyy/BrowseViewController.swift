@@ -169,7 +169,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
             if liked != previousDecisionLiked {
-                
                 (self.swipeableView.topView() as! CardView).itemObject.setObject(liked, forKey: "liked")
                 (self.swipeableView.topView() as! CardView).itemObject.saveInBackgroundWithBlock({ (success, error) -> Void in
                     if success {
@@ -232,7 +231,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             }
             
             let result = object[0] as PFObject
-            
             let imageFile:PFFile = result.objectForKey("image")! as! PFFile
             imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
                 guard let data = data else {

@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         // Set default ACLs
         defaultACL = PFACL()
         defaultACL.publicReadAccess = true
-//        defaultACL.publicWriteAccess = true
+        defaultACL.publicWriteAccess = true
         PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
     }
     
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
 
         //need to get correct badgevalue when app loads
         
-        unreadMessagesBadge.badgeValue = 5
+        unreadMessagesBadge.badgeValue = 0
         UIApplication.sharedApplication().applicationIconBadgeNumber = unreadMessagesBadge.badgeValue
         self.window!.rootViewController = controller
 

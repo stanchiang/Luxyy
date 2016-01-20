@@ -26,7 +26,8 @@
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
 - ~~image gallery~~
-- allow getting/updating swipe decision
+- ~~allow getting swipe decision~~
+- allow updating swipe decision
 - update UI for buttons
 - spec out the rest of this page
 

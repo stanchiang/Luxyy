@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, fullListDelegate {
 
     var collectionView: UICollectionView!
     var fullList:FullListView!
+    var dataArray:[PFObject]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let cellWidth = self.view.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -36,11 +39,30 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         
+        
+        
         if indexPath.item == 0 {
-            cell.label.text = "Cell\(indexPath.item): Liked"
-            cell.backgroundColor = UIColor.greenColor()
+            cell.label.text = "Liked"
+            
+            let item = PFQuery(className: "Item")
+            item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+            
+            do {
+                let object = try item.findObjects()
+                let result = object[0] as PFObject
+                let imageFile:PFFile = result.objectForKey("image")! as! PFFile
+                do {
+                    let imageData = try imageFile.getData()
+                    print("got image data")
+                    cell.imageView.image = UIImage(data: imageData)
+                } catch {
+                    print(error)
+                }
+            }catch {
+                print(error)
+            }
         } else {
-            cell.label.text = "Cell\(indexPath.item): Passed"
+            cell.label.text = "Passed"
             cell.backgroundColor = UIColor.redColor()
         }
         
