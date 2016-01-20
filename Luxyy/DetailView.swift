@@ -8,6 +8,7 @@
 
 import UIKit
 import Cartography
+import Parse
 
 protocol detailDelegate {
     func dismissDetailView(sender: AnyObject)
@@ -18,15 +19,16 @@ protocol detailDelegate {
     func shareAction(sender: AnyObject)
     func likeAction(sender: AnyObject)
     func locate()
+    func checkForPossibleExistingDecision() -> Bool?
 }
 
 class DetailView: UIView, UIScrollViewDelegate {
 
-    var detailDel: detailDelegate!
+    var delegate: detailDelegate!
     var parentData = [String:AnyObject]()
     var parentImageView: UIImageView!
     
-
+    
     var stackContainerView: UIStackView!
     var expandedImage: UIImageView!
     var contentviewconstraints: ConstraintGroup!
@@ -46,6 +48,9 @@ class DetailView: UIView, UIScrollViewDelegate {
     var pageCount: Int!
     var watchName: String!
     var watchBrand: String!
+    
+    var skip:UIButton!
+    var save:UIButton!
     
     override func layoutSubviews() {
         scrollBaseView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
@@ -98,6 +103,16 @@ class DetailView: UIView, UIScrollViewDelegate {
         
         addDismissButton()
         addActionButtons()
+        
+        if let previousDecisionLiked = delegate.checkForPossibleExistingDecision() {
+            if previousDecisionLiked {
+                save.layer.backgroundColor = UIColor.greenColor().CGColor
+            }else{
+                skip.layer.backgroundColor = UIColor.redColor().CGColor
+            }
+        }else{
+            print("still fresh")
+        }
     }
     
     func addItemDetails() {
@@ -166,6 +181,10 @@ class DetailView: UIView, UIScrollViewDelegate {
         // 3
         for _ in 0..<pageControl.numberOfPages {
             pageViews.append(nil)
+        }
+        
+        if pageCount < 2 {
+            pageControl.hidden = true
         }
         
     }
@@ -280,7 +299,7 @@ class DetailView: UIView, UIScrollViewDelegate {
 
     
     func processModel(){
-        parentData = detailDel.getParentData()
+        parentData = delegate.getParentData()
         pageImages = parentData["imageArray"] as! [UIImageView]
         pageCount = pageImages.count
         watchName = parentData["name"] as! String
@@ -303,15 +322,15 @@ class DetailView: UIView, UIScrollViewDelegate {
     }
     
     func addExpandHandler(sender: UIGestureRecognizer) {
-        detailDel.addImageHandler(sender)
+        delegate.addImageHandler(sender)
     }
     
     func addDismissHandler() {
-        detailDel.addDismissHandler(dismiss)
+        delegate.addDismissHandler(dismiss)
     }
     
     func addActionButtons() {
-        let skip = UIButton()
+        skip = UIButton()
         skip.backgroundColor = UIColor.redColor()
         skip.addTarget(self, action: "itemSkipAction:", forControlEvents: .TouchUpInside)
 
@@ -319,7 +338,7 @@ class DetailView: UIView, UIScrollViewDelegate {
         share.backgroundColor = UIColor.whiteColor()
         share.addTarget(self, action: "itemShareAction:", forControlEvents: .TouchUpInside)
         
-        let save = UIButton()
+        save = UIButton()
         save.backgroundColor = UIColor.greenColor()
         save.addTarget(self, action: "itemSaveAction:", forControlEvents: .TouchUpInside)
         
@@ -353,21 +372,21 @@ class DetailView: UIView, UIScrollViewDelegate {
     
     func itemSkipAction(sender: UIButton) {
         self.removeFromSuperview()
-        detailDel.skipAction(sender)
+        delegate.skipAction(sender)
     }
     
     func itemSaveAction(sender: UIButton) {
         self.removeFromSuperview()
-        detailDel.likeAction(sender)
+        delegate.likeAction(sender)
     }
     
     func itemShareAction(sender: UIButton) {
         self.removeFromSuperview()
-        detailDel.shareAction(sender)
+        delegate.shareAction(sender)
     }
     
     func locate(sender: UIButton) {
-        detailDel.locate()
+        delegate.locate()
     }
     
     //MARK: UIScrollViewDelegate
@@ -375,7 +394,7 @@ class DetailView: UIView, UIScrollViewDelegate {
         //FIXME: get a dynamic value of when to collapse scroll view; currently hard coded to some distance below where we set the original card down from top
 
         if scrollView.contentOffset.y < -140 {
-            detailDel.dismissDetailView(self)
+            delegate.dismissDetailView(self)
         }
     }
 

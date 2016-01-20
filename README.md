@@ -16,10 +16,12 @@
 - ~~"swipe to decide" animation~~
 - ~~"tap to decide" with animation~~
 - ~~card UI~~
-- need to build system to get "random" records from parse
-- save swipe decisions to backend
+- ~~add image overlay effect to swipe action to emphasize user is making decision~~
+- ~~save swipe decisions to backend~~
+- need to build system to get "random" records from parse and not show liked images or skipped images more than twice (implement cloud code to push object to app?)
 - button UI --needs polish
-- add image transition effect to swipe action to emphasize user is making decision
+- overlay UI --needs polish
+
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
@@ -43,3 +45,4 @@
 - ~~integrate with parse server~~
 - ~~add login page~~
 - ~~setup push notifications / real time updating~~
+- ~~add message sending/receiving sound~~

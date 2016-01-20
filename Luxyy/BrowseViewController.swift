@@ -164,21 +164,36 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func saveDecision(liked: Bool){
-        if liked {
-            print("liked")
-        } else {
-            print("skipped")
-        }
+
+        liked ? print("liked") : print("skipped")
         
-        let save = PFObject(className: "Decision")
-        save["user"] = PFUser.currentUser()
-        save["liked"] = liked
-        save["item"] = (self.swipeableView.topView() as! CardView).itemObject
-        save.saveInBackgroundWithBlock { (success, error) -> Void in
-            if success {
-               print("saved")
+        if let previousDecisionLiked = checkForPossibleExistingDecision() {
+            if liked != previousDecisionLiked {
+                
+                (self.swipeableView.topView() as! CardView).itemObject.setObject(liked, forKey: "liked")
+                (self.swipeableView.topView() as! CardView).itemObject.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if success {
+                        print("was \(previousDecisionLiked) now \(liked)")
+                        print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+                    }else {
+                        print("error \(error)")
+                    }
+                })
             } else{
-                print("error: \(error)")
+                print("same decision")
+            }
+        } else{
+            print("new decision")
+            let save = PFObject(className: "Decision")
+            save["user"] = PFUser.currentUser()
+            save["liked"] = liked
+            save["item"] = (self.swipeableView.topView() as! CardView).itemObject
+            save.saveInBackgroundWithBlock { (success, error) -> Void in
+                if success {
+                    print("saved")
+                } else{
+                    print("error: \(error)")
+                }
             }
         }
     }
@@ -288,8 +303,9 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         let viewFrame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
         
         detailView = DetailView(frame: viewFrame)
-        detailView.detailDel = self
+        detailView.delegate = self
         detailView.setup()
+        
         self.view.addSubview(detailView)
     }
     
@@ -335,7 +351,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     func getParentData() -> [String:AnyObject] {
         
         var parent = [String:AnyObject]()
-        let imageArray:[UIImageView] = [expandedImage, expandedImage, expandedImage]
+        let imageArray:[UIImageView] = [expandedImage]
         parent.updateValue(imageArray, forKey: "imageArray")
         parent.updateValue("Lange1", forKey: "name")
         parent.updateValue("A. Lange & Söhne", forKey: "brand")
@@ -343,4 +359,21 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         return parent
     }
     
+    func checkForPossibleExistingDecision() -> Bool? {
+        
+        let query = PFQuery(className: "Decision")
+        query.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        do {
+            let result = try query.findObjects()
+            if let decision = result[0].objectForKey("liked") as? Bool {
+                return decision
+            } else {
+                return nil
+            }
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 }

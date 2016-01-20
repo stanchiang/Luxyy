@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
 
     var window: UIWindow?
     var controller: AHPagingMenuViewController!
+    var defaultACL: PFACL!
     var unreadMessagesBadge:GIBadgeView!
     
     let ParseAppIDString: String = "HxJxd5msq4LlDti4HkzBWtXp0A7djc0D6JUYikO4"
@@ -63,12 +64,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         Parse.setApplicationId(ParseAppIDString, clientKey: ParseClientKeyString)
         
         // Set default ACLs
-        let defaultACL: PFACL = PFACL()
+        defaultACL = PFACL()
         defaultACL.publicReadAccess = true
+//        defaultACL.publicWriteAccess = true
         PFACL.setDefaultACL(defaultACL, withAccessForCurrentUser: true)
     }
     
     func userAuthenticated() {
+        
+//        defaultACL.setWriteAccess(true, forUser: PFUser.currentUser()!)
+        
         let profileVC = ProfileViewController()
         let browseVC = BrowseViewController()
         let messageVC = MessengerContainerViewController()
