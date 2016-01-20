@@ -169,15 +169,30 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
             if liked != previousDecisionLiked {
-                (self.swipeableView.topView() as! CardView).itemObject.setObject(liked, forKey: "liked")
-                (self.swipeableView.topView() as! CardView).itemObject.saveInBackgroundWithBlock({ (success, error) -> Void in
-                    if success {
-                        print("was \(previousDecisionLiked) now \(liked)")
-                        print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
-                    }else {
-                        print("error \(error)")
+                
+                let updater = PFQuery(className: "Decision")
+                updater.whereKey("user", equalTo: PFUser.currentUser()!)
+                updater.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
+                updater.whereKey("liked", equalTo: previousDecisionLiked)
+                
+                updater.findObjectsInBackgroundWithBlock({ (object, error) -> Void in
+                    guard let object = object else {
+                        print(error)
+                        return
                     }
+                    
+                    let item = object[0]
+                    item.setObject(liked, forKey: "liked")
+                    item.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if success {
+                            print("was \(previousDecisionLiked) now \(liked)")
+                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+                        }else {
+                            print("error \(error)")
+                        }
+                    })
                 })
+
             } else{
                 print("same decision")
             }
