@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BE78255FB2F5B5EC77B7539D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B468B3F4E88AF8774C6BC047 /* Pods.framework */; };
+		F64D7EC31C4FECE600DF9CBB /* uploadFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */; };
+		F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */ = {isa = PBXBuildFile; fileRef = F64D7EC41C4FED5F00DF9CBB /* fullList.json */; };
 		F64F92061C4AB2A9003257A6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F64F92051C4AB2A9003257A6 /* README.md */; };
 		F64F92081C4ABC9E003257A6 /* AHPagingMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */; };
 		F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92091C4ABF46003257A6 /* MessagesViewController.swift */; };
@@ -50,6 +52,8 @@
 		320B4C4D5CE183ECB9B35003 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B468B3F4E88AF8774C6BC047 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C48326E826094B6EF928D8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadFilesViewController.swift; sourceTree = "<group>"; };
+		F64D7EC41C4FED5F00DF9CBB /* fullList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fullList.json; sourceTree = "<group>"; };
 		F64F92051C4AB2A9003257A6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AHPagingMenuViewController.swift; sourceTree = "<group>"; };
 		F64F92091C4ABF46003257A6 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
@@ -147,9 +151,11 @@
 			isa = PBXGroup;
 			children = (
 				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
+				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
 				F64F921B1C4B0638003257A6 /* ProfileViewController.swift */,
 				F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */,
 				F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */,
+				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
 				F6FF69C21C4C7BF200230FB4 /* loginViewController.swift */,
 				F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */,
 				F6FF69C11C4C188000230FB4 /* Messages */,
@@ -301,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */,
 				F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +388,7 @@
 				F6FF69BE1C4B179A00230FB4 /* PlayListCollectionViewCell.swift in Sources */,
 				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
 				F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */,
+				F64D7EC31C4FECE600DF9CBB /* uploadFilesViewController.swift in Sources */,
 				F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */,
 				F64F92061C4AB2A9003257A6 /* README.md in Sources */,
 				F6FF69C01C4B1C9100230FB4 /* FullListView.swift in Sources */,

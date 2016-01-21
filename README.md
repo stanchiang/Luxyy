@@ -18,6 +18,7 @@
 - ~~card UI~~
 - ~~add image overlay effect to swipe action to emphasize user is making decision~~
 - ~~save swipe decisions to backend~~
+- ~~save initial itemset to parse~~
 - need to build system to get "random" records from parse and not show liked images or skipped images more than twice (implement cloud code to push object to app?)
 - button UI --needs polish
 - overlay UI --needs polish
@@ -27,7 +28,7 @@
 - ~~initial zoom on image is set by width of view~~
 - ~~image gallery~~
 - ~~allow getting swipe decision~~
-- allow updating swipe decision
+- ~~allow updating swipe decision~~
 - update UI for buttons
 - spec out the rest of this page
 
@@ -38,7 +39,8 @@
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
 - ~~add a back button (its the first cell)~~
-- load list from parse
+- ~~load list from parse~~
+- finish loading all lists
 - tapping on the item loads the item's browseDetail
 
 #### message page
