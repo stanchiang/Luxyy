@@ -1,6 +1,10 @@
 # Luxyy 
 
 ## Specs
+
+### Performance
+- load all images async
+
 ### navigation controller
 - ~~have icon animation like tinder (AHPagingMenuViewController)~~
 - ~~controller swiping animation like tinder~~
@@ -9,7 +13,6 @@
 - ~~clear unread when user goes to message page~~
 - ~~update badge count on push notification when user is not on the message page~~
 - set up system to save correct badge number
-
 
 ### browse page
 - ~~load images from parse~~
@@ -22,7 +25,6 @@
 - ~~need to build system to get "random" records from parse~~
 - button UI --needs polish
 - overlay UI --needs polish
-
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
@@ -40,7 +42,7 @@
 - ~~tapping on playlist loads a collection view of items~~
 - ~~add a back button (its the first cell)~~
 - ~~load list from parse~~
-- finish loading all lists
+- ~~finish loading all lists~~
 - tapping on the item loads the item's browseDetail
 
 #### message page

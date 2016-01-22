@@ -28,9 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         setupParse()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let login = loginViewController()
-        login.delegate = self
-        self.window!.rootViewController = login
+        if PFUser.currentUser() == nil {
+            let login = loginViewController()
+            login.delegate = self
+            self.window!.rootViewController = login
+        } else {
+            userAuthenticated()
+        }
         window!.makeKeyAndVisible()
         
         let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]

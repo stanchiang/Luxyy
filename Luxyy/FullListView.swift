@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Parse
 
 protocol fullListDelegate{
     func dismissFullList()
+    func getList() -> [PFObject]?
 }
 
 class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     var collectionView: UICollectionView!
     var delegate:fullListDelegate!
+    var list: [PFObject]!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +26,6 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
-        
     }
     
     func setUp() {
@@ -31,6 +33,8 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let cellWidth = self.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
+        
+        list = delegate.getList()
         
         collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -41,7 +45,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return list.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -53,7 +57,23 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         } else if indexPath.item == 1 {
             cell.label.text = "Filter"
         } else {
-            cell.label.text = "item"
+            if list != nil {
+                let result = list[indexPath.item - 2] as PFObject
+                
+                let itemID = result.objectForKey("item")!.objectId
+                
+                let actualItem = PFQuery(className: "Item")
+                actualItem.whereKey("objectId", equalTo: itemID!!)
+                do {
+                    let actualResult = try actualItem.findObjects()
+                    let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
+                    let imageData = try imageFile.getData()
+                    print("got image data")
+                    cell.imageView.image = UIImage(data: imageData)
+                } catch {
+                    print(error)
+                }
+            }
         }
         
         return cell

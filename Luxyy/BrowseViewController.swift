@@ -235,30 +235,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func setImage(myCardView: CardView) {
-        //needs a way to get a random image
-        
-//        let item = PFQuery(className: "Item")
-//        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
-//        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
-//            guard let object = object else {
-//                print("error \(error)")
-//                return
-//            }
-//            
-//            let result = object[0] as PFObject
-//            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
-//            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-//                guard let data = data else {
-//                    print("error \(error)")
-//                    return
-//                }
-//                myCardView.imageView.image = UIImage(data: data)
-//                self.currentObjectId = result.objectId!
-//                myCardView.itemObject = result
-//            })
-//        }
-        
-    
         let countQuery = PFQuery(className: "Item")
         countQuery.countObjectsInBackgroundWithBlock { (count, error) -> Void in
             if (error == nil) {
@@ -288,31 +264,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 print(error)
             }
         }
-        
-//        var urlString:String!
-//        
-//        let cardData = CardModel()
-//        cardData.getContent("http://www.stanleychiang.com/watchProject/randomNum.php", success: { (response) -> Void in
-//            
-//            switch (response){
-//            case "0":
-//                urlString = "http://www.stanleychiang.com/watchProject/00053.jpeg"
-//            case "1":
-//                urlString = "http://www.stanleychiang.com/watchProject/00100.jpeg"
-//            default:
-//                urlString = "http://www.stanleychiang.com/watchProject/00111.jpeg"
-//            }
-//            
-//            Alamofire.request(.GET, urlString)
-//                .responseImage { response in
-//                    if let image = response.result.value {
-//                        myCardView.imageView.image = image
-//                    }
-//            }
-//            
-//            }) { (error) -> Void in
-//                print(error)
-//        }
     }
     
     func setleftLabelText(myCardView:CardView) {
@@ -370,6 +321,9 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     func dismissDetailView(sender: AnyObject) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        detailView.skip.backgroundColor = UIColor.clearColor()
+//        detailView.save.backgroundColor = UIColor.clearColor()
+//        detailView.
         detailView.removeFromSuperview()
     }
     
@@ -412,15 +366,20 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             let result = try query.findObjects()
             if result.count > 0 {
                 if let decision = result[0].objectForKey("liked") as? Bool {
+                    print(result)
+                    print(result[0])
+                    print(result[0].objectForKey("objectId"))
                     return decision
                 } else {
+                    print("nil 1")
                     return nil
                 }
             } else {
+                print("nil 2")
                 return nil
             }
         } catch {
-            print(error)
+            print("nil 3")
             return nil
         }
     }

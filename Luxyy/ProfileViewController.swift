@@ -13,7 +13,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
 
     var collectionView: UICollectionView!
     var fullList:FullListView!
-    var dataArray:[PFObject]!
+    var object:[PFObject]!
+    var liked: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,31 +40,38 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         
-        
-        
         if indexPath.item == 0 {
+            liked = true
             cell.label.text = "Liked"
+        } else {
+            liked = false
+            cell.label.text = "Passed"
+        }
+        
+
+        let item = PFQuery(className: "Decision")
+        item.whereKey("user", equalTo: PFUser.currentUser()!)
+        item.whereKey("liked", equalTo: liked)
+        
+        do {
+            object = try item.findObjects()
+            let result = object[0] as PFObject
             
-            let item = PFQuery(className: "Item")
-            item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+                let itemID = result.objectForKey("item")!.objectId
             
+                let actualItem = PFQuery(className: "Item")
+                actualItem.whereKey("objectId", equalTo: itemID!!)
             do {
-                let object = try item.findObjects()
-                let result = object[0] as PFObject
-                let imageFile:PFFile = result.objectForKey("image")! as! PFFile
-                do {
-                    let imageData = try imageFile.getData()
-                    print("got image data")
-                    cell.imageView.image = UIImage(data: imageData)
-                } catch {
-                    print(error)
-                }
-            }catch {
+                let actualResult = try actualItem.findObjects()
+                let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
+                let imageData = try imageFile.getData()
+                print("got image data")
+                cell.imageView.image = UIImage(data: imageData)
+            } catch {
                 print(error)
             }
-        } else {
-            cell.label.text = "Passed"
-            cell.backgroundColor = UIColor.redColor()
+        }catch {
+            print(error)
         }
         
         return cell
@@ -80,5 +88,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     func dismissFullList() {
         fullList.removeFromSuperview()
+    }
+    
+    func getList() -> [PFObject]? {
+        return object
     }
 }
