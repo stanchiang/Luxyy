@@ -19,7 +19,7 @@
 - ~~add image overlay effect to swipe action to emphasize user is making decision~~
 - ~~save swipe decisions to backend~~
 - ~~save initial itemset to parse~~
-- need to build system to get "random" records from parse and not show liked images or skipped images more than twice (implement cloud code to push object to app?)
+- ~~need to build system to get "random" records from parse~~
 - button UI --needs polish
 - overlay UI --needs polish
 

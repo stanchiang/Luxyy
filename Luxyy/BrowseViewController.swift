@@ -38,7 +38,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        swipeableView.numberOfActiveView = 2
+        swipeableView.numberOfActiveView = 4
         swipeableView.nextView = {
             return self.nextCardView()
         }
@@ -237,25 +237,56 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     func setImage(myCardView: CardView) {
         //needs a way to get a random image
         
-        let item = PFQuery(className: "Item")
-        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
-        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
-            guard let object = object else {
-                print("error \(error)")
-                return
-            }
-            
-            let result = object[0] as PFObject
-            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
-            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
-                guard let data = data else {
-                    print("error \(error)")
-                    return
+//        let item = PFQuery(className: "Item")
+//        item.whereKey("objectId", equalTo: "NUwM3Kowcc")
+//        item.findObjectsInBackgroundWithBlock { (object, error) -> Void in
+//            guard let object = object else {
+//                print("error \(error)")
+//                return
+//            }
+//            
+//            let result = object[0] as PFObject
+//            let imageFile:PFFile = result.objectForKey("image")! as! PFFile
+//            imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+//                guard let data = data else {
+//                    print("error \(error)")
+//                    return
+//                }
+//                myCardView.imageView.image = UIImage(data: data)
+//                self.currentObjectId = result.objectId!
+//                myCardView.itemObject = result
+//            })
+//        }
+        
+    
+        let countQuery = PFQuery(className: "Item")
+        countQuery.countObjectsInBackgroundWithBlock { (count, error) -> Void in
+            if (error == nil) {
+                let randomNumber = Int(arc4random_uniform(UInt32(count)))
+                let query = PFQuery(className: "Item")
+                query.skip = randomNumber
+                query.limit = 1
+                query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
+                    guard let object = objects else {
+                        print("error \(error)")
+                        return
+                    }
+                    
+                    let result = object[0] as PFObject
+                    let imageFile:PFFile = result.objectForKey("image")! as! PFFile
+                    imageFile.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                        guard let data = data else {
+                            print("error \(error)")
+                            return
+                        }
+                        myCardView.imageView.image = UIImage(data: data)
+                        self.currentObjectId = result.objectId!
+                        myCardView.itemObject = result
+                    })
                 }
-                myCardView.imageView.image = UIImage(data: data)
-                self.currentObjectId = result.objectId!
-                myCardView.itemObject = result
-            })
+            } else {
+                print(error)
+            }
         }
         
 //        var urlString:String!
@@ -379,8 +410,12 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         query.whereKey("user", equalTo: PFUser.currentUser()!)
         do {
             let result = try query.findObjects()
-            if let decision = result[0].objectForKey("liked") as? Bool {
-                return decision
+            if result.count > 0 {
+                if let decision = result[0].objectForKey("liked") as? Bool {
+                    return decision
+                } else {
+                    return nil
+                }
             } else {
                 return nil
             }
