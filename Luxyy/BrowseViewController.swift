@@ -32,8 +32,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     var expanded: expandedImageView!
     
     var currentItem: PFObject!
-    var currentObjectId:String!
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -61,7 +59,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             view1.leading == view1.superview!.leading + 20
             view1.trailing == view1.superview!.trailing - 20
             view1.top == view1.superview!.top + 20
-            view1.bottom == view1.superview!.bottom - 150
+            view1.bottom == view1.superview!.bottom - 200
         }
         
         //skip button
@@ -81,27 +79,40 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         let buttons:[UIButton] = [skipButton, shareButton, likeButton]
         for button in buttons {
             view.addSubview(button)
+            if button == buttons[1] {
+                continue
+            }
             constrain(button, swipeableView) { obj1, obj2 in
-//                distribute(by: 50 , vertically: obj2, obj1)
-                obj1.width == 50
-                obj1.height == 50
-                obj1.bottom == obj1.superview!.bottom - 10
+                obj1.top == obj2.bottom + 50
+                obj1.width == obj1.height
+                obj1.bottom == obj1.superview!.bottom - 50
             }
             
+        }
+        
+        constrain(buttons.first!){ obj1 in
+            obj1.leading == obj1.superview!.leading + 30
+        }
+        
+        
+        constrain(buttons[0], buttons[1], buttons[2]){ obj0, obj1, obj2 in
+            obj1.centerY == obj0.centerY
+            obj1.leading == obj0.trailing + 15
+            obj1.trailing == obj2.leading - 15
+            obj1.height == obj1.width
+        }
+
+        constrain(buttons.last!){ obj1 in
+            obj1.trailing == obj1.superview!.trailing - 30
+        }
+        
+        for button in buttons {
             button.layoutIfNeeded()
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
             button.layer.borderWidth = 5
             button.backgroundColor = UIColor.clearColor()
         }
         
-        constrain(buttons[1]){ obj1 in
-            obj1.centerX == obj1.superview!.centerX
-        }
-        
-        constrain(skipButton, shareButton, likeButton) { obj1, obj2, obj3 in
-            distribute(by: 30, horizontally: obj1, obj2, obj3)
-        }
-
         swipeableView.allowedDirection = Direction.Horizontal
         
         swipeableView.swiping = {view, location, translation in
@@ -115,15 +126,15 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 self.shareAction(self)
             }
             
-            print("evaluating")
+//            print("evaluating")
             if (self.swipeableView.topView() as! CardView).center.x > self.cardDefaultCenter.x {
-                print("liking")
+//                print("liking")
                 (self.swipeableView.topView() as! CardView).likeImage.alpha = 1
                 (self.swipeableView.topView() as! CardView).skipImage.alpha = 0
             }
             
             if (self.swipeableView.topView() as! CardView).center.x < self.cardDefaultCenter.y {
-                print("skipping")
+//                print("skipping")
                 (self.swipeableView.topView() as! CardView).likeImage.alpha = 0
                 (self.swipeableView.topView() as! CardView).skipImage.alpha = 1
             }
@@ -146,6 +157,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             } else  {
                 self.saveDecision(false)
             }
+            self.updateCurrentItem()
         }
     }
     
@@ -172,7 +184,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 
                 let updater = PFQuery(className: "Decision")
                 updater.whereKey("user", equalTo: PFUser.currentUser()!)
-                updater.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
+                updater.whereKey("item", equalTo: currentItem)
                 updater.whereKey("liked", equalTo: previousDecisionLiked)
                 
                 updater.findObjectsInBackgroundWithBlock({ (object, error) -> Void in
@@ -186,7 +198,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
                             print("was \(previousDecisionLiked) now \(liked)")
-                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+//                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
                         }else {
                             print("error \(error)")
                         }
@@ -201,7 +213,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             let save = PFObject(className: "Decision")
             save["user"] = PFUser.currentUser()
             save["liked"] = liked
-            save["item"] = (self.swipeableView.topView() as! CardView).itemObject
+            save["item"] = currentItem
             save.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
                     print("saved")
@@ -231,6 +243,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         thecardView.addGestureRecognizer(self.tapToExpand)
         
         cardDefaultCenter = thecardView.convertPoint(thecardView.center, toCoordinateSpace: self.view)
+        
         return thecardView
     }
     
@@ -256,8 +269,11 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                             return
                         }
                         myCardView.imageView.image = UIImage(data: data)
-                        self.currentObjectId = result.objectId!
                         myCardView.itemObject = result
+                        print("\(result.objectId) \(result.objectForKey("itemBrand")) \(result.objectForKey("itemName")) ")
+                        if self.currentItem == nil {
+                            self.updateCurrentItem()
+                        }
                     })
                 }
             } else {
@@ -351,10 +367,25 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         var parent = [String:AnyObject]()
         let imageArray:[UIImageView] = [expandedImage]
         parent.updateValue(imageArray, forKey: "imageArray")
-        parent.updateValue("Lange1", forKey: "name")
-        parent.updateValue("A. Lange & Söhne", forKey: "brand")
+//        print(currentItem.objectId)
+        parent.updateValue(currentItem.objectForKey("itemName")!, forKey: "name")
+        parent.updateValue(currentItem.objectForKey("itemBrand")!, forKey: "brand")
         
         return parent
+    }
+    
+    func updateCurrentItem(){
+        if currentItem == nil {
+            if let item = (self.swipeableView.activeViews().first as? CardView)?.itemObject {
+                currentItem = item
+                print("starting with \(currentItem!)")
+            } else {
+                print("couldn't load")
+            }
+        } else {
+            currentItem = (self.swipeableView.topView() as! CardView).itemObject
+            print("updating to \(currentItem!)")
+        }
     }
     
     func checkForPossibleExistingDecision() -> Bool? {
@@ -366,20 +397,20 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             let result = try query.findObjects()
             if result.count > 0 {
                 if let decision = result[0].objectForKey("liked") as? Bool {
-                    print(result)
-                    print(result[0])
-                    print(result[0].objectForKey("objectId"))
+//                    print(result)
+//                    print(result[0])
+//                    print(result[0].objectForKey("objectId"))
                     return decision
                 } else {
-                    print("nil 1")
+//                    print("nil 1")
                     return nil
                 }
             } else {
-                print("nil 2")
+//                print("nil 2")
                 return nil
             }
         } catch {
-            print("nil 3")
+//            print("nil 3")
             return nil
         }
     }

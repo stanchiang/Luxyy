@@ -11,7 +11,7 @@ import Parse
 
 protocol fullListDelegate{
     func dismissFullList()
-    func getList() -> [PFObject]?
+    func getList(name:String) -> [PFObject]?
 }
 
 class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -28,13 +28,13 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
        super.init(coder: aDecoder)
     }
     
-    func setUp() {
+    func setUp(name:String) {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let cellWidth = self.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
-        list = delegate.getList()
+        list = delegate.getList(name)
         
         collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -45,19 +45,23 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        if list.count == 0 {
+            return 15
+        } else {
+            return list.count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-        cell.backgroundColor = UIColor.lightGrayColor()
-
+//        cell.backgroundColor = UIColor.lightGrayColor()
+        print(indexPath.item)
         if indexPath.item == 0 {
             cell.label.text = "Back"
         } else if indexPath.item == 1 {
             cell.label.text = "Filter"
         } else {
-            if list != nil {
+            if list.count > 0 {
                 let result = list[indexPath.item - 2] as PFObject
                 
                 let itemID = result.objectForKey("item")!.objectId
@@ -73,6 +77,8 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                 } catch {
                     print(error)
                 }
+            }else {
+                cell.backgroundColor = UIColor.orangeColor()
             }
         }
         

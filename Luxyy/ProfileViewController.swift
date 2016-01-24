@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     var collectionView: UICollectionView!
     var fullList:FullListView!
     var object:[PFObject]!
+    var objectLiked:[PFObject]!
+    var objectPassed:[PFObject]!
     var liked: Bool!
     
     override func viewDidLoad() {
@@ -55,21 +57,32 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         
         do {
             object = try item.findObjects()
-            let result = object[0] as PFObject
-            
+            if object.count > 0 {
+                if indexPath.item == 0 {
+                    objectLiked = object
+                } else {
+                    objectPassed = object
+                }
+                
+                let result = object[0] as PFObject
+                
                 let itemID = result.objectForKey("item")!.objectId
-            
+                
                 let actualItem = PFQuery(className: "Item")
                 actualItem.whereKey("objectId", equalTo: itemID!!)
-            do {
-                let actualResult = try actualItem.findObjects()
-                let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
-                let imageData = try imageFile.getData()
-                print("got image data")
-                cell.imageView.image = UIImage(data: imageData)
-            } catch {
-                print(error)
+                do {
+                    let actualResult = try actualItem.findObjects()
+                    let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
+                    let imageData = try imageFile.getData()
+                    print("got image data")
+                    cell.imageView.image = UIImage(data: imageData)
+                } catch {
+                    print(error)
+                }
+            } else {
+                cell.backgroundColor = UIColor.orangeColor()
             }
+            
         }catch {
             print(error)
         }
@@ -82,7 +95,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         
         fullList = FullListView(frame: self.view.frame)
         fullList.delegate = self
-        fullList.setUp()
+        if (indexPath.item == 0) {
+            fullList.setUp("liked")
+        } else {
+            fullList.setUp("passed")
+        }
         self.view.addSubview(fullList)
     }
     
@@ -90,7 +107,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         fullList.removeFromSuperview()
     }
     
-    func getList() -> [PFObject]? {
-        return object
+    func getList(name: String) -> [PFObject]? {
+        if name == "liked" {
+            return objectLiked
+        }else {
+            return objectPassed
+        }
     }
 }
