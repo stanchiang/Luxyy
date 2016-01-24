@@ -157,6 +157,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             } else  {
                 self.saveDecision(false)
             }
+            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
             self.updateCurrentItem()
         }
     }

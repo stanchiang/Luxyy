@@ -24,6 +24,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var itemName:String!
     var itemBrand:String!
     var selectedObject:PFObject!
+    var listName:String!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,12 +35,16 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func setUp(name:String) {
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadCollectionView:", name: "reloadCollectionView", object: nil)
+        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let cellWidth = self.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
         list = delegate.getList(name)
+        listName = name
         
         collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -47,6 +52,14 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         collectionView.registerClass(PlayListCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.whiteColor()
         self.addSubview(collectionView)
+    }
+    
+    func reloadCollectionView(note: NSNotification){
+        print("reloading full list collection")
+        print("before count \(list.count)")
+        list = delegate.getList(listName)
+        collectionView.reloadData()
+        print("after count \(list.count)")
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -59,12 +72,14 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-//        cell.backgroundColor = UIColor.lightGrayColor()
+
         print(indexPath.item)
         if indexPath.item == 0 {
             cell.label.text = "Back"
+            cell.backgroundColor = UIColor.lightGrayColor()
         } else if indexPath.item == 1 {
             cell.label.text = "Filter"
+            cell.backgroundColor = UIColor.lightGrayColor()
         } else {
             if list.count > 0 {
                 let result = list[indexPath.item - 2] as PFObject
@@ -199,6 +214,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                 }
             }
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
     }
     
     func checkForPossibleExistingDecision() -> Bool? {

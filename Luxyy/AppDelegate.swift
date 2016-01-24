@@ -34,14 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             self.window!.rootViewController = login
         } else {
             userAuthenticated()
+            
+            let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
+            
+            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
         }
         window!.makeKeyAndVisible()
         
-        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
         
-        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
         return true
     }
     
@@ -54,6 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         if form == 1 && to == 2 {
             print("moving from browser to messages tab")
             clearUnreadBadgeCount()
+        }
+        
+        if form == 1 && to == 0 {
+            print("moving from browser tab to collectionviews")
+            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
         }
     }
     

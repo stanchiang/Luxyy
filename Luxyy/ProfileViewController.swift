@@ -20,6 +20,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadCollectionView:", name: "reloadCollectionView", object: nil)
+        
         // Do any additional setup after loading the view, typically from a nib.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -35,6 +38,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         self.view.addSubview(collectionView)
     }
     
+    func reloadCollectionView(note: NSNotification){
+        print("reloading profile page collection")
+        collectionView.reloadData()
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
@@ -44,10 +52,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         
         if indexPath.item == 0 {
             liked = true
-            cell.label.text = "Liked"
+            
         } else {
             liked = false
-            cell.label.text = "Passed"
         }
         
 
@@ -60,11 +67,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
             if object.count > 0 {
                 if indexPath.item == 0 {
                     objectLiked = object
+                    cell.label.text = "\(object.count) Liked"
                 } else {
                     objectPassed = object
+                    cell.label.text = "\(object.count) Passed"
                 }
                 
-                let result = object[0] as PFObject
+                let result = object[object.count - 1] as PFObject
                 
                 let itemID = result.objectForKey("item")!.objectId
                 

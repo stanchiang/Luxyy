@@ -2,9 +2,6 @@
 
 ## Specs
 
-### Performance
-- load all images async
-
 ### navigation controller
 - ~~have icon animation like tinder (AHPagingMenuViewController)~~
 - ~~controller swiping animation like tinder~~
@@ -44,6 +41,8 @@
 - ~~load list from parse~~
 - ~~finish loading all lists~~
 - ~~tapping on the item loads the item's browseDetail~~
+- load all images async
+- update lists on each decision
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~
