@@ -20,6 +20,7 @@ protocol detailDelegate {
     func likeAction(sender: AnyObject)
     func locate()
     func checkForPossibleExistingDecision() -> Bool?
+    func loadDecision()
 }
 
 class DetailView: UIView, UIScrollViewDelegate {
@@ -113,6 +114,8 @@ class DetailView: UIView, UIScrollViewDelegate {
         }else{
             print("still fresh")
         }
+        
+        delegate.loadDecision()
     }
     
     func addItemDetails() {

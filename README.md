@@ -43,7 +43,7 @@
 - ~~add a back button (its the first cell)~~
 - ~~load list from parse~~
 - ~~finish loading all lists~~
-- tapping on the item loads the item's browseDetail
+- ~~tapping on the item loads the item's browseDetail~~
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~

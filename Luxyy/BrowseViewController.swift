@@ -414,4 +414,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             return nil
         }
     }
+    
+    func loadDecision() {
+        print("loading")
+    }
 }

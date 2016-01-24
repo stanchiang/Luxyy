@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Parse
 
 class PlayListCollectionViewCell: UICollectionViewCell {
     
     var label:UILabel!
     var imageView:UIImageView!
+    var object: PFObject!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
