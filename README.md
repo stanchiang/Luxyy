@@ -9,7 +9,6 @@
 - ~~need to be able to pick which icon to set badge on~~
 - ~~clear unread when user goes to message page~~
 - ~~update badge count on push notification when user is not on the message page~~
-- set up system to save correct badge number
 
 ### browse page
 - ~~load images from parse~~
@@ -21,7 +20,7 @@
 - ~~save initial itemset to parse~~
 - ~~need to build system to get "random" records from parse~~
 - ~~button UI~~
-- overlay UI --needs polish
+- ~~overlay UI~~
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
