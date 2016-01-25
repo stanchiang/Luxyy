@@ -20,7 +20,7 @@
 - ~~save swipe decisions to backend~~
 - ~~save initial itemset to parse~~
 - ~~need to build system to get "random" records from parse~~
-- button UI --needs polish
+- ~~button UI~~
 - overlay UI --needs polish
 
 ##### browseDetail
@@ -28,7 +28,7 @@
 - ~~image gallery~~
 - ~~allow getting swipe decision~~
 - ~~allow updating swipe decision~~
-- update UI for buttons
+- ~~update UI for buttons~~
 - spec out the rest of this page
 
 ### profile page

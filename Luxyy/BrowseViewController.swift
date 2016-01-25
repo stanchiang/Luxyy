@@ -193,10 +193,23 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         self.swipeableView.swipeTopView(inDirection: .Left)
     }
     
+    func captureScreenShot() -> UIImage {
+        let layer = UIApplication.sharedApplication().keyWindow!.layer
+        let scale = UIScreen.mainScreen().scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+        
+        layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(screenshot, nil, nil, nil)
+        return screenshot
+    }
+    
     func shareAction(sender: AnyObject){
-        let toShare = ["hey"]
+        let toShare:[AnyObject] = ["take a look at the \(currentItem.objectForKey("itemName")!) by \(currentItem.objectForKey("itemBrand")!). I found it on http://www.getLuxyy.com",captureScreenShot()]
         let activityViewController = UIActivityViewController(activityItems: toShare, applicationActivities: nil)
-        presentViewController(activityViewController, animated: true, completion: {})
+        presentViewController(activityViewController, animated: true, completion: nil)
+//        https://blog.branch.io/how-to-deep-link-on-facebook
     }
     
     func likeAction(sender: AnyObject){

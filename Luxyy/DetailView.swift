@@ -332,16 +332,7 @@ class DetailView: UIView, UIScrollViewDelegate {
     }
     
     func addActionButtons() {
-        /*
-        skipButton = UIButton()
-        let skipImage = UIImage(named: "skip")
-        let tintedSkip = skipImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        skipButton.setImage(tintedSkip, forState: UIControlState.Normal)
-        skipButton.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
-        skipButton.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
-        skipButton.addTarget(self, action: "skipAction:", forControlEvents: .TouchUpInside)
-        */
-        
+
         let edge:CGFloat = 15
         
         skip = UIButton()
@@ -382,7 +373,7 @@ class DetailView: UIView, UIScrollViewDelegate {
             action.layoutIfNeeded()
             action.layer.cornerRadius = 0.5 * action.bounds.size.width
             action.layer.borderWidth = 5
-            action.backgroundColor = UIColor.clearColor()
+            action.layer.borderColor = UIColor.lightGrayColor().CGColor
 
         }
         

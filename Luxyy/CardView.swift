@@ -51,16 +51,20 @@ class CardView: UIView {
         self.addSubview(imageView)
         
         imageView.frame = self.frame
+
+        let inset:CGFloat = 10
         
         //like image
-        likeImage = UIImageView(frame: imageView.frame)
-        likeImage.image = UIImage(named: "heart")
+        likeImage = UIImageView(frame: CGRectMake(inset, inset, imageView.frame.width/4, imageView.frame.height/4))
+        likeImage.image = UIImage(named: "save")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        likeImage.tintColor = UIColor(red: 43/255.0, green: 227/255.0, blue: 248/255.0, alpha: 1)
         likeImage.alpha = 0
         imageView.addSubview(likeImage)
         
         //skip image
-        skipImage = UIImageView(frame: imageView.frame)
-        skipImage.image = UIImage(named: "conf")
+        skipImage = UIImageView(frame: CGRectMake(3*imageView.frame.width/4 - inset, inset, imageView.frame.width/4, imageView.frame.height/4))
+        skipImage.image = UIImage(named: "skip")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        skipImage.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
         skipImage.alpha = 0
         imageView.addSubview(skipImage)
         
