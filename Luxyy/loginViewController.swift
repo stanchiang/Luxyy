@@ -14,10 +14,15 @@ protocol loggedInDelegate {
     func userAuthenticated()
 }
 
+protocol onboardingDelegate {
+    func loadOnboardingMessages()
+}
+
 class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
     var logInViewController: PFLogInViewController!
     var delegate: loggedInDelegate!
+    var onboard: onboardingDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +98,7 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         print("did sign up")
         self.dismissViewControllerAnimated(true, completion: nil)
+        onboard.loadOnboardingMessages()
         delegate.userAuthenticated()
     }
     

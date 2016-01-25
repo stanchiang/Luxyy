@@ -91,11 +91,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
-        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"heart")!, UIImage(named:"message")! ]), position:1)
+        controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"Luxyy")!, UIImage(named:"message")! ]), position:1)
         controller.setShowArrow(false)
         controller.setTransformScale(true)
         controller.setDissectColor(UIColor(white: 0.756, alpha: 1.0));
-        controller.setSelectColor(UIColor(red: 0.963, green: 0.266, blue: 0.176, alpha: 1.000))
+        controller.setSelectColor(UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000))
         
         controller.delegate = self
         

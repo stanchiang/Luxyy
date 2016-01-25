@@ -69,7 +69,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         
         //share button
         shareButton = ShareButton(frame: skipButton.frame)
-        shareButton.layer.borderColor = UIColor.blueColor().CGColor
         shareButton.addTarget(self, action: "shareAction:", forControlEvents: .TouchUpInside)
         
         //like button
@@ -111,6 +110,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             button.layoutIfNeeded()
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
             button.layer.borderWidth = 5
+            button.layer.borderColor = UIColor.lightGrayColor().CGColor
             button.backgroundColor = UIColor.clearColor()
         }
         
@@ -119,7 +119,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         swipeableView.swiping = {view, location, translation in
             //FIXME: get a dynamic value of share button y axis value; currently set to iphone 6s
             if location.y > self.previousY {
-                self.shareButton.layer.borderWidth =  ( 1 - location.y / 420 ) * 5
+//                self.shareButton.layer.borderWidth =  ( 1 - location.y / 420 ) * 5
             }
             self.previousY = location.y
             

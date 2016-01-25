@@ -11,7 +11,7 @@ import JSQMessagesViewController
 import Cartography
 import Parse
 
-class MessagesViewController: JSQMessagesViewController {
+class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
@@ -19,6 +19,7 @@ class MessagesViewController: JSQMessagesViewController {
     var messages:[JSQMessage]!
     var incomingBubble:JSQMessagesBubbleImage!
     var outgoingBubble:JSQMessagesBubbleImage!
+    var botBubble:JSQMessagesBubbleImage!
     
     override func viewDidLayoutSubviews() {
         constrain(view) { view in
@@ -40,6 +41,7 @@ class MessagesViewController: JSQMessagesViewController {
         
         self.incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor( UIColor.jsq_messageBubbleGreenColor() )
         self.outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor( UIColor.jsq_messageBubbleLightGrayColor())
+        self.botBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor( UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000) )
         // Do any additional setup after loading the view.
         
         // lets me toggle the appearance of the attachments button
@@ -96,6 +98,11 @@ class MessagesViewController: JSQMessagesViewController {
                 let text = object.objectForKey("text") as! String
                 self.messages.append(JSQMessage(senderId: senderID, displayName: "name", text: text))
                 self.finishSendingMessage()
+            }
+        
+            if self.messages.count == 0 {
+                print("loading onboarding messages if there haven't been any messages yet")
+                self.loadOnboardingMessages()
             }
         }
     }
@@ -185,26 +192,20 @@ class MessagesViewController: JSQMessagesViewController {
         
         return self.messages[indexPath.row]
     }
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let msg = self.messages[indexPath.row]
         if(msg.senderId == self.senderId){
             return self.outgoingBubble
         }else{
-            return self.incomingBubble
+            return self.botBubble
         }
     }
+    
     override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-//        let message: JSQMessage = self.messages[indexPath.item]
-//        let initials: String!
-//        
-//        if(message.senderId == self.senderId){
-//            initials = "SC"
-//        } else {
-//            initials = "LX"
-//        }
-//        return JSQMessagesAvatarImageFactory.avatarImageWithUserInitials(initials, backgroundColor: UIColor.lightGrayColor(), textColor: UIColor.grayColor(), font: UIFont.systemFontOfSize(20, weight: 5), diameter: 50)
         return nil
     }
+
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.messages.count
     }
@@ -219,4 +220,38 @@ class MessagesViewController: JSQMessagesViewController {
         return cell
     }
     
+    func loadOnboardingMessages() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let onboardingMessages:[String] = [
+            "Welcome to Luxyy! An app made by watch geeks for watch geeks.",
+            "I'm LuxyyBot, think of me as your Siri for watches. Well, I'm not quite there yet. But the more you talk to me, the smarter I will get.",
+            "To start, let me show you around. There's two other screens besides this chat page",
+            "Move one screen over to the left, does that watch fit your style?",
+            "Swipe Right for Yes. Swipe Left for No. Tap for more information",
+            "If you move one more screen over, you will see your previous choices. Feel free to update your choices.",
+        ]
+        
+        for msg in onboardingMessages {
+            
+            let messageObject = PFObject(className: "Message")
+            messageObject["user"] = PFUser.currentUser()!
+            
+            if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
+                messageObject["groupId"] = "E0u5zMTSEWjHCAZoBM2M"
+            } else {
+                messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+            }
+            
+            messageObject["text"] = msg
+            messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                self.messages.append(JSQMessage(senderId: "E0u5zMTSEW", senderDisplayName: "Luxyy", date: NSDate(), text: msg))
+                self.finishSendingMessage()
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            }
+        }
+
+        appDelegate.unreadMessagesBadge.badgeValue = onboardingMessages.count
+        
+    }
 }
