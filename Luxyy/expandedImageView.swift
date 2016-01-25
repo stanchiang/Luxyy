@@ -71,8 +71,7 @@ class expandedImageView: UIView, UIScrollViewDelegate {
     
     func addDismissButton() {
         dismiss = UIButton()
-        dismiss.backgroundColor = UIColor.blueColor()
-        dismiss.alpha = 0.5
+        dismiss.setImage(UIImage(named: "dismiss"), forState: .Normal)
         addSubview(dismiss)
         
         constrain(dismiss) { view in

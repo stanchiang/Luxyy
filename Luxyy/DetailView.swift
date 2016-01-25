@@ -311,8 +311,7 @@ class DetailView: UIView, UIScrollViewDelegate {
 
     func addDismissButton() {
         dismiss = UIButton()
-        dismiss.backgroundColor = UIColor.blueColor()
-        dismiss.alpha = 0.5
+        dismiss.setImage(UIImage(named: "dismiss"), forState: .Normal)
         addSubview(dismiss)
         
         constrain(dismiss) { view in
@@ -333,16 +332,40 @@ class DetailView: UIView, UIScrollViewDelegate {
     }
     
     func addActionButtons() {
+        /*
+        skipButton = UIButton()
+        let skipImage = UIImage(named: "skip")
+        let tintedSkip = skipImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        skipButton.setImage(tintedSkip, forState: UIControlState.Normal)
+        skipButton.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
+        skipButton.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
+        skipButton.addTarget(self, action: "skipAction:", forControlEvents: .TouchUpInside)
+        */
+        
+        let edge:CGFloat = 15
+        
         skip = UIButton()
-        skip.backgroundColor = UIColor.redColor()
+        let skipImage = UIImage(named: "skip")
+        let tintedSkip = skipImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        skip.setImage(tintedSkip, forState: UIControlState.Normal)
+        skip.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
+        skip.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         skip.addTarget(self, action: "itemSkipAction:", forControlEvents: .TouchUpInside)
 
-        let share = ShareButton()
-        share.backgroundColor = UIColor.whiteColor()
+        let share = UIButton()
+        let shareImage = UIImage(named: "share")
+        let tintedShare = shareImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        share.setImage(tintedShare, forState: UIControlState.Normal)
+        share.tintColor = UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1)
+        share.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         share.addTarget(self, action: "itemShareAction:", forControlEvents: .TouchUpInside)
         
         save = UIButton()
-        save.backgroundColor = UIColor.greenColor()
+        let saveImage = UIImage(named: "save")
+        let tintedSave = saveImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        save.setImage(tintedSave, forState: UIControlState.Normal)
+        save.tintColor = UIColor(red: 43/255.0, green: 227/255.0, blue: 248/255.0, alpha: 1)
+        save.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         save.addTarget(self, action: "itemSaveAction:", forControlEvents: .TouchUpInside)
         
         let actionArray = [skip, share, save]

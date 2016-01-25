@@ -25,7 +25,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     var skipButton: UIButton!
     var likeButton: UIButton!
-    var shareButton: ShareButton!
+    var shareButton: UIButton!
     
     var expandedImage: UIImageView!
     var previousY:CGFloat = 0
@@ -63,18 +63,35 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             view1.bottom == view1.superview!.bottom - 200
         }
         
+        let edge:CGFloat = 30
+        
         //skip button
         skipButton = UIButton()
+        let skipImage = UIImage(named: "skip")
+        let tintedSkip = skipImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        skipButton.setImage(tintedSkip, forState: UIControlState.Normal)
+        skipButton.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
+        skipButton.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         skipButton.addTarget(self, action: "skipAction:", forControlEvents: .TouchUpInside)
         
         //share button
-        shareButton = ShareButton(frame: skipButton.frame)
+        shareButton = UIButton()
+        let shareImage = UIImage(named: "share")
+        let tintedShare = shareImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        shareButton.setImage(tintedShare, forState: UIControlState.Normal)
+        shareButton.tintColor = UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1)
+        shareButton.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         shareButton.addTarget(self, action: "shareAction:", forControlEvents: .TouchUpInside)
         
         //like button
         likeButton = UIButton()
+        let likeImage = UIImage(named: "save")
+        let tintedLike = likeImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        likeButton.setImage(tintedLike, forState: UIControlState.Normal)
+        likeButton.tintColor = UIColor(red: 43/255.0, green: 227/255.0, blue: 248/255.0, alpha: 1)
+        likeButton.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         likeButton.addTarget(self, action: "likeAction:", forControlEvents: .TouchUpInside)
-        
+
         //constraints
         let buttons:[UIButton] = [skipButton, shareButton, likeButton]
         for button in buttons {
@@ -109,7 +126,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         for button in buttons {
             button.layoutIfNeeded()
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
-            button.layer.borderWidth = 5
+            button.layer.borderWidth = 10
             button.layer.borderColor = UIColor.lightGrayColor().CGColor
             button.backgroundColor = UIColor.clearColor()
         }
