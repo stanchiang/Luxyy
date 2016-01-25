@@ -37,4 +37,10 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         self.imageView.frame = self.bounds
     }
 
+    override func prepareForReuse() {
+        print("prepareForReuse")
+        super.prepareForReuse()
+        imageView.image = nil
+        label.text = nil
+    }
 }

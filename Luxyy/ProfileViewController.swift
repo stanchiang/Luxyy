@@ -48,54 +48,63 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-        
-        if indexPath.item == 0 {
-            liked = true
+        appDelegate.backgroundThread(0, background: { () -> AnyObject in
+            /////
             
-        } else {
-            liked = false
-        }
-        
-
-        let item = PFQuery(className: "Decision")
-        item.whereKey("user", equalTo: PFUser.currentUser()!)
-        item.whereKey("liked", equalTo: liked)
-        
-        do {
-            object = try item.findObjects()
-            if object.count > 0 {
-                if indexPath.item == 0 {
-                    objectLiked = object
-                    cell.label.text = "\(object.count) Liked"
-                } else {
-                    objectPassed = object
-                    cell.label.text = "\(object.count) Passed"
-                }
+            if indexPath.item == 0 {
+                self.liked = true
                 
-                let result = object[object.count - 1] as PFObject
-                
-                let itemID = result.objectForKey("item")!.objectId
-                
-                let actualItem = PFQuery(className: "Item")
-                actualItem.whereKey("objectId", equalTo: itemID!!)
-                do {
-                    let actualResult = try actualItem.findObjects()
-                    let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
-                    let imageData = try imageFile.getData()
-                    print("got image data")
-                    cell.imageView.image = UIImage(data: imageData)
-                } catch {
-                    print(error)
-                }
             } else {
-                cell.backgroundColor = UIColor.orangeColor()
+                self.liked = false
             }
             
-        }catch {
-            print(error)
-        }
-        
+            
+            let item = PFQuery(className: "Decision")
+            item.whereKey("user", equalTo: PFUser.currentUser()!)
+            item.whereKey("liked", equalTo: self.liked)
+            
+            do {
+                self.object = try item.findObjects()
+                if self.object.count > 0 {
+                    if indexPath.item == 0 {
+                        self.objectLiked = self.object
+                        cell.label.text = "\(self.objectLiked.count) Liked"
+                    } else {
+                        self.objectPassed = self.object
+                        cell.label.text = "\(self.objectPassed.count) Passed"
+                    }
+                    
+                    let result = self.object[self.object.count - 1] as PFObject
+                    
+                    let itemID = result.objectForKey("item")!.objectId
+                    
+                    let actualItem = PFQuery(className: "Item")
+                    actualItem.whereKey("objectId", equalTo: itemID!!)
+                    do {
+                        let actualResult = try actualItem.findObjects()
+                        let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
+                        let imageData = try imageFile.getData()
+                        print("got image data")
+                        cell.imageView.image = UIImage(data: imageData)
+                    } catch {
+                        print(error)
+                    }
+                } else {
+                    cell.backgroundColor = UIColor.orangeColor()
+                }
+                
+            }catch {
+                print(error)
+            }
+            
+            return cell
+
+            
+            
+            /////
+            }, completion: nil)
         return cell
     }
     

@@ -168,28 +168,7 @@ class MessagesViewController: JSQMessagesViewController {
         messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             self.messages.append(message)
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
-//            let findLuxyy = PFQuery(className: "User")
-//            let luxyyUser:PFUser!
-//            
-//            findLuxyy.whereKey("objectId", equalTo: "E0u5zMTSEW")
-//            do{
-//                luxyyUser = try findLuxyy.findObjects().first as! PFUser
-//                
-//                let data = ["alert":"hello there","sound":"chime.aiff", "content":"hello there!"]
-//                let pushQuery = PFInstallation.query()
-//                pushQuery?.whereKey("user", equalTo: luxyyUser)
-//                
-//                let push = PFPush()
-//                push.setQuery(pushQuery)
-//                push.setData(data)
-//                push.sendPushInBackground()
-//            } catch {
-//                print(error)
-//            }
-//            
-            
-            
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()            
         }
     }
     

@@ -12,6 +12,7 @@ import ZLSwipeableViewSwift
 import Alamofire
 import AlamofireImage
 import Parse
+import PromiseKit
 
 class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expandedDelegate {
     
@@ -126,17 +127,19 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 self.shareAction(self)
             }
             
-//            print("evaluating")
             if (self.swipeableView.topView() as! CardView).center.x > self.cardDefaultCenter.x {
 //                print("liking")
-                (self.swipeableView.topView() as! CardView).likeImage.alpha = 1
+                let alpha = ( (self.swipeableView.topView() as! CardView).center.x - self.cardDefaultCenter.x ) / ( self.view.frame.width / 3 )
+                (self.swipeableView.topView() as! CardView).likeImage.alpha = alpha
                 (self.swipeableView.topView() as! CardView).skipImage.alpha = 0
             }
             
-            if (self.swipeableView.topView() as! CardView).center.x < self.cardDefaultCenter.y {
+            if (self.swipeableView.topView() as! CardView).center.x < self.cardDefaultCenter.x {
 //                print("skipping")
+                let alpha = ( self.cardDefaultCenter.x - (self.swipeableView.topView() as! CardView).center.x ) / ( self.view.frame.width / 3 )
+                
                 (self.swipeableView.topView() as! CardView).likeImage.alpha = 0
-                (self.swipeableView.topView() as! CardView).skipImage.alpha = 1
+                (self.swipeableView.topView() as! CardView).skipImage.alpha = alpha
             }
         }
         
@@ -152,10 +155,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         }
         
         swipeableView.didSwipe = { (view: UIView, inDirection: Direction, directionVector: CGVector) in
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             if inDirection == Direction.Right {
-                self.saveDecision(true)
+                appDelegate.backgroundThread(0, background: { () -> AnyObject in
+                    self.saveDecision(true)
+                    return ""
+                    }, completion: nil)
             } else  {
-                self.saveDecision(false)
+                appDelegate.backgroundThread(0, background: { () -> AnyObject in
+                    self.saveDecision(false)
+                    return ""
+                    }, completion: nil)
             }
             NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
             self.updateCurrentItem()
@@ -175,11 +185,10 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     func likeAction(sender: AnyObject){
         self.swipeableView.swipeTopView(inDirection: .Right)
     }
-    
+
     func saveDecision(liked: Bool){
 
         liked ? print("liked") : print("skipped")
-        
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
             if liked != previousDecisionLiked {
                 
@@ -222,6 +231,27 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     print("error: \(error)")
                 }
             }
+        }
+    }
+    
+    func checkForPossibleExistingDecision() -> Bool? {
+        
+        let query = PFQuery(className: "Decision")
+        query.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
+        query.whereKey("user", equalTo: PFUser.currentUser()!)
+        do {
+            let result = try query.findObjects()
+            if result.count > 0 {
+                if let decision = result[0].objectForKey("liked") as? Bool {
+                    return decision
+                } else {
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        } catch {
+            return nil
         }
     }
     
@@ -376,43 +406,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func updateCurrentItem(){
+        print("updating")
         if currentItem == nil {
             if let item = (self.swipeableView.activeViews().first as? CardView)?.itemObject {
                 currentItem = item
-                print("starting with \(currentItem!)")
+//                print("starting with \(currentItem!)")
             } else {
-                print("couldn't load")
+//                print("couldn't load")
             }
         } else {
             currentItem = (self.swipeableView.topView() as! CardView).itemObject
-            print("updating to \(currentItem!)")
-        }
-    }
-    
-    func checkForPossibleExistingDecision() -> Bool? {
-        
-        let query = PFQuery(className: "Decision")
-        query.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
-        query.whereKey("user", equalTo: PFUser.currentUser()!)
-        do {
-            let result = try query.findObjects()
-            if result.count > 0 {
-                if let decision = result[0].objectForKey("liked") as? Bool {
-//                    print(result)
-//                    print(result[0])
-//                    print(result[0].objectForKey("objectId"))
-                    return decision
-                } else {
-//                    print("nil 1")
-                    return nil
-                }
-            } else {
-//                print("nil 2")
-                return nil
-            }
-        } catch {
-//            print("nil 3")
-            return nil
+//            print("updating to \(currentItem!)")
         }
     }
     

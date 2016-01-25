@@ -72,38 +72,44 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-
-        print(indexPath.item)
-        if indexPath.item == 0 {
-            cell.label.text = "Back"
-            cell.backgroundColor = UIColor.lightGrayColor()
-        } else if indexPath.item == 1 {
-            cell.label.text = "Filter"
-            cell.backgroundColor = UIColor.lightGrayColor()
-        } else {
-            if list.count > 0 {
-                let result = list[indexPath.item - 2] as PFObject
-                
-                let itemID = result.objectForKey("item")!.objectId
-                
-                let actualItem = PFQuery(className: "Item")
-                actualItem.whereKey("objectId", equalTo: itemID!!)
-                do {
-                    let actualResult = try actualItem.findObjects()
-                    let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
-                    let imageData = try imageFile.getData()
-                    print("got image data")
-                    cell.imageView.image = UIImage(data: imageData)
-                    cell.object = actualResult[0]
-                } catch {
-                    print(error)
-                }
-            }else {
-                cell.backgroundColor = UIColor.orangeColor()
-            }
-        }
+//        let cell = PlayListCollectionViewCell()
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
+        appDelegate.backgroundThread(0, background: { () -> AnyObject in
+            print(indexPath.item)
+            if indexPath.item == 0 {
+                cell.label.text = "Back"
+                cell.backgroundColor = UIColor.lightGrayColor()
+            } else if indexPath.item == 1 {
+                cell.label.text = "Filter"
+                cell.backgroundColor = UIColor.lightGrayColor()
+            } else {
+                if self.list.count > 0 {
+                    let result = self.list[indexPath.item - 2] as PFObject
+                    
+                    let itemID = result.objectForKey("item")!.objectId
+                    
+                    let actualItem = PFQuery(className: "Item")
+                    actualItem.whereKey("objectId", equalTo: itemID!!)
+                    do {
+                        let actualResult = try actualItem.findObjects()
+                        let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
+                        let imageData = try imageFile.getData()
+                        print("got image data")
+                        cell.imageView.image = UIImage(data: imageData)
+                        cell.object = actualResult[0]
+                    } catch {
+                        print(error)
+                    }
+                }else {
+                    cell.backgroundColor = UIColor.orangeColor()
+                }
+            }
+            
+            return cell
+            }, completion: nil)
         return cell
+        
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -128,7 +134,12 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
     
-    
+    func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
+//        cell.imageView = nil
+//        cell.label = nil
+    }
+
     func dismissDetailView(sender: AnyObject) {
         detailView.removeFromSuperview()
     }
