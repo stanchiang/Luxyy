@@ -112,7 +112,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
 
 
         
-        cell.backgroundColor = UIColor.yellowColor()
+        cell.backgroundColor = UIColor.lightGrayColor()
         return cell
     }
     

@@ -107,7 +107,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
             }
             return cell
         }, completion: nil)
-        cell.backgroundColor = UIColor.yellowColor()
+        cell.backgroundColor = UIColor.lightGrayColor()
         return cell
         
     }
