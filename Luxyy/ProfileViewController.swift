@@ -61,7 +61,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                     self.object = returnedObject
                     if self.object.count > 0 {
                         self.objectLiked = self.object
-                        cell.label.text = "\(self.objectLiked.count) Liked"
+                        cell.centerLabel.text = "\(self.objectLiked.count)"
+                        cell.centerLabel.font = UIFont(name: "yuanti-SC", size: 40)
+                        cell.centerLabel.textColor = UIColor.whiteColor()
+                        
+                        cell.bottomlabel.text = "LIKED"
+                        cell.bottomlabel.font = UIFont(name: "yuanti-SC", size: 20)
+                        cell.bottomlabel.textColor = UIColor.whiteColor()
                         let result = self.object[self.object.count - 1] as PFObject
                         let itemID = (result.objectForKey("item")!.objectId)!
                         let actualItem = PFQuery(className: "Item")
@@ -71,6 +77,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                             let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
                             imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
                                 cell.imageView.image = UIImage(data: imageData!)
+                                cell.overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
                             })
                         })
                     }
@@ -90,7 +97,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                     self.object = returnedObject
                     if self.object.count > 0 {
                         self.objectPassed = self.object
-                        cell.label.text = "\(self.objectPassed.count) Passed"
+                        cell.centerLabel.text = "\(self.objectPassed.count)"
+                        cell.centerLabel.font = UIFont(name: "yuanti-SC", size: 40)
+                        cell.centerLabel.textColor = UIColor.whiteColor()
+
+                        cell.bottomlabel.text = "PASSED"
+                        cell.bottomlabel.font = UIFont(name: "yuanti-SC", size: 20)
+                        cell.bottomlabel.textColor = UIColor.whiteColor()
                         let result = self.object[self.object.count - 1] as PFObject
                         let itemID = (result.objectForKey("item")!.objectId)!
                         let actualItem = PFQuery(className: "Item")
@@ -100,6 +113,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                             let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
                             imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
                                 cell.imageView.image = UIImage(data: imageData!)
+                                cell.overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
                             })
                         })
                     }
@@ -109,9 +123,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                 
                 }, completion: nil)
         }
-
-
-        
         cell.backgroundColor = UIColor.lightGrayColor()
         return cell
     }

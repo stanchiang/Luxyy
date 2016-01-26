@@ -21,6 +21,7 @@
 		F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92171C4AD3F5003257A6 /* ShareButton.swift */; };
 		F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92191C4AD437003257A6 /* CardModel.swift */; };
 		F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F921B1C4B0638003257A6 /* ProfileViewController.swift */; };
+		F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F66779A11C579444005EB56E /* yuanti-SC.ttf */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
@@ -66,6 +67,7 @@
 		F64F92171C4AD3F5003257A6 /* ShareButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F64F921B1C4B0638003257A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F66779A11C579444005EB56E /* yuanti-SC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yuanti-SC.ttf"; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				F64F92131C4AD3C7003257A6 /* DetailView.swift */,
 				F64F92171C4AD3F5003257A6 /* ShareButton.swift */,
 				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
+				F66779A11C579444005EB56E /* yuanti-SC.ttf */,
 				F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */,
 				F6FB6B401C4AAACD00B167AF /* Info.plist */,
 				F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */,
@@ -318,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */,
 				F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */,
 				F64F18F81C560E9A00E093CF /* LaunchScreen.xib in Resources */,
 				F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */,

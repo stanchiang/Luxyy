@@ -8,11 +8,14 @@
 
 import UIKit
 import Parse
+import Cartography
 
 class PlayListCollectionViewCell: UICollectionViewCell {
     
-    var label:UILabel!
+    var bottomlabel:UILabel!
+    var centerLabel:UILabel!
     var imageView:UIImageView!
+    var overlayView:UIView!
     var object: PFObject!
     
     override init(frame: CGRect) {
@@ -21,8 +24,14 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         imageView = UIImageView()
         contentView.addSubview(imageView)
 
-        label = UILabel()
-        contentView.addSubview(label)
+        overlayView = UIView()
+        contentView.addSubview(overlayView)
+        
+        bottomlabel = UILabel()
+        contentView.addSubview(bottomlabel)
+        
+        centerLabel = UILabel()
+        contentView.addSubview(centerLabel)
         
     }
     
@@ -33,15 +42,29 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.label.frame = self.bounds
+        self.bottomlabel.frame = self.bounds
+        self.centerLabel.frame = self.bounds
         self.imageView.frame = self.bounds
+        self.overlayView.frame = self.bounds
+        
+        constrain(bottomlabel) { label in
+            label.centerX == label.superview!.centerX
+            label.bottom == label.superview!.bottom
+        }
+        
+        constrain(centerLabel, bottomlabel) { c, b in
+            c.centerX == c.superview!.centerX
+            c.centerY == c.superview!.centerY
+            c.bottom == b.top
+            c.width == c.height
+        }
     }
 
     override func prepareForReuse() {
         print("prepareForReuse")
         super.prepareForReuse()
         imageView.image = nil
-        label.text = nil
+        bottomlabel.text = nil
         object = nil
     }
 }

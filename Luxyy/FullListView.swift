@@ -75,39 +75,33 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         appDelegate.backgroundThread(0, background: { () -> AnyObject in
-            print(indexPath.item)
-            if indexPath.item == 0 {
-                cell.label.text = "Back"
-                cell.backgroundColor = UIColor.lightGrayColor()
-            } else if indexPath.item == 1 {
-                cell.label.text = "Filter"
-                cell.backgroundColor = UIColor.lightGrayColor()
-            } else {
-                if self.list.count > 0 {
-                    let result = self.list[indexPath.item - 2] as PFObject
-                    
-                    let itemID = result.objectForKey("item")!.objectId
-                    
-                    let actualItem = PFQuery(className: "Item")
-                    actualItem.whereKey("objectId", equalTo: itemID!!)
+            if self.list.count > 0 {
+                let result = self.list[indexPath.item] as PFObject
+                
+                let itemID = result.objectForKey("item")!.objectId
+                
+                let actualItem = PFQuery(className: "Item")
+                actualItem.whereKey("objectId", equalTo: itemID!!)
 
-                    actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
-                        let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
-                        imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
-                            cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
-                            cell.imageView.image = UIImage(data: imageData!)
-                        })
-                        if cell.object == nil {
-                            cell.object = actualResult![0]
-                        }
+                actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
+                    let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
+                    imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                        cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
+                        cell.imageView.image = UIImage(data: imageData!)
                     })
-                }else {
-                    cell.backgroundColor = UIColor.orangeColor()
-                }
+                    if cell.object == nil {
+                        cell.object = actualResult![0]
+                    }
+                })
+            }else {
+                cell.backgroundColor = UIColor.orangeColor()
             }
             return cell
         }, completion: nil)
-        cell.backgroundColor = UIColor.lightGrayColor()
+        if cell.imageView.image == nil {
+            cell.backgroundColor = UIColor.lightGrayColor()
+        }
+        
         return cell
         
     }
@@ -134,22 +128,19 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
     
-    func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
-//        cell.imageView = nil
-//        cell.label = nil
-    }
-
     func dismissDetailView(sender: AnyObject) {
         detailView.removeFromSuperview()
     }
+    
     func addDismissHandler(sender: AnyObject) {
         let button:UIButton = sender as! UIButton
         button.addTarget(self, action: "dismissDetailView:", forControlEvents: .TouchUpInside)
     }
+    
     func addImageHandler(sender: UIGestureRecognizer){
         
     }
+    
     func getParentData() -> [String:AnyObject] {
         
         var parent = [String:AnyObject]()
@@ -160,20 +151,24 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         
         return parent
     }
+    
     func skipAction(sender: AnyObject){
         print("skipAction")
         saveDecision(false)
     }
+    
     func shareAction(sender: AnyObject){
         print("shareAction")
 //        let toShare = ["hey"]
 //        let activityViewController = UIActivityViewController(activityItems: toShare, applicationActivities: nil)
 //        presentViewController(activityViewController, animated: true, completion: {})
     }
+    
     func likeAction(sender: AnyObject){
         print("likeAction")
         saveDecision(true)
     }
+    
     func locate(){
         print("locating source from the collection view")
     }
