@@ -71,8 +71,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-//        let cell = PlayListCollectionViewCell()
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         appDelegate.backgroundThread(0, background: { () -> AnyObject in
@@ -95,9 +94,12 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                     actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
                         let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
                         imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                            cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
                             cell.imageView.image = UIImage(data: imageData!)
                         })
-                        cell.object = actualResult![0]
+                        if cell.object == nil {
+                            cell.object = actualResult![0]
+                        }
                     })
                 }else {
                     cell.backgroundColor = UIColor.orangeColor()
@@ -105,7 +107,6 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
             }
             return cell
         }, completion: nil)
-        
         cell.backgroundColor = UIColor.yellowColor()
         return cell
         
@@ -200,7 +201,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
                             print("was \(previousDecisionLiked) now \(liked)")
-                            //                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+//                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
                         }else {
                             print("error \(error)")
                         }

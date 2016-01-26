@@ -52,6 +52,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         
         view.backgroundColor = UIColor.whiteColor()
         view.clipsToBounds = true
+        view.userInteractionEnabled = false
         
         swipeableView = ZLSwipeableView()
         view.addSubview(swipeableView)
@@ -94,33 +95,28 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
 
         //constraints
         let buttons:[UIButton] = [skipButton, shareButton, likeButton]
+        
         for button in buttons {
             view.addSubview(button)
-            if button == buttons[1] {
-                continue
-            }
-            constrain(button, swipeableView) { obj1, obj2 in
-                obj1.top == obj2.bottom + 50
-                obj1.width == obj1.height
-                obj1.bottom == obj1.superview!.bottom - 50
-            }
+        }
+        
+        constrain(buttons[1], swipeableView) { button2, card in
+            button2.top == card.bottom + 60
+            button2.bottom == button2.superview!.bottom - 60
+            button2.width == button2.height
+            button2.centerX == button2.superview!.centerX
+        }
+        
+        constrain(buttons[0], buttons[1], buttons[2]) { button1, button2, button3 in
+            button1.leading == button1.superview!.leading + 30
+            button1.trailing == button2.leading - 20
+            button1.height == button1.width
+            button1.centerY == button2.centerY
             
-        }
-        
-        constrain(buttons.first!){ obj1 in
-            obj1.leading == obj1.superview!.leading + 30
-        }
-        
-        
-        constrain(buttons[0], buttons[1], buttons[2]){ obj0, obj1, obj2 in
-            obj1.centerY == obj0.centerY
-            obj1.leading == obj0.trailing + 15
-            obj1.trailing == obj2.leading - 15
-            obj1.height == obj1.width
-        }
-
-        constrain(buttons.last!){ obj1 in
-            obj1.trailing == obj1.superview!.trailing - 30
+            button3.leading == button2.trailing + 20
+            button3.trailing == button3.superview!.trailing - 30
+            button3.height == button3.width
+            button3.centerY == button2.centerY
         }
         
         for button in buttons {
@@ -130,7 +126,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             button.layer.borderColor = UIColor.lightGrayColor().CGColor
             button.backgroundColor = UIColor.clearColor()
         }
-        
+
+
         swipeableView.allowedDirection = Direction.Horizontal
         
         swipeableView.swiping = {view, location, translation in
@@ -176,16 +173,18 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             if inDirection == Direction.Right {
                 appDelegate.backgroundThread(0, background: { () -> AnyObject in
                     self.saveDecision(true)
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
+                    self.updateCurrentItem()
                     return ""
                     }, completion: nil)
             } else  {
                 appDelegate.backgroundThread(0, background: { () -> AnyObject in
                     self.saveDecision(false)
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
+                    self.updateCurrentItem()
                     return ""
                     }, completion: nil)
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
-            self.updateCurrentItem()
         }
     }
     
@@ -334,6 +333,9 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                         print("\(result.objectId) \(result.objectForKey("itemBrand")) \(result.objectForKey("itemName")) ")
                         if self.currentItem == nil {
                             self.updateCurrentItem()
+                            if !self.view.userInteractionEnabled {
+                                self.view.userInteractionEnabled = true
+                            }
                         }
                     })
                 }
@@ -398,9 +400,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     func dismissDetailView(sender: AnyObject) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        detailView.skip.backgroundColor = UIColor.clearColor()
-//        detailView.save.backgroundColor = UIColor.clearColor()
-//        detailView.
         detailView.removeFromSuperview()
     }
     
@@ -440,13 +439,13 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         if currentItem == nil {
             if let item = (self.swipeableView.activeViews().first as? CardView)?.itemObject {
                 currentItem = item
-//                print("starting with \(currentItem!)")
+                print("starting with \(currentItem!)")
             } else {
-//                print("couldn't load")
+                print("couldn't load")
             }
         } else {
             currentItem = (self.swipeableView.topView() as! CardView).itemObject
-//            print("updating to \(currentItem!)")
+            print("updating to \(currentItem!)")
         }
     }
     

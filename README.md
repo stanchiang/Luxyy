@@ -21,6 +21,7 @@
 - ~~need to build system to get "random" records from parse~~
 - ~~button UI~~
 - ~~overlay UI~~
+- ~~user interaction is disabled before images are populated~~
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
@@ -32,6 +33,7 @@
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
+- disallow tapping if there aren't any decision records for save/skip'
 - design a UI for the cells
 
 ##### playlistDetail

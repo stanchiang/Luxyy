@@ -51,26 +51,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         if indexPath.item == 0 {
-//            self.liked = true
             appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
                 let item = PFQuery(className: "Decision")
                 item.whereKey("user", equalTo: PFUser.currentUser()!)
-//                item.whereKey("liked", equalTo: self.liked)
                 item.whereKey("liked", equalTo: true)
                 
                 item.findObjectsInBackgroundWithBlock({ (returnedObject, error) -> Void in
                     self.object = returnedObject
                     if self.object.count > 0 {
-//                        if self.liked == true {
-                            self.objectLiked = self.object
-                            cell.label.text = "\(self.objectLiked.count) Liked"
-//                        }else {
-//                            self.objectPassed = self.object
-//                            cell.label.text = "\(self.objectPassed.count) Passed"
-//                            
-//                        }
-                        
+                        self.objectLiked = self.object
+                        cell.label.text = "\(self.objectLiked.count) Liked"
                         let result = self.object[self.object.count - 1] as PFObject
                         let itemID = (result.objectForKey("item")!.objectId)!
                         let actualItem = PFQuery(className: "Item")
@@ -89,26 +80,17 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                 
                 }, completion: nil)
         } else {
-//            self.liked = false
             appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
                 let item = PFQuery(className: "Decision")
                 item.whereKey("user", equalTo: PFUser.currentUser()!)
-//                item.whereKey("liked", equalTo: self.liked)
                 item.whereKey("liked", equalTo: false)
                 
                 item.findObjectsInBackgroundWithBlock({ (returnedObject, error) -> Void in
                     self.object = returnedObject
                     if self.object.count > 0 {
-//                        if self.liked == true {
-//                            self.objectLiked = self.object
-//                            cell.label.text = "\(self.objectLiked.count) Liked"
-//                        }else {
-                            self.objectPassed = self.object
-                            cell.label.text = "\(self.objectPassed.count) Passed"
-                            
-//                        }
-                        
+                        self.objectPassed = self.object
+                        cell.label.text = "\(self.objectPassed.count) Passed"
                         let result = self.object[self.object.count - 1] as PFObject
                         let itemID = (result.objectForKey("item")!.objectId)!
                         let actualItem = PFQuery(className: "Item")
