@@ -2,6 +2,14 @@
 
 ## Specs
 
+### General
+- ~~only allow https~~
+
+### Analytics
+- implement segment
+- implement error tracking
+- implement user tracking
+
 ### navigation controller
 - ~~have icon animation like tinder (AHPagingMenuViewController)~~
 - ~~controller swiping animation like tinder~~
@@ -29,8 +37,9 @@
 - ~~allow getting swipe decision~~
 - ~~update UI for buttons~~
 - ~~tap to zoom on image doesn't work from the fulllistview~~
-- allow updating swipe decision
+- ~~allow updating swipe decision~~
 - spec out the rest of this page
+- disable swiping in browseVC until there are enough cards in the back to swipe
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
@@ -46,6 +55,7 @@
 - ~~load all images async~~
 - ~~update lists on each decision~~
 - set up back, search, and filter buttons
+- solve collection view crashing when scrolling too fast
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~

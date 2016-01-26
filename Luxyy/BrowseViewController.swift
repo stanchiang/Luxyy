@@ -427,9 +427,16 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         var parent = [String:AnyObject]()
         let imageArray:[UIImageView] = [expandedImage]
         parent.updateValue(imageArray, forKey: "imageArray")
-//        print(currentItem.objectId)
         parent.updateValue(currentItem.objectForKey("itemName")!, forKey: "name")
         parent.updateValue(currentItem.objectForKey("itemBrand")!, forKey: "brand")
+        
+        parent.updateValue(currentItem.objectForKey("price")!, forKey: "price")
+        parent.updateValue(currentItem.objectForKey("movement")!, forKey: "movement")
+        parent.updateValue(currentItem.objectForKey("functions")!, forKey: "functions")
+        parent.updateValue(currentItem.objectForKey("band")!, forKey: "band")
+        parent.updateValue(currentItem.objectForKey("refNum")!, forKey: "refNum")
+        parent.updateValue(currentItem.objectForKey("variations")!, forKey: "variations")
+        
         
         return parent
     }

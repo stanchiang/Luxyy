@@ -47,8 +47,16 @@ class DetailView: UIView, UIScrollViewDelegate {
     var pageImages: [UIImageView] = []
     var pageViews: [UIImageView?] = []
     var pageCount: Int!
+    
     var watchName: String!
     var watchBrand: String!
+    var watchprice:Double!
+    var watchmovement:String!
+    var watchfunctions:String!
+    var watchband:String!
+    var watchrefNum:String!
+    var watchvariations:String!
+    
     
     var skip:UIButton!
     var save:UIButton!
@@ -125,8 +133,27 @@ class DetailView: UIView, UIScrollViewDelegate {
         let brandLabel = UILabel()
         brandLabel.text = watchBrand
         
-        let infoArray:[UILabel] = [nameLabel, brandLabel]
+        let priceLabel = UILabel()
+        priceLabel.text = "$\(watchprice)"
+        
+        let movementLabel = UILabel()
+        movementLabel.text = "Movement: \(watchmovement)"
+        
+        let functionLabel = UILabel()
+        functionLabel.text = "Functions: \(watchfunctions)"
+        
+        let bandLabel = UILabel()
+        bandLabel.text = "Band: \(watchband)"
+        
+        let variationsLabel = UILabel()
+        variationsLabel.text = "Variations: \(watchvariations)"
+        
+        let refNumLabel = UILabel()
+        refNumLabel.text = "Reference Number: \(watchrefNum)"
+        
+        let infoArray:[UILabel] = [nameLabel, brandLabel, priceLabel, movementLabel, functionLabel, bandLabel, variationsLabel, refNumLabel]
         for label in infoArray {
+            label.numberOfLines = 0
             stackView.addArrangedSubview(label)
         }
     }
@@ -307,6 +334,12 @@ class DetailView: UIView, UIScrollViewDelegate {
         pageCount = pageImages.count
         watchName = parentData["name"] as! String
         watchBrand = parentData["brand"] as! String
+        watchprice = parentData["price"] as! Double
+        watchmovement = parentData["movement"] as! String
+        watchfunctions = parentData["functions"] as! String
+        watchband = parentData["band"] as! String
+        watchrefNum = parentData["refNum"] as! String
+        watchvariations = parentData["variations"] as! String
     }
 
     func addDismissButton() {

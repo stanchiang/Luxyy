@@ -21,8 +21,16 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var list: [PFObject]!
     var detailView: DetailView!
     var expandedImage:UIImageView!
+
     var itemName:String!
     var itemBrand:String!
+    var price:Double!
+    var movement:String!
+    var functions:String!
+    var band:String!
+    var refNum:String!
+    var variations:String!
+    
     var selectedObject:PFObject!
     var listName:String!
     var expanded: expandedImageView!
@@ -119,6 +127,12 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
             expandedImage = selected.imageView
             itemBrand = selected.object.objectForKey("itemBrand") as! String
             itemName = selected.object.objectForKey("itemName") as! String
+            price = selected.object.objectForKey("price") as! Double
+            movement = selected.object.objectForKey("movement") as! String
+            functions = selected.object.objectForKey("functions") as! String
+            band = selected.object.objectForKey("band") as! String
+            refNum = selected.object.objectForKey("refNum") as! String
+            variations = selected.object.objectForKey("variations") as! String
             
             selectedObject = selected.object
             
@@ -160,6 +174,12 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         parent.updateValue(imageArray, forKey: "imageArray")
         parent.updateValue(itemName, forKey: "name")
         parent.updateValue(itemBrand, forKey: "brand")
+        parent.updateValue(price, forKey: "price")
+        parent.updateValue(movement, forKey: "movement")
+        parent.updateValue(functions, forKey: "functions")
+        parent.updateValue(band, forKey: "band")
+        parent.updateValue(refNum, forKey: "refNum")
+        parent.updateValue(variations, forKey: "variations")
         
         return parent
     }
@@ -244,20 +264,14 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
             let result = try query.findObjects()
             if result.count > 0 {
                 if let decision = result[0].objectForKey("liked") as? Bool {
-                    //                    print(result)
-                    //                    print(result[0])
-                    //                    print(result[0].objectForKey("objectId"))
                     return decision
                 } else {
-                    //                    print("nil 1")
                     return nil
                 }
             } else {
-                //                print("nil 2")
                 return nil
             }
         } catch {
-            //            print("nil 3")
             return nil
         }
     }
