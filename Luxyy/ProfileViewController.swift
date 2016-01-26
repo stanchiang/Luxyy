@@ -50,61 +50,87 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
-        appDelegate.backgroundThread(0, background: { () -> AnyObject in
-            /////
-            
-            if indexPath.item == 0 {
-                self.liked = true
+        if indexPath.item == 0 {
+//            self.liked = true
+            appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
-            } else {
-                self.liked = false
-            }
-            
-            
-            let item = PFQuery(className: "Decision")
-            item.whereKey("user", equalTo: PFUser.currentUser()!)
-            item.whereKey("liked", equalTo: self.liked)
-            
-            do {
-                self.object = try item.findObjects()
-                if self.object.count > 0 {
-                    if indexPath.item == 0 {
-                        self.objectLiked = self.object
-                        cell.label.text = "\(self.objectLiked.count) Liked"
-                    } else {
-                        self.objectPassed = self.object
-                        cell.label.text = "\(self.objectPassed.count) Passed"
-                    }
-                    
-                    let result = self.object[self.object.count - 1] as PFObject
-                    
-                    let itemID = result.objectForKey("item")!.objectId
-                    
-                    let actualItem = PFQuery(className: "Item")
-                    actualItem.whereKey("objectId", equalTo: itemID!!)
-                    do {
-                        let actualResult = try actualItem.findObjects()
-                        let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
-                        let imageData = try imageFile.getData()
-                        print("got image data")
-                        cell.imageView.image = UIImage(data: imageData)
-                    } catch {
-                        print(error)
-                    }
-                } else {
-                    cell.backgroundColor = UIColor.orangeColor()
-                }
+                let item = PFQuery(className: "Decision")
+                item.whereKey("user", equalTo: PFUser.currentUser()!)
+//                item.whereKey("liked", equalTo: self.liked)
+                item.whereKey("liked", equalTo: true)
                 
-            }catch {
-                print(error)
-            }
-            
-            return cell
+                item.findObjectsInBackgroundWithBlock({ (returnedObject, error) -> Void in
+                    self.object = returnedObject
+                    if self.object.count > 0 {
+//                        if self.liked == true {
+                            self.objectLiked = self.object
+                            cell.label.text = "\(self.objectLiked.count) Liked"
+//                        }else {
+//                            self.objectPassed = self.object
+//                            cell.label.text = "\(self.objectPassed.count) Passed"
+//                            
+//                        }
+                        
+                        let result = self.object[self.object.count - 1] as PFObject
+                        let itemID = (result.objectForKey("item")!.objectId)!
+                        let actualItem = PFQuery(className: "Item")
+                        actualItem.whereKey("objectId", equalTo: itemID!)
+                        
+                        actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
+                            let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
+                            imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                                cell.imageView.image = UIImage(data: imageData!)
+                            })
+                        })
+                    }
+                })
+                
+                return cell
+                
+                }, completion: nil)
+        } else {
+//            self.liked = false
+            appDelegate.backgroundThread(0, background: { () -> AnyObject in
+                
+                let item = PFQuery(className: "Decision")
+                item.whereKey("user", equalTo: PFUser.currentUser()!)
+//                item.whereKey("liked", equalTo: self.liked)
+                item.whereKey("liked", equalTo: false)
+                
+                item.findObjectsInBackgroundWithBlock({ (returnedObject, error) -> Void in
+                    self.object = returnedObject
+                    if self.object.count > 0 {
+//                        if self.liked == true {
+//                            self.objectLiked = self.object
+//                            cell.label.text = "\(self.objectLiked.count) Liked"
+//                        }else {
+                            self.objectPassed = self.object
+                            cell.label.text = "\(self.objectPassed.count) Passed"
+                            
+//                        }
+                        
+                        let result = self.object[self.object.count - 1] as PFObject
+                        let itemID = (result.objectForKey("item")!.objectId)!
+                        let actualItem = PFQuery(className: "Item")
+                        actualItem.whereKey("objectId", equalTo: itemID!)
+                        
+                        actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
+                            let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
+                            imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                                cell.imageView.image = UIImage(data: imageData!)
+                            })
+                        })
+                    }
+                })
+                
+                return cell
+                
+                }, completion: nil)
+        }
 
-            
-            
-            /////
-            }, completion: nil)
+
+        
+        cell.backgroundColor = UIColor.yellowColor()
         return cell
     }
     
@@ -115,7 +141,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         fullList.delegate = self
         if (indexPath.item == 0) {
             fullList.setUp("liked")
-        } else {
+        } else if (indexPath.item == 1) {
             fullList.setUp("passed")
         }
         self.view.addSubview(fullList)

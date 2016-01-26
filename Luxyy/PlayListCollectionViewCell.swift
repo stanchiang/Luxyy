@@ -40,7 +40,7 @@ class PlayListCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         print("prepareForReuse")
         super.prepareForReuse()
-        imageView.image = nil
-        label.text = nil
+//        imageView.image = nil
+//        label.text = nil
     }
 }

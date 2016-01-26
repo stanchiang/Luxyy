@@ -91,23 +91,22 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                     
                     let actualItem = PFQuery(className: "Item")
                     actualItem.whereKey("objectId", equalTo: itemID!!)
-                    do {
-                        let actualResult = try actualItem.findObjects()
-                        let imageFile:PFFile = actualResult[0].objectForKey("image")! as! PFFile
-                        let imageData = try imageFile.getData()
-                        print("got image data")
-                        cell.imageView.image = UIImage(data: imageData)
-                        cell.object = actualResult[0]
-                    } catch {
-                        print(error)
-                    }
+
+                    actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
+                        let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
+                        imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                            cell.imageView.image = UIImage(data: imageData!)
+                        })
+                        cell.object = actualResult![0]
+                    })
                 }else {
                     cell.backgroundColor = UIColor.orangeColor()
                 }
             }
-            
             return cell
-            }, completion: nil)
+        }, completion: nil)
+        
+        cell.backgroundColor = UIColor.yellowColor()
         return cell
         
     }
