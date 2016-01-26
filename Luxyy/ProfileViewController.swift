@@ -17,6 +17,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     var objectLiked:[PFObject]!
     var objectPassed:[PFObject]!
     var liked: Bool!
+
+    var likedCount:Int = 0
+    var passedCount:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +53,9 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
+        
         if indexPath.item == 0 {
+            cell.imageView.image = UIImage(named: "save")
             appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
                 let item = PFQuery(className: "Decision")
@@ -61,7 +66,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                     self.object = returnedObject
                     if self.object.count > 0 {
                         self.objectLiked = self.object
-                        cell.centerLabel.text = "\(self.objectLiked.count)"
+                        self.likedCount = self.objectLiked.count
+                        cell.centerLabel.text = "\(self.likedCount)"
                         cell.centerLabel.font = UIFont(name: "yuanti-SC", size: 40)
                         cell.centerLabel.textColor = UIColor.whiteColor()
                         
@@ -87,6 +93,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                 
                 }, completion: nil)
         } else {
+            cell.imageView.image = UIImage(named: "skip")
             appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
                 let item = PFQuery(className: "Decision")
@@ -97,7 +104,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                     self.object = returnedObject
                     if self.object.count > 0 {
                         self.objectPassed = self.object
-                        cell.centerLabel.text = "\(self.objectPassed.count)"
+                        self.passedCount = self.objectPassed.count
+                        cell.centerLabel.text = "\(self.passedCount)"
                         cell.centerLabel.font = UIFont(name: "yuanti-SC", size: 40)
                         cell.centerLabel.textColor = UIColor.whiteColor()
 
@@ -130,14 +138,29 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("tapped cell \(indexPath.item + 1)")
         
-        fullList = FullListView(frame: self.view.frame)
-        fullList.delegate = self
         if (indexPath.item == 0) {
-            fullList.setUp("liked")
-        } else if (indexPath.item == 1) {
-            fullList.setUp("passed")
+            if likedCount > 0 {
+                fullList = FullListView(frame: self.view.frame)
+                fullList.delegate = self
+                fullList.setUp("liked")
+                self.view.addSubview(fullList)
+            } else {
+                let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+                UIAlertView(title: "Please Swipe Right On A Watch First", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+            }
         }
-        self.view.addSubview(fullList)
+            
+        if (indexPath.item == 1) {
+            if passedCount > 0 {
+                fullList = FullListView(frame: self.view.frame)
+                fullList.delegate = self
+                fullList.setUp("passed")
+                self.view.addSubview(fullList)
+            } else {
+                let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+                UIAlertView(title: "Please Swipe Left On A Watch First", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+            }
+        }
     }
     
     func dismissFullList() {

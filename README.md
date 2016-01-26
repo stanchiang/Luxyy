@@ -27,14 +27,15 @@
 - ~~initial zoom on image is set by width of view~~
 - ~~image gallery~~
 - ~~allow getting swipe decision~~
-- ~~allow updating swipe decision~~
 - ~~update UI for buttons~~
+- allow updating swipe decision
+- tap to zoom on image doesn't work from the fulllistview
 - spec out the rest of this page
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
-- disallow tapping if there aren't any decision records for save/skip'
-- design a UI for the cells
+- ~~design a UI for the cells~~
+- ~~disallow tapping if there aren't any decision records for save/skip'~~
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
@@ -42,8 +43,9 @@
 - ~~load list from parse~~
 - ~~finish loading all lists~~
 - ~~tapping on the item loads the item's browseDetail~~
-- load all images async
-- update lists on each decision
+- ~~load all images async~~
+- ~~update lists on each decision~~
+- set up back, search, and filter buttons
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~
