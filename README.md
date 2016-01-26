@@ -28,8 +28,8 @@
 - ~~image gallery~~
 - ~~allow getting swipe decision~~
 - ~~update UI for buttons~~
+- ~~tap to zoom on image doesn't work from the fulllistview~~
 - allow updating swipe decision
-- tap to zoom on image doesn't work from the fulllistview
 - spec out the rest of this page
 
 ### profile page

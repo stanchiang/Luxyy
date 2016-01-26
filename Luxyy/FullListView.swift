@@ -14,7 +14,7 @@ protocol fullListDelegate{
     func getList(name:String) -> [PFObject]?
 }
 
-class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, detailDelegate {
+class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, detailDelegate, expandedDelegate {
     
     var collectionView: UICollectionView!
     var delegate:fullListDelegate!
@@ -25,6 +25,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var itemBrand:String!
     var selectedObject:PFObject!
     var listName:String!
+    var expanded: expandedImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -137,8 +138,19 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         button.addTarget(self, action: "dismissDetailView:", forControlEvents: .TouchUpInside)
     }
     
-    func addImageHandler(sender: UIGestureRecognizer){
+    func addDismissExpandedHandler(sender: AnyObject){
+        let button:UIButton = sender as! UIButton
+        button.addTarget(self, action: "dismissDetailExpandedView:", forControlEvents: .TouchUpInside)
         
+    }
+    
+    func addImageHandler(sender: UIGestureRecognizer){
+        let theImageView = sender.view as! UIImageView
+        let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
+        expanded = expandedImageView(frame: viewFrame)
+        addSubview(expanded)
+        expanded.expandedDel = self
+        expanded.setup(theImageView)
     }
     
     func getParentData() -> [String:AnyObject] {
