@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
+import Analytics
 
 protocol loggedInDelegate {
     func userAuthenticated()
@@ -101,6 +102,7 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     // Sent to the delegate when a PFUser is signed up.
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         print("did sign up")
+        SEGAnalytics.sharedAnalytics().track("Signed Up")
         self.dismissViewControllerAnimated(true, completion: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("loadOnboardingMessages", object: nil)
         delegate.userAuthenticated()

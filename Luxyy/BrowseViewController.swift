@@ -13,6 +13,7 @@ import Alamofire
 import AlamofireImage
 import Parse
 import PromiseKit
+import Analytics
 
 class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expandedDelegate {
     
@@ -189,6 +190,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func skipAction(sender: AnyObject){
+        SEGAnalytics.sharedAnalytics().track(
+            "made a decision",
+            properties: [
+                "decider" : (PFUser.currentUser()?.objectId!)!,
+                "liked": false,
+                "objectId" : currentItem.objectId!,
+                "itemName":currentItem.objectForKey("itemName")!,
+                "itemBrand":currentItem.objectForKey("itemBrand")!,
+                "price":currentItem.objectForKey("price")!
+            ]
+        )
         self.swipeableView.swipeTopView(inDirection: .Left)
     }
     
@@ -205,6 +217,19 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func shareAction(sender: AnyObject){
+        
+        SEGAnalytics.sharedAnalytics().track(
+            "opened sharing",
+            properties: [
+                "decider" : (PFUser.currentUser()?.objectId!)!,
+                "objectId" : currentItem.objectId!,
+                "itemName":currentItem.objectForKey("itemName")!,
+                "itemBrand":currentItem.objectForKey("itemBrand")!,
+                "price":currentItem.objectForKey("price")!
+            ]
+        )
+
+        
         let toShare:[AnyObject] = ["take a look at the \(currentItem.objectForKey("itemName")!) by \(currentItem.objectForKey("itemBrand")!). I found it on http://www.getLuxyy.com",captureScreenShot()]
         let activityViewController = UIActivityViewController(activityItems: toShare, applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: nil)
@@ -213,11 +238,23 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     func likeAction(sender: AnyObject){
         self.swipeableView.swipeTopView(inDirection: .Right)
+        SEGAnalytics.sharedAnalytics().track(
+            "made a decision",
+            properties: [
+                "decider" : (PFUser.currentUser()?.objectId!)!,
+                "liked": true,
+                "objectId" : currentItem.objectId!,
+                "itemName":currentItem.objectForKey("itemName")!,
+                "itemBrand":currentItem.objectForKey("itemBrand")!,
+                "price":currentItem.objectForKey("price")!
+            ]
+        )
     }
 
     func saveDecision(liked: Bool){
 
         liked ? print("liked") : print("skipped")
+        
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
             if liked != previousDecisionLiked {
                 

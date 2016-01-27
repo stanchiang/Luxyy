@@ -11,6 +11,9 @@ import Sheriff
 import Parse
 import CoreData
 import JSQSystemSoundPlayer
+import Analytics
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, loggedInDelegate {
@@ -22,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     
     let ParseAppIDString: String = "HxJxd5msq4LlDti4HkzBWtXp0A7djc0D6JUYikO4"
     let ParseClientKeyString: String = "Z6k85eiuum4IfAqLkfVXmeqrXWvKaCrdSd3nsCN0"
+    let SegmentWriteKey: String = "PLmeZdWun17I5KL55aXH5Q4kvqUXyA6u"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -43,6 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         }
         window!.makeKeyAndVisible()
         
+        let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)
+        SEGAnalytics.setupWithConfiguration(configuration)
+        
+        SEGAnalytics.sharedAnalytics().identify(PFUser.currentUser()?.objectId!, traits: ["email" : (PFUser.currentUser()?.email!)!])
+        
+        Fabric.with([Crashlytics.self()])
         
         return true
     }
@@ -61,6 +71,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         if form == 1 && to == 0 {
             print("moving from browser tab to collectionviews")
             NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
+        }
+        
+        if to == 0 {
+            print("now on profile screen")
+            SEGAnalytics.sharedAnalytics().screen("Profile")
+        }else if to == 1 {
+            print("now on browse screen")
+            SEGAnalytics.sharedAnalytics().screen("Browse")
+        }else {
+            print("now on messenger screen")
+            SEGAnalytics.sharedAnalytics().screen("Messenger")
         }
     }
     

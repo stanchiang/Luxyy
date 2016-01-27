@@ -22,6 +22,8 @@
 		F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92191C4AD437003257A6 /* CardModel.swift */; };
 		F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F921B1C4B0638003257A6 /* ProfileViewController.swift */; };
 		F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F66779A11C579444005EB56E /* yuanti-SC.ttf */; };
+		F66779A61C595A65005EB56E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A41C595A65005EB56E /* Fabric.framework */; };
+		F66779A71C595A65005EB56E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A51C595A65005EB56E /* Crashlytics.framework */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
@@ -68,6 +70,8 @@
 		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F64F921B1C4B0638003257A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F66779A11C579444005EB56E /* yuanti-SC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yuanti-SC.ttf"; sourceTree = "<group>"; };
+		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE78255FB2F5B5EC77B7539D /* Pods.framework in Frameworks */,
+				F66779A71C595A65005EB56E /* Crashlytics.framework in Frameworks */,
+				F66779A61C595A65005EB56E /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				F64F92051C4AB2A9003257A6 /* README.md */,
+				F66779A41C595A65005EB56E /* Fabric.framework */,
+				F66779A51C595A65005EB56E /* Crashlytics.framework */,
 				F6FB6B301C4AAACD00B167AF /* Luxyy */,
 				F6FB6B481C4AAACD00B167AF /* LuxyyTests */,
 				F6FB6B531C4AAACD00B167AF /* LuxyyUITests */,
@@ -226,6 +234,7 @@
 				F6FB6B2C1C4AAACD00B167AF /* Resources */,
 				F5D9F1BD1730FCD87418BEC1 /* Embed Pods Frameworks */,
 				3A22F95C832FA4077985571A /* Copy Pods Resources */,
+				F66779A31C595A24005EB56E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -390,6 +399,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F66779A31C595A24005EB56E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 2951ef362527fd4da03953f9e72b1cf4bad74625 21a56b6ba190c3ab62146119fd5b5dbad55822abc55cb2a1c2feabcbd26e9f5a";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -536,6 +558,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Luxyy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -550,6 +576,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Luxyy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

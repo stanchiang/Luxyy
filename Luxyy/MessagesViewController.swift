@@ -10,6 +10,7 @@ import UIKit
 import JSQMessagesViewController
 import Cartography
 import Parse
+import Analytics
 
 class MessagesViewController: JSQMessagesViewController {
     
@@ -172,7 +173,8 @@ class MessagesViewController: JSQMessagesViewController {
         messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             self.messages.append(message)
             self.finishSendingMessage()
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()            
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            SEGAnalytics.sharedAnalytics().track("message", properties: [text : messageObject.objectForKey("text")!])
         }
     }
     

@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Analytics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -87,17 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>24AADC7B49A9D15C58DAB045FA8FA75A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2ECF996C857313F919A7E5403DFE25C4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3BD19BEB6FED67FA8BACDE7CB332AC9B</key>
+		<key>38A5CB8DD871E0C5D1E09A63048B9E01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +102,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>824CCA7B022EE9F22AA49D8E7BDD7168</key>
+		<key>4E29B1B6B0FC139C9B3010C457F1C1B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>75083C20B94C91955443AC6147851BDB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>79F80AA965FE584E7AC51F5BA98FDAFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>95DB89A8BFC5FF0BF98458651D0163CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9B717ED787A28B9F8DDF28F72D47BDB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,7 +147,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9AF7D0E0A8533F44DB76A361DB3EB85</key>
+		<key>D01A8DFAD6A69FF366BFCD6C56A7225D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
