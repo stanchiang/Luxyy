@@ -6,9 +6,8 @@
 - ~~only allow https~~
 
 ### Analytics
-- implement segment
-- implement error tracking
-- implement user tracking
+- ~~implement segment user tracking~~
+- ~~implement error tracking~~
 
 ### navigation controller
 - ~~have icon animation like tinder (AHPagingMenuViewController)~~
