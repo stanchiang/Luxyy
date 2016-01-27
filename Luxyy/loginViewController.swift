@@ -14,15 +14,10 @@ protocol loggedInDelegate {
     func userAuthenticated()
 }
 
-protocol onboardingDelegate {
-    func loadOnboardingMessages()
-}
-
 class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate  {
 
     var logInViewController: PFLogInViewController!
     var delegate: loggedInDelegate!
-    var onboard: onboardingDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +43,15 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
         self.logInViewController.signUpController = signUpViewController
         signUpViewController.delegate = self
         signUpViewController.emailAsUsername = true
+        
+        let logoImageView: UIImageView = UIImageView(image: UIImage(named:"luxyy-Header"))
+        logoImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        self.logInViewController.logInView!.logo = logoImageView;
+        
+        let signupImageView: UIImageView = UIImageView(image: UIImage(named:"luxyy-Header"))
+        signupImageView.contentMode = UIViewContentMode.ScaleAspectFit
+        signUpViewController.signUpView!.logo = signupImageView
+        
         self.presentViewController(self.logInViewController,  animated: true, completion:nil)
 
     }
@@ -98,7 +102,7 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         print("did sign up")
         self.dismissViewControllerAnimated(true, completion: nil)
-        onboard.loadOnboardingMessages()
+        NSNotificationCenter.defaultCenter().postNotificationName("loadOnboardingMessages", object: nil)
         delegate.userAuthenticated()
     }
     

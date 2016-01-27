@@ -129,32 +129,74 @@ class DetailView: UIView, UIScrollViewDelegate {
     func addItemDetails() {
         let nameLabel = UILabel()
         nameLabel.text = watchName
-        
         let brandLabel = UILabel()
         brandLabel.text = watchBrand
-        
         let priceLabel = UILabel()
-        priceLabel.text = "$\(watchprice)"
+        priceLabel.text = "$\(NSString(format: "%.02f", watchprice))"
+        
+        let additionalInfoLabel = UILabel()
+        additionalInfoLabel.text = "Additional Information"
+        
+        let primaryInfo = [nameLabel, brandLabel, priceLabel, additionalInfoLabel]
+        
+        for label in primaryInfo {
+            
+            if label == primaryInfo[0] || label == primaryInfo[3] {
+                let gapView = UIView()
+                stackView.addArrangedSubview(gapView)
+                constrain(gapView) { view in
+                    view.height == 30
+                }
+            }
+            stackView.addArrangedSubview(label)
+        }
         
         let movementLabel = UILabel()
-        movementLabel.text = "Movement: \(watchmovement)"
+        let movementHeader = "Movement:"
+        movementLabel.text = watchmovement
         
         let functionLabel = UILabel()
-        functionLabel.text = "Functions: \(watchfunctions)"
+        let functionHeader = "Functions:"
+        functionLabel.text = watchfunctions
         
         let bandLabel = UILabel()
-        bandLabel.text = "Band: \(watchband)"
+        let bandHeader = "Band:"
+        bandLabel.text = watchband
         
         let variationsLabel = UILabel()
-        variationsLabel.text = "Variations: \(watchvariations)"
+        let variationHeader = "Variations:"
+        variationsLabel.text = watchvariations
         
         let refNumLabel = UILabel()
-        refNumLabel.text = "Reference Number: \(watchrefNum)"
+        let refNumHeader = "Reference Number:"
+        refNumLabel.text = watchrefNum
+  
+        let infoArray:[String:UILabel] = ["1":nameLabel, "2":brandLabel, "3":priceLabel, "4":additionalInfoLabel, movementHeader:movementLabel, functionHeader:functionLabel, bandHeader:bandLabel, variationHeader:variationsLabel, refNumHeader:refNumLabel]
         
-        let infoArray:[UILabel] = [nameLabel, brandLabel, priceLabel, movementLabel, functionLabel, bandLabel, variationsLabel, refNumLabel]
-        for label in infoArray {
+        for (header, label) in infoArray {
             label.numberOfLines = 0
-            stackView.addArrangedSubview(label)
+
+            if header == "1" || header == "2" || header == "3" || header == "4" {
+                label.font = UIFont(name: "Avenir", size: 20)
+                if header == "4" {
+                    label.font = UIFont.boldSystemFontOfSize(20.0)
+                }
+            } else {
+                let fullString = "\(header) \(label.text!)"
+                print(fullString)
+                let start = fullString.characters.count - label.text!.characters.count
+                var myMutableString = NSMutableAttributedString()
+                myMutableString = NSMutableAttributedString(string: fullString, attributes: [NSFontAttributeName:UIFont(name: "Avenir", size: 20)!])
+                myMutableString.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: NSMakeRange(start, label.text!.characters.count))
+                label.attributedText = myMutableString
+                stackView.addArrangedSubview(label)
+            }
+            
+            
+            constrain(label) { label in
+                label.leading == label.superview!.leading + 30
+                label.trailing == label.superview!.trailing - 30
+            }
         }
     }
     

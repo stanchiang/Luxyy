@@ -11,7 +11,7 @@ import JSQMessagesViewController
 import Cartography
 import Parse
 
-class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
+class MessagesViewController: JSQMessagesViewController {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
@@ -29,9 +29,9 @@ class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateChat:", name: "updateChat", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOnboardingMessages:", name: "loadOnboardingMessages", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissKeyBoard:", name: "dismissKeyBoard", object: nil)
         
         self.senderDisplayName = (PFUser.currentUser()?.username!)!
@@ -45,10 +45,7 @@ class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
         // Do any additional setup after loading the view.
         
         // lets me toggle the appearance of the attachments button
-        //        self.inputToolbar!.contentView!.leftBarButtonItem = nil
-        
-        // hides bar at the bottom
-        
+        self.inputToolbar!.contentView!.leftBarButtonItem = nil
         
 //        showSignUpOptions()
         
@@ -224,12 +221,11 @@ class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let onboardingMessages:[String] = [
-            "Welcome to Luxyy! An app made by watch geeks for watch geeks.",
-            "I'm LuxyyBot, think of me as your Siri for watches. Well, I'm not quite there yet. But the more you talk to me, the smarter I will get.",
-            "To start, let me show you around. There's two other screens besides this chat page",
-            "Move one screen over to the left, does that watch fit your style?",
-            "Swipe Right for Yes. Swipe Left for No. Tap for more information",
-            "If you move one more screen over, you will see your previous choices. Feel free to update your choices.",
+            "Welcome to Luxyy!",
+            "I'm Stanley, the developer of this app.",
+            "Over time, I hope this app becomes an indespensable tool to help you discover, track, and buy watches",
+            "Note: This is an Early Pre-Release Test, so please don't be too mad if there are still some kinks in the product",
+            "I highly encourage feedback through either this private chat or directly email me at stanley@getLuxyy.com",
         ]
         
         for msg in onboardingMessages {
@@ -244,10 +240,14 @@ class MessagesViewController: JSQMessagesViewController, onboardingDelegate {
             }
             
             messageObject["text"] = msg
-            messageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            
+            do {
+                try messageObject.save()
                 self.messages.append(JSQMessage(senderId: "E0u5zMTSEW", senderDisplayName: "Luxyy", date: NSDate(), text: msg))
                 self.finishSendingMessage()
                 JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            } catch {
+                print(error)
             }
         }
 

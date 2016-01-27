@@ -38,7 +38,7 @@
 - ~~update UI for buttons~~
 - ~~tap to zoom on image doesn't work from the fulllistview~~
 - ~~allow updating swipe decision~~
-- spec out the rest of this page
+- ~~apply some layouts to the text~~
 - disable swiping in browseVC until there are enough cards in the back to swipe
 
 ### profile page
@@ -63,3 +63,4 @@
 - ~~add login page~~
 - ~~setup push notifications / real time updating~~
 - ~~add message sending/receiving sound~~
+- ~~add photo send/receiving support~~

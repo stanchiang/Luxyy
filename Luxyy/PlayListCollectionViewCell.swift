@@ -28,9 +28,11 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(overlayView)
         
         bottomlabel = UILabel()
+        bottomlabel.textAlignment = .Center
         contentView.addSubview(bottomlabel)
         
         centerLabel = UILabel()
+        centerLabel.textAlignment = .Center
         contentView.addSubview(centerLabel)
         
     }
@@ -50,10 +52,11 @@ class PlayListCollectionViewCell: UICollectionViewCell {
         constrain(bottomlabel) { label in
             label.centerX == label.superview!.centerX
             label.bottom == label.superview!.bottom
+            label.height == 30
         }
         
         constrain(centerLabel, bottomlabel) { c, b in
-            c.centerX == c.superview!.centerX
+            c.centerX == b.centerX
             c.centerY == c.superview!.centerY
             c.bottom == b.top
             c.width == c.height
