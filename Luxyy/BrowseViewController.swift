@@ -51,6 +51,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SEGAnalytics.sharedAnalytics().identify(PFUser.currentUser()?.objectId!, traits: ["email" : (PFUser.currentUser()?.email!)!])
+        
         view.backgroundColor = UIColor.whiteColor()
         view.clipsToBounds = true
         view.userInteractionEnabled = false
@@ -252,7 +254,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
 
     func saveDecision(liked: Bool){
-
+        disableAllUserInteractions()
         liked ? print("liked") : print("skipped")
         
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
@@ -266,6 +268,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 updater.findObjectsInBackgroundWithBlock({ (object, error) -> Void in
                     guard let object = object else {
                         print(error)
+                        self.enableAllUserInteractions()
                         return
                     }
                     
@@ -273,15 +276,18 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     item.setObject(liked, forKey: "liked")
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
+                            self.enableAllUserInteractions()
                             print("was \(previousDecisionLiked) now \(liked)")
 //                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
                         }else {
+                            self.enableAllUserInteractions()
                             print("error \(error)")
                         }
                     })
                 })
 
             } else{
+                enableAllUserInteractions()
                 print("same decision")
             }
         } else{
@@ -292,8 +298,10 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             save["item"] = currentItem
             save.saveInBackgroundWithBlock { (success, error) -> Void in
                 if success {
+                    self.enableAllUserInteractions()
                     print("saved")
                 } else{
+                    self.enableAllUserInteractions()
                     print("error: \(error)")
                 }
             }
@@ -301,7 +309,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func checkForPossibleExistingDecision() -> Bool? {
-        
+        disableAllUserInteractions()
         let query = PFQuery(className: "Decision")
         query.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
         query.whereKey("user", equalTo: PFUser.currentUser()!)
@@ -309,14 +317,18 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             let result = try query.findObjects()
             if result.count > 0 {
                 if let decision = result[0].objectForKey("liked") as? Bool {
+                    enableAllUserInteractions()
                     return decision
                 } else {
+                    enableAllUserInteractions()
                     return nil
                 }
             } else {
+                enableAllUserInteractions()
                 return nil
             }
         } catch {
+            enableAllUserInteractions()
             return nil
         }
     }
@@ -326,6 +338,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func nextCardView() -> UIView? {
+        
+        disableAllUserInteractions()
         
         thecardView = CardView(frame: swipeableView.bounds)
         
@@ -340,11 +354,14 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         thecardView.addGestureRecognizer(self.tapToExpand)
         
         cardDefaultCenter = thecardView.convertPoint(thecardView.center, toCoordinateSpace: self.view)
-        
+        enableAllUserInteractions()
         return thecardView
     }
     
     func setImage(myCardView: CardView) {
+        
+//        disableAllUserInteractions()
+        
         let countQuery = PFQuery(className: "Item")
         countQuery.countObjectsInBackgroundWithBlock { (count, error) -> Void in
             if (error == nil) {
@@ -370,9 +387,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                         print("\(result.objectId) \(result.objectForKey("itemBrand")) \(result.objectForKey("itemName")) ")
                         if self.currentItem == nil {
                             self.updateCurrentItem()
-                            if !self.view.userInteractionEnabled {
-                                self.view.userInteractionEnabled = true
-                            }
                         }
                     })
                 }
@@ -495,5 +509,19 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     func loadDecision() {
         print("loading")
+    }
+    
+    func disableAllUserInteractions(){
+        view.userInteractionEnabled = false
+        likeButton.userInteractionEnabled = false
+        shareButton.userInteractionEnabled = false
+        skipButton.userInteractionEnabled = false
+    }
+    
+    func enableAllUserInteractions(){
+        view.userInteractionEnabled = true
+        likeButton.userInteractionEnabled = true
+        shareButton.userInteractionEnabled = true
+        skipButton.userInteractionEnabled = true
     }
 }

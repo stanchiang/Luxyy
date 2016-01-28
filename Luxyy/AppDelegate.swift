@@ -50,8 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         
-        SEGAnalytics.sharedAnalytics().identify(PFUser.currentUser()?.objectId!, traits: ["email" : (PFUser.currentUser()?.email!)!])
-        
         Fabric.with([Crashlytics.self()])
         
         return true
