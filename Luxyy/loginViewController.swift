@@ -102,6 +102,7 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
     // Sent to the delegate when a PFUser is signed up.
     func signUpViewController(signUpController: PFSignUpViewController, didSignUpUser user: PFUser) {
         print("did sign up")
+        SEGAnalytics.sharedAnalytics().identify(PFUser.currentUser()?.objectId!, traits: ["email" : (PFUser.currentUser()?.email!)!])
         SEGAnalytics.sharedAnalytics().track("Signed Up")
         self.dismissViewControllerAnimated(true, completion: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("loadOnboardingMessages", object: nil)

@@ -45,12 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         }
-        window!.makeKeyAndVisible()
         
         let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         
         Fabric.with([Crashlytics.self()])
+
+        window!.makeKeyAndVisible()
         
         return true
     }
@@ -126,7 +127,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         unreadMessagesBadge.badgeValue = 0
         UIApplication.sharedApplication().applicationIconBadgeNumber = unreadMessagesBadge.badgeValue
         self.window!.rootViewController = controller
-
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {

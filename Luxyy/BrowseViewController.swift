@@ -50,9 +50,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        SEGAnalytics.sharedAnalytics().identify(PFUser.currentUser()?.objectId!, traits: ["email" : (PFUser.currentUser()?.email!)!])
-        
         view.backgroundColor = UIColor.whiteColor()
         view.clipsToBounds = true
         view.userInteractionEnabled = false
