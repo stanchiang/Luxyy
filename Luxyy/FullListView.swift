@@ -179,6 +179,10 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         
     }
     
+    func dismissDetailExpandedView(sender: AnyObject) {
+        expanded.removeFromSuperview()
+    }
+    
     func addImageHandler(sender: UIGestureRecognizer){
         let theImageView = sender.view as! UIImageView
         let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
