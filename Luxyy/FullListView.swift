@@ -93,13 +93,14 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                 actualItem.whereKey("objectId", equalTo: itemID!!)
 
                 actualItem.findObjectsInBackgroundWithBlock({ (actualResult, error) -> Void in
-                    let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
-                    imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
-                        cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
-                        cell.imageView.image = UIImage(data: imageData!)
-                    })
-                    if cell.object == nil {
-                        cell.object = actualResult![0]
+                    if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PlayListCollectionViewCell {
+                        let imageFile:PFFile = actualResult![0].objectForKey("image")! as! PFFile
+                        imageFile.getDataInBackgroundWithBlock({ (imageData, error) -> Void in
+                            cell.imageView.image = UIImage(data: imageData!)
+                        })
+                        if cell.object == nil {
+                            cell.object = actualResult![0]
+                        }
                     }
                 })
             }else {

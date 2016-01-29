@@ -289,17 +289,19 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             let existing:Bool? = checkForPossibleExistingDecision()
             guard let previousDecisionLiked = existing else {
 //                print("new decision")
-                let save = PFObject(className: "Decision")
-                save["user"] = PFUser.currentUser()
-                save["liked"] = liked
-                save["item"] = currentItem
-                save.saveInBackgroundWithBlock { (success, error) -> Void in
-                    if success {
-                        self.enableAllUserInteractions()
-                        print("new decision saved")
-                    } else{
-                        self.enableAllUserInteractions()
-                        print("error: \(error)")
+                if currentItem != nil {
+                    let save = PFObject(className: "Decision")
+                    save["user"] = PFUser.currentUser()
+                    save["liked"] = liked
+                    save["item"] = currentItem
+                    save.saveInBackgroundWithBlock { (success, error) -> Void in
+                        if success {
+                            self.enableAllUserInteractions()
+                            print("new decision saved")
+                        } else{
+                            self.enableAllUserInteractions()
+                            print("error: \(error)")
+                        }
                     }
                 }
                 return ""
@@ -550,10 +552,15 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func disableAllUserInteractions(){
-        view.userInteractionEnabled = false
-        likeButton.userInteractionEnabled = false
-        shareButton.userInteractionEnabled = false
-        skipButton.userInteractionEnabled = false
+        view.userInteractionEnabled = true
+        likeButton.userInteractionEnabled = true
+        shareButton.userInteractionEnabled = true
+        skipButton.userInteractionEnabled = true
+        
+//        view.userInteractionEnabled = false
+//        likeButton.userInteractionEnabled = false
+//        shareButton.userInteractionEnabled = false
+//        skipButton.userInteractionEnabled = false
     }
     
     func enableAllUserInteractions(){
