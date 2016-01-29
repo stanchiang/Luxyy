@@ -119,7 +119,27 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         print("tapped cell \(indexPath.item + 1)")
         if indexPath.item == 0 {
             delegate.dismissFullList()
-        } else{
+        } else if indexPath.item == 1 {
+            if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
+                PFUser.logOut()
+                do {
+                    try PFUser.logInWithUsername("stanley@getluxyy.com", password: "aVD336af")
+                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+                    UIAlertView(title: "logged in as stanley@getLuxyy.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+                } catch {
+                    print(error)
+                }
+            } else {
+                PFUser.logOut()
+                do {
+                    try PFUser.logInWithUsername("stanchiang23@gmail.com", password: "aVD336af")
+                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+                    UIAlertView(title: "logged in as stanchiang23@gmail.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+                } catch {
+                    print(error)
+                }
+            }
+        }else{
             let selected: PlayListCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
             print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
             let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)

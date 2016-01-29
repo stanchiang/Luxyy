@@ -107,8 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         let profileVC = ProfileViewController()
         let browseVC = BrowseViewController()
-        let messageVC = MessengerContainerViewController()
-        
+        let messageVC:UIViewController = MessengerContainerViewController()
+
         let vcArray:NSArray = [profileVC, browseVC, messageVC]
         
         controller = AHPagingMenuViewController(controllers: vcArray, icons: NSArray(array: [UIImage(named:"conf")!, UIImage(named:"Luxyy")!, UIImage(named:"message")! ]), position:1)

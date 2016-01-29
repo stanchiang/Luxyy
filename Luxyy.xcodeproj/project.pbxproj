@@ -24,6 +24,7 @@
 		F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F66779A11C579444005EB56E /* yuanti-SC.ttf */; };
 		F66779A61C595A65005EB56E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A41C595A65005EB56E /* Fabric.framework */; };
 		F66779A71C595A65005EB56E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A51C595A65005EB56E /* Crashlytics.framework */; };
+		F66779A91C59F285005EB56E /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66779A81C59F285005EB56E /* ConversationListViewController.swift */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
@@ -72,6 +73,7 @@
 		F66779A11C579444005EB56E /* yuanti-SC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yuanti-SC.ttf"; sourceTree = "<group>"; };
 		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		F66779A81C59F285005EB56E /* ConversationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */,
 				F64F92091C4ABF46003257A6 /* MessagesViewController.swift */,
+				F66779A81C59F285005EB56E /* ConversationListViewController.swift */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */,
 				F6FF69C31C4C7BF200230FB4 /* loginViewController.swift in Sources */,
 				F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */,
+				F66779A91C59F285005EB56E /* ConversationListViewController.swift in Sources */,
 				F64F92121C4AD385003257A6 /* BrowseViewController.swift in Sources */,
 				F64F92081C4ABC9E003257A6 /* AHPagingMenuViewController.swift in Sources */,
 			);

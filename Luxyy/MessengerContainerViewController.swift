@@ -7,23 +7,45 @@
 //
 
 import UIKit
+import Parse
 
-class MessengerContainerViewController: UIViewController {
+class MessengerContainerViewController: UIViewController, conversationDelegate, messagesDelegate {
 
+    var convoList:ConversationListViewController!
+    var messenger:MessagesViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let messenger = MessagesViewController()
-        self.addChildViewController(messenger)
-        self.view.addSubview(messenger.view)
-        messenger.didMoveToParentViewController(self)
-        
+        PFUser.currentUser()?.objectId == "E0u5zMTSEW" ? showConvoList() : showMessenger("")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func showConvoList(){
+        convoList = ConversationListViewController()
+        convoList.delegate = self
+        addVC(convoList)
     }
-
-
+    
+    func showMessenger(userId:String){
+        messenger = MessagesViewController()
+        messenger.delegate = self
+        messenger.otherUser = userId
+        addVC(messenger)
+    }
+    
+    func addVC(vc:UIViewController){
+        self.addChildViewController(vc)
+        self.view.addSubview(vc.view)
+        vc.didMoveToParentViewController(self)
+    }
+    
+    func removeThisChat(chat:MessagesViewController){
+        self.willMoveToParentViewController(convoList)
+        chat.view.removeFromSuperview()
+    }
+    
+    func switchToThisChat(userId: String) {
+        print(userId)
+        showMessenger(userId)
+    }
+    
 }

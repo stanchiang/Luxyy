@@ -12,10 +12,17 @@ import Cartography
 import Parse
 import Analytics
 
+protocol messagesDelegate {
+    func removeThisChat(chat:MessagesViewController)
+}
+
 class MessagesViewController: JSQMessagesViewController {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
+    
+    var delegate:messagesDelegate!
+    var otherUser:String!
     
     var messages:[JSQMessage]!
     var incomingBubble:JSQMessagesBubbleImage!
@@ -46,7 +53,11 @@ class MessagesViewController: JSQMessagesViewController {
         // Do any additional setup after loading the view.
         
         // lets me toggle the appearance of the attachments button
-        self.inputToolbar!.contentView!.leftBarButtonItem = nil
+        print("\(PFUser.currentUser()?.objectId!) is talking to \(otherUser)")
+        
+        if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
+            self.inputToolbar!.contentView!.leftBarButtonItem = nil
+        }
         
 //        showSignUpOptions()
         
@@ -74,12 +85,12 @@ class MessagesViewController: JSQMessagesViewController {
         let groupId: String!
         
         if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
-            groupId = "E0u5zMTSEWjHCAZoBM2M"
+            groupId = "E0u5zMTSEW\(otherUser)"
         } else {
             groupId = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
         }
         
-        print(groupId)
+        print("loading this chat: \(groupId)")
         query.whereKey("groupId", equalTo: groupId)
         query.orderByAscending("createdAt")
         query.findObjectsInBackgroundWithBlock { (objects, error) -> Void in
@@ -93,6 +104,7 @@ class MessagesViewController: JSQMessagesViewController {
             
             for object in objects {
                 let senderID = (object.objectForKey("user")?.objectId)!
+                print(senderID)
                 let text = object.objectForKey("text") as! String
                 self.messages.append(JSQMessage(senderId: senderID, displayName: "name", text: text))
                 self.finishSendingMessage()
@@ -164,7 +176,7 @@ class MessagesViewController: JSQMessagesViewController {
         messageObject["user"] = currentUser
 
         if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
-            messageObject["groupId"] = "E0u5zMTSEWjHCAZoBM2M"
+            messageObject["groupId"] = "E0u5zMTSEW\(otherUser)"
         } else {
             messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
         }
@@ -179,12 +191,7 @@ class MessagesViewController: JSQMessagesViewController {
     }
     
     override func didPressAccessoryButton(sender: UIButton!) {
-        let message = JSQMessage(senderId: "1234", senderDisplayName: "app", date: NSDate(), text: "who goes there?")
-        self.messages.append(message)
-        self.finishSendingMessage()
-        print(message.senderId)
-        print(message.senderDisplayName)
-        print(message.text);
+        delegate.removeThisChat(self)
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
@@ -194,6 +201,7 @@ class MessagesViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         let msg = self.messages[indexPath.row]
+        print(msg.senderId)
         if(msg.senderId == self.senderId){
             return self.outgoingBubble
         }else{
@@ -230,29 +238,36 @@ class MessagesViewController: JSQMessagesViewController {
             "I highly encourage feedback through either this private chat or directly email me at stanley@getLuxyy.com",
         ]
         
-        for msg in onboardingMessages {
+        do {
             
-            let messageObject = PFObject(className: "Message")
-            messageObject["user"] = PFUser.currentUser()!
-            
-            if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
-                messageObject["groupId"] = "E0u5zMTSEWjHCAZoBM2M"
-            } else {
-                messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
-            }
-            
-            messageObject["text"] = msg
-            
-            do {
-                try messageObject.save()
-                self.messages.append(JSQMessage(senderId: "E0u5zMTSEW", senderDisplayName: "Luxyy", date: NSDate(), text: msg))
-                self.finishSendingMessage()
-                JSQSystemSoundPlayer.jsq_playMessageSentSound()
-            } catch {
-                print(error)
-            }
-        }
+            let findLuxyy = PFUser.query()
+            findLuxyy?.whereKey("objectId", equalTo: "E0u5zMTSEW")
+            print("going to find luxyy")
+            let Luxyy = try findLuxyy!.findObjects()[0]
 
+            for msg in onboardingMessages {
+                
+                let messageObject = PFObject(className: "Message")
+                
+                
+                messageObject["user"] = Luxyy
+                messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+                messageObject["text"] = msg
+                
+                do {
+                    try messageObject.save()
+                    self.messages.append(JSQMessage(senderId: "E0u5zMTSEW", senderDisplayName: "Luxyy", date: NSDate(), text: msg))
+                    self.finishSendingMessage()
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                } catch {
+                    print(error)
+                }
+            }            
+        } catch {
+            print(error)
+        }
+        
+        
         appDelegate.unreadMessagesBadge.badgeValue = onboardingMessages.count
         
     }
