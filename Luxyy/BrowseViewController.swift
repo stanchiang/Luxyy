@@ -35,6 +35,8 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     var currentItem: PFObject!
     
+    var wait:Bool = false
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -169,9 +171,24 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         }
         
         swipeableView.didSwipe = { (view: UIView, inDirection: Direction, directionVector: CGVector) in
+            
+            let active = self.swipeableView.activeViews()
+            let second = (active[1] as! CardView).itemObject
+//            if self.wait {
+            
+            if second != nil {
+//                    self.disableAllUserInteractions()
+//                    print("disabled")
+//                }else {
+//                    self.enableAllUserInteractions()
+//                    print("enabled?")
+//                }
+//            
+            
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             if inDirection == Direction.Right {
                 appDelegate.backgroundThread(0, background: { () -> AnyObject in
+                    print("starting to save")
                     self.saveDecision(true)
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
                     self.updateCurrentItem()
@@ -184,6 +201,9 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     self.updateCurrentItem()
                     return ""
                 }, completion: nil)
+            }
+            } else {
+                print("swiped but handling the nil")
             }
         }
     }
@@ -259,11 +279,32 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         }
     }
 
-    func saveDecision(liked: Bool){
+    func saveDecision(liked: Bool) -> AnyObject {
         disableAllUserInteractions()
 //        liked ? print("liked") : print("skipped")
-        
-        if let previousDecisionLiked = checkForPossibleExistingDecision() {
+        let active = self.swipeableView.activeViews()
+        let second = (active[1] as! CardView).itemObject
+        if second != nil {
+            print("normal state - now checking for any older decisions")
+            let existing:Bool? = checkForPossibleExistingDecision()
+            guard let previousDecisionLiked = existing else {
+//                print("new decision")
+                let save = PFObject(className: "Decision")
+                save["user"] = PFUser.currentUser()
+                save["liked"] = liked
+                save["item"] = currentItem
+                save.saveInBackgroundWithBlock { (success, error) -> Void in
+                    if success {
+                        self.enableAllUserInteractions()
+                        print("new decision saved")
+                    } else{
+                        self.enableAllUserInteractions()
+                        print("error: \(error)")
+                    }
+                }
+                return ""
+            }
+                
             if liked != previousDecisionLiked {
                 
                 let updater = PFQuery(className: "Decision")
@@ -278,40 +319,35 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
                             self.enableAllUserInteractions()
-//                            print("was \(previousDecisionLiked) now \(liked)")
-//                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+                            print("old decision updated")
                         }else {
                             self.enableAllUserInteractions()
                             print("error \(error)")
                         }
                     })
                 })
-
             } else{
                 enableAllUserInteractions()
-//                print("same decision")
-            }
-        } else{
-            print("new decision")
-            let save = PFObject(className: "Decision")
-            save["user"] = PFUser.currentUser()
-            save["liked"] = liked
-            save["item"] = currentItem
-            save.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    self.enableAllUserInteractions()
-                    print("saved")
-                } else{
-                    self.enableAllUserInteractions()
-                    print("error: \(error)")
-                }
+    //                print("same decision")
             }
         }
+        return ""
     }
     
     func checkForPossibleExistingDecision() -> Bool? {
+        print("checking for old decision")
         disableAllUserInteractions()
+        let active = self.swipeableView.activeViews()
+        let second = (active[1] as! CardView).itemObject
+        
+        if second != nil {
+            print("not enough cards, returning nil")
+            wait = true
+            return nil
+        }
+        
         let query = PFQuery(className: "Decision")
+        
         query.whereKey("item", equalTo: (self.swipeableView.topView() as! CardView).itemObject)
         query.whereKey("user", equalTo: PFUser.currentUser()!)
         do {
@@ -319,6 +355,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             if result.count > 0 {
                 if let decision = result[0].objectForKey("liked") as? Bool {
                     enableAllUserInteractions()
+                    print("found old decision")
                     return decision
                 } else {
                     enableAllUserInteractions()
