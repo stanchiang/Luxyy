@@ -44,6 +44,7 @@
 - ~~have a collection view with 2 playlists liked and disliked~~
 - ~~design a UI for the cells~~
 - ~~disallow tapping if there aren't any decision records for save/skip'~~
+- add settings for signout and take user to login page
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
@@ -62,4 +63,5 @@
 - ~~add login page~~
 - ~~setup push notifications / real time updating~~
 - ~~add message sending/receiving sound~~
-- ~~add photo send/receiving support~~
+- ~~allow admin to chat with all users~~
+- add photo send/receiving support

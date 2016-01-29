@@ -176,31 +176,35 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
                     self.updateCurrentItem()
                     return ""
-                    }, completion: nil)
+                }, completion: nil)
             } else  {
                 appDelegate.backgroundThread(0, background: { () -> AnyObject in
                     self.saveDecision(false)
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
                     self.updateCurrentItem()
                     return ""
-                    }, completion: nil)
+                }, completion: nil)
             }
         }
     }
     
     func skipAction(sender: AnyObject){
-        SEGAnalytics.sharedAnalytics().track(
-            "made a decision",
-            properties: [
-                "decider" : (PFUser.currentUser()?.objectId!)!,
-                "liked": false,
-                "objectId" : currentItem.objectId!,
-                "itemName":currentItem.objectForKey("itemName")!,
-                "itemBrand":currentItem.objectForKey("itemBrand")!,
-                "price":currentItem.objectForKey("price")!
-            ]
-        )
-        self.swipeableView.swipeTopView(inDirection: .Left)
+        let active = self.swipeableView.activeViews()
+        let second = (active[1] as! CardView).itemObject
+        if second != nil {
+            SEGAnalytics.sharedAnalytics().track(
+                "made a decision",
+                properties: [
+                    "decider" : (PFUser.currentUser()?.objectId!)!,
+                    "liked": false,
+                    "objectId" : currentItem.objectId!,
+                    "itemName":currentItem.objectForKey("itemName")!,
+                    "itemBrand":currentItem.objectForKey("itemBrand")!,
+                    "price":currentItem.objectForKey("price")!
+                ]
+            )
+            self.swipeableView.swipeTopView(inDirection: .Left)
+        }
     }
     
     func captureScreenShot() -> UIImage {
@@ -236,23 +240,28 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func likeAction(sender: AnyObject){
-        self.swipeableView.swipeTopView(inDirection: .Right)
-        SEGAnalytics.sharedAnalytics().track(
-            "made a decision",
-            properties: [
-                "decider" : (PFUser.currentUser()?.objectId!)!,
-                "liked": true,
-                "objectId" : currentItem.objectId!,
-                "itemName":currentItem.objectForKey("itemName")!,
-                "itemBrand":currentItem.objectForKey("itemBrand")!,
-                "price":currentItem.objectForKey("price")!
-            ]
-        )
+        
+        let active = self.swipeableView.activeViews()
+        let second = (active[1] as! CardView).itemObject
+        if second != nil {
+            self.swipeableView.swipeTopView(inDirection: .Right)
+            SEGAnalytics.sharedAnalytics().track(
+                "made a decision",
+                properties: [
+                    "decider" : (PFUser.currentUser()?.objectId!)!,
+                    "liked": true,
+                    "objectId" : currentItem.objectId!,
+                    "itemName":currentItem.objectForKey("itemName")!,
+                    "itemBrand":currentItem.objectForKey("itemBrand")!,
+                    "price":currentItem.objectForKey("price")!
+                ]
+            )
+        }
     }
 
     func saveDecision(liked: Bool){
         disableAllUserInteractions()
-        liked ? print("liked") : print("skipped")
+//        liked ? print("liked") : print("skipped")
         
         if let previousDecisionLiked = checkForPossibleExistingDecision() {
             if liked != previousDecisionLiked {
@@ -263,18 +272,13 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                 updater.whereKey("liked", equalTo: previousDecisionLiked)
                 
                 updater.findObjectsInBackgroundWithBlock({ (object, error) -> Void in
-                    guard let object = object else {
-                        print(error)
-                        self.enableAllUserInteractions()
-                        return
-                    }
                     
-                    let item = object[0]
+                    let item = object![0]
                     item.setObject(liked, forKey: "liked")
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
                             self.enableAllUserInteractions()
-                            print("was \(previousDecisionLiked) now \(liked)")
+//                            print("was \(previousDecisionLiked) now \(liked)")
 //                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
                         }else {
                             self.enableAllUserInteractions()
@@ -285,7 +289,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
 
             } else{
                 enableAllUserInteractions()
-                print("same decision")
+//                print("same decision")
             }
         } else{
             print("new decision")
@@ -381,7 +385,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                         }
                         myCardView.imageView.image = UIImage(data: data)
                         myCardView.itemObject = result
-                        print("\(result.objectId) \(result.objectForKey("itemBrand")) \(result.objectForKey("itemName")) ")
+//                        print("\(result.objectId) \(result.objectForKey("itemBrand")) \(result.objectForKey("itemName")) ")
                         if self.currentItem == nil {
                             self.updateCurrentItem()
                         }
@@ -462,7 +466,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     
     func updateOverlayImage(myCardView: CardView) {
         swipeableView.swiping = { (view: UIView, atLocation: CGPoint, translation: CGPoint) in
-            print(atLocation)
+//            print(atLocation)
         }
     }
     
@@ -490,17 +494,17 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func updateCurrentItem(){
-        print("updating")
         if currentItem == nil {
             if let item = (self.swipeableView.activeViews().first as? CardView)?.itemObject {
                 currentItem = item
-                print("starting with \(currentItem!)")
+//                print("starting with \(currentItem!)")
             } else {
-                print("couldn't load")
+//                print("couldn't load")
             }
         } else {
             currentItem = (self.swipeableView.topView() as! CardView).itemObject
-            print("updating to \(currentItem!)")
+//            print("updating to \(currentItem!)")
+            
         }
     }
     
