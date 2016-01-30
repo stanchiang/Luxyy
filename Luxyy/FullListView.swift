@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Cartography
 
 protocol fullListDelegate{
     func dismissFullList()
@@ -35,6 +36,8 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var listName:String!
     var expanded: expandedImageView!
     
+    var goBack:UIGestureRecognizer!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -52,15 +55,55 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         let cellWidth = self.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
+        let toolBar = UIView(frame: CGRectMake(0, 0, self.frame.width, cellWidth / 3))
+        self.addSubview(toolBar)
+        
+        let backButton = UIButton()
+        backButton.frame = CGRectMake(0, 0, toolBar.frame.width / 4, toolBar.frame.height)
+        backButton.backgroundColor = UIColor.whiteColor()
+        backButton.setTitle("Back", forState: UIControlState.Normal)
+        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        toolBar.addSubview(backButton)
+
+        let searchButton = UIButton()
+        searchButton.frame = CGRectMake(toolBar.frame.width / 4, 0, toolBar.frame.width / 2, toolBar.frame.height)
+        searchButton.layer.backgroundColor = UIColor.lightGrayColor().CGColor
+        searchButton.setTitle("Search", forState: UIControlState.Normal)
+        toolBar.addSubview(searchButton)
+
+        let filterButton = UIButton()
+        filterButton.frame = CGRectMake(toolBar.frame.width * 3 / 4, 0, toolBar.frame.width / 4, toolBar.frame.height)
+        filterButton.layer.backgroundColor = UIColor.darkGrayColor().CGColor
+        filterButton.setTitle("Filter", forState: UIControlState.Normal)
+        toolBar.addSubview(filterButton)
+        
+        goBack = UITapGestureRecognizer(target: self, action: "backButtonAction:")
+        backButton.addGestureRecognizer(self.goBack)
+        
+        
         list = delegate.getList(name)
         listName = name
         
-        collectionView = UICollectionView(frame: self.frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRectMake(0, cellWidth / 3, self.frame.width, self.frame.height - cellWidth / 3), collectionViewLayout: layout)
+//        collectionView.collectionViewLayout = layout
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.registerClass(PlayListCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.whiteColor()
         self.addSubview(collectionView)
+        
+//        constrain(toolBar, collectionView) { t, c in
+//            t.width == t.superview!.width
+//            t.height == 50
+//            t.leading == t.superview!.leading
+//            t.trailing == t.superview!.trailing
+//            c.top == t.bottom
+//            c.leading == c.superview!.leading
+//            c.trailing == c.superview!.trailing
+//            c.bottom == c.superview!.bottom
+//        }
+//        collectionView.setNeedsDisplay()
+//        collectionView.setNeedsUpdateConstraints()
     }
     
     func reloadCollectionView(note: NSNotification){
@@ -118,29 +161,29 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("tapped cell \(indexPath.item + 1)")
-        if indexPath.item == 0 {
-            delegate.dismissFullList()
-        } else if indexPath.item == 1 {
-            if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
-                PFUser.logOut()
-                do {
-                    try PFUser.logInWithUsername("stanley@getluxyy.com", password: "aVD336af")
-                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
-                    UIAlertView(title: "logged in as stanley@getLuxyy.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
-                } catch {
-                    print(error)
-                }
-            } else {
-                PFUser.logOut()
-                do {
-                    try PFUser.logInWithUsername("stanchiang23@gmail.com", password: "aVD336af")
-                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
-                    UIAlertView(title: "logged in as stanchiang23@gmail.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
-                } catch {
-                    print(error)
-                }
-            }
-        }else{
+//        if indexPath.item == 0 {
+//            delegate.dismissFullList()
+//        } else if indexPath.item == 1 {
+//            if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
+//                PFUser.logOut()
+//                do {
+//                    try PFUser.logInWithUsername("stanley@getluxyy.com", password: "aVD336af")
+//                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+//                    UIAlertView(title: "logged in as stanley@getLuxyy.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+//                } catch {
+//                    print(error)
+//                }
+//            } else {
+//                PFUser.logOut()
+//                do {
+//                    try PFUser.logInWithUsername("stanchiang23@gmail.com", password: "aVD336af")
+//                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
+//                    UIAlertView(title: "logged in as stanchiang23@gmail.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
+//                } catch {
+//                    print(error)
+//                }
+//            }
+//        }else{
             let selected: PlayListCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
             print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
             let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
@@ -161,7 +204,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
             detailView.delegate = self
             detailView.setup()
             self.addSubview(detailView)
-        }
+//        }
     }
     
     func dismissDetailView(sender: AnyObject) {
@@ -230,6 +273,10 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         print("locating source from the collection view")
     }
 
+    func backButtonAction(sender: AnyObject){
+        delegate.dismissFullList()
+    }
+    
     func saveDecision(liked: Bool){
         
         liked ? print("liked") : print("skipped")
