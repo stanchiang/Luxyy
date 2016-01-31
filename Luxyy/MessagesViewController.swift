@@ -16,7 +16,7 @@ protocol messagesDelegate {
     func removeThisChat(chat:MessagesViewController)
 }
 
-class MessagesViewController: JSQMessagesViewController {
+class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
@@ -54,10 +54,6 @@ class MessagesViewController: JSQMessagesViewController {
         
         // lets me toggle the appearance of the attachments button
         print("\(PFUser.currentUser()?.objectId!) is talking to \(otherUser)")
-        
-        if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
-            self.inputToolbar!.contentView!.leftBarButtonItem = nil
-        }
         
 //        showSignUpOptions()
         
@@ -191,8 +187,62 @@ class MessagesViewController: JSQMessagesViewController {
     }
     
     override func didPressAccessoryButton(sender: UIButton!) {
-        delegate.removeThisChat(self)
+        let  sheet : UIActionSheet!
+        
+        if PFUser.currentUser()?.objectId == "E0u5zMTSEW" {
+            sheet = UIActionSheet(title: "Media messages"  ,
+                delegate: self              ,
+                cancelButtonTitle: "Cancel"          ,
+                destructiveButtonTitle: nil               ,
+                otherButtonTitles: "Select photo", "Current Watch", "Back to List")
+        } else {
+            sheet = UIActionSheet(title: "Media messages"  ,
+                delegate: self              ,
+                cancelButtonTitle: "Cancel"          ,
+                destructiveButtonTitle: nil               ,
+                otherButtonTitles: "Select photo", "Current Watch")
+        }
+
+        
+        
+        
+        sheet.showFromToolbar(self.inputToolbar!)
+
+//        delegate.removeThisChat(self)
     }
+    
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        
+        if (buttonIndex == actionSheet.cancelButtonIndex) {
+            return;
+        }
+        
+        switch (buttonIndex) {
+        
+        case 1:
+            let photoItem         = JSQPhotoMediaItem( image: UIImage( named:"goldengate" )  )
+            let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
+            messages.append(photoMessage)
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        
+        case 2:
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let photoItem         = JSQPhotoMediaItem(image: appDelegate.globalImage)
+            let photoMessage      = JSQMessage(senderId: PFUser.currentUser()?.objectId!, displayName: PFUser.currentUser()?.objectId!, media:photoItem)
+            messages.append(photoMessage)
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            self.collectionView!.reloadData()
+
+        case 3:
+            delegate.removeThisChat(self)
+            
+        default:
+            // Swift require switch to be exhaustive.
+            NSLog("%s error: unrecognized button index, line :%s", __FUNCTION__, __LINE__)
+        }
+
+    }
+
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
         
@@ -272,3 +322,10 @@ class MessagesViewController: JSQMessagesViewController {
         
     }
 }
+
+/*
+let photoItem         = JSQPhotoMediaItem( image: UIImage( named:"goldengate" )  )
+let photoMessage      = JSQMessage(     senderId: kJSQDemoAvatarIdSquires, displayName:kJSQDemoAvatarDisplayNameSquires, media:photoItem)
+
+messages.append(photoMessage)
+*/

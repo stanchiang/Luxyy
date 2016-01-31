@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     var controller: AHPagingMenuViewController!
     var defaultACL: PFACL!
     var unreadMessagesBadge:GIBadgeView!
+    var globalImage:UIImage!
     
     let ParseAppIDString: String = "HxJxd5msq4LlDti4HkzBWtXp0A7djc0D6JUYikO4"
     let ParseClientKeyString: String = "Z6k85eiuum4IfAqLkfVXmeqrXWvKaCrdSd3nsCN0"

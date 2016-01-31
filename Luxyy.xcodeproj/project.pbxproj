@@ -297,6 +297,14 @@
 					F6FB6B2D1C4AAACD00B167AF = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 4C8V97R8N3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					F6FB6B441C4AAACD00B167AF = {
 						CreatedOnToolsVersion = 7.2;
@@ -571,6 +579,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7495c6cb-7221-443a-ae03-514424be0d5d";
 			};
 			name = Debug;
 		};
@@ -589,6 +598,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7495c6cb-7221-443a-ae03-514424be0d5d";
 			};
 			name = Release;
 		};

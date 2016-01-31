@@ -533,17 +533,15 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func updateCurrentItem(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if currentItem == nil {
             if let item = (self.swipeableView.activeViews().first as? CardView)?.itemObject {
                 currentItem = item
-//                print("starting with \(currentItem!)")
-            } else {
-//                print("couldn't load")
+                appDelegate.globalImage = (self.swipeableView.activeViews().first as? CardView)?.imageView.image!
             }
         } else {
             currentItem = (self.swipeableView.topView() as! CardView).itemObject
-//            print("updating to \(currentItem!)")
-            
+            appDelegate.globalImage = (self.swipeableView.topView() as! CardView).imageView.image!
         }
     }
     
