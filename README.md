@@ -65,4 +65,6 @@
 - ~~setup push notifications / real time updating~~
 - ~~add message sending/receiving sound~~
 - ~~allow admin to chat with all users~~
-- ~~add photo send/receiving support~~
+- ~~add photo library send/receiving support~~
+- ~~add cammera photo send/receiving support~~
+- ~~take current item's photo send support~~

@@ -11,12 +11,13 @@ import JSQMessagesViewController
 import Cartography
 import Parse
 import Analytics
+import MobileCoreServices
 
 protocol messagesDelegate {
     func removeThisChat(chat:MessagesViewController)
 }
 
-class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
+class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
@@ -54,9 +55,7 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
         
         // lets me toggle the appearance of the attachments button
         print("\(PFUser.currentUser()?.objectId!) is talking to \(otherUser)")
-        
 //        showSignUpOptions()
-        
         loadMessages()
         
     }
@@ -205,22 +204,19 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
         let  sheet : UIActionSheet!
         
         if PFUser.currentUser()?.objectId == "E0u5zMTSEW" {
-            sheet = UIActionSheet(title: "Media messages"  ,
-                delegate: self              ,
-                cancelButtonTitle: "Cancel"          ,
-                destructiveButtonTitle: nil               ,
-                otherButtonTitles: "Select photo", "Current Watch", "Back to List")
+            sheet = UIActionSheet(title: "Media messages",
+                delegate: self,
+                cancelButtonTitle: "Cancel",
+                destructiveButtonTitle: nil,
+                otherButtonTitles: "Take a Photo", "Select a photo", "Current Watch", "Back to List")
         } else {
-            sheet = UIActionSheet(title: "Media messages"  ,
-                delegate: self              ,
-                cancelButtonTitle: "Cancel"          ,
-                destructiveButtonTitle: nil               ,
-                otherButtonTitles: "Select photo", "Current Watch")
+            sheet = UIActionSheet(title: "Media messages",
+                delegate: self,
+                cancelButtonTitle: "Cancel",
+                destructiveButtonTitle: nil,
+                otherButtonTitles: "Take a Photo", "Select photo", "Current Watch")
         }
 
-        
-        
-        
         sheet.showFromToolbar(self.inputToolbar!)
 
 //        delegate.removeThisChat(self)
@@ -233,14 +229,29 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
         }
         
         switch (buttonIndex) {
-        
         case 1:
-            let photoItem         = JSQPhotoMediaItem( image: UIImage( named:"goldengate" )  )
-            let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
-            messages.append(photoMessage)
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
-        
+            print("open camera")
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
+                let cameraUI = UIImagePickerController()
+                cameraUI.delegate = self
+                cameraUI.sourceType = UIImagePickerControllerSourceType.Camera;
+                cameraUI.allowsEditing = false
+                
+                self.presentViewController(cameraUI, animated: true, completion: nil)
+            }
+
         case 2:
+            print("open gallery")
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
+                print("Button capture")
+                let imag = UIImagePickerController()
+                imag.delegate = self
+                imag.sourceType = UIImagePickerControllerSourceType.PhotoLibrary;
+                imag.allowsEditing = false
+                self.presentViewController(imag, animated: true, completion: nil)
+            }
+            
+        case 3:
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let photoItem         = JSQPhotoMediaItem(image: appDelegate.globalImage)
             let photoMessage      = JSQMessage(senderId: PFUser.currentUser()?.objectId!, displayName: PFUser.currentUser()?.objectId!, media:photoItem)
@@ -265,7 +276,7 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
                 print(error)
             }
 
-        case 3:
+        case 4:
             delegate.removeThisChat(self)
             
         default:
@@ -334,7 +345,6 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
                 
                 let messageObject = PFObject(className: "Message")
                 
-                
                 messageObject["user"] = Luxyy
                 messageObject["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
                 messageObject["text"] = msg
@@ -356,11 +366,17 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
         appDelegate.unreadMessagesBadge.badgeValue = onboardingMessages.count
         
     }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        let photoItem         = JSQPhotoMediaItem( image: image)
+        let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
+        messages.append(photoMessage)
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        self.finishSendingMessage()
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
-
-/*
-let photoItem         = JSQPhotoMediaItem( image: UIImage( named:"goldengate" )  )
-let photoMessage      = JSQMessage(     senderId: kJSQDemoAvatarIdSquires, displayName:kJSQDemoAvatarDisplayNameSquires, media:photoItem)
-
-messages.append(photoMessage)
-*/
