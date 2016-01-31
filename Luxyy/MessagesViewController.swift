@@ -323,6 +323,10 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
         return cell
     }
     
+    override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
+        print(indexPath.item)
+    }
+    
     func loadOnboardingMessages() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -368,11 +372,30 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        let photoItem         = JSQPhotoMediaItem( image: image)
-        let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
-        messages.append(photoMessage)
-        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-        self.finishSendingMessage()
+        
+        let png = UIImageJPEGRepresentation(image, 1.0)
+        let file = PFFile(data: png!)
+        let newMessage = PFObject(className: "Message")
+        newMessage["user"] = PFUser.currentUser()
+        if PFUser.currentUser()?.objectId == "E0u5zMTSEW" {
+            newMessage["groupId"] = "E0u5zMTSEW\(otherUser)"
+        } else {
+            newMessage["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+        }
+        newMessage["picture"] = file
+
+        do {
+            try newMessage.save()
+            let photoItem         = JSQPhotoMediaItem( image: image)
+            let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
+            messages.append(photoMessage)
+            JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            self.finishSendingMessage()            
+        } catch {
+            print(error)
+        }
+        
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
