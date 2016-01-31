@@ -43,7 +43,7 @@
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
 - ~~design a UI for the cells~~
-- ~~disallow tapping if there aren't any decision records for save/skip'~~
+- ~~disallow tapping if there aren't any decision records for save/skip~~
 - add settings for signout and take user to login page
 
 ##### playlistDetail
@@ -68,4 +68,5 @@
 - ~~add photo library send/receiving support~~
 - ~~add cammera photo send/receiving support~~
 - ~~take current item's photo send support~~
-- implement progress bar for image uploading
+- ~~implement progress bar for image uploading~~
+- receive push notifications

@@ -18,7 +18,6 @@
 		F64F92121C4AD385003257A6 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92111C4AD385003257A6 /* BrowseViewController.swift */; };
 		F64F92151C4AD3C7003257A6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92131C4AD3C7003257A6 /* DetailView.swift */; };
 		F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92141C4AD3C7003257A6 /* expandedImageView.swift */; };
-		F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92171C4AD3F5003257A6 /* ShareButton.swift */; };
 		F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F92191C4AD437003257A6 /* CardModel.swift */; };
 		F64F921C1C4B0638003257A6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F921B1C4B0638003257A6 /* ProfileViewController.swift */; };
 		F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F66779A11C579444005EB56E /* yuanti-SC.ttf */; };
@@ -67,12 +66,11 @@
 		F64F92111C4AD385003257A6 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		F64F92131C4AD3C7003257A6 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		F64F92141C4AD3C7003257A6 /* expandedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = expandedImageView.swift; sourceTree = "<group>"; };
-		F64F92171C4AD3F5003257A6 /* ShareButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F64F921B1C4B0638003257A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F66779A11C579444005EB56E /* yuanti-SC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yuanti-SC.ttf"; sourceTree = "<group>"; };
-		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
+		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
 		F66779A81C59F285005EB56E /* ConversationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,18 +139,59 @@
 			children = (
 				F64F920F1C4AD33C003257A6 /* CardView.swift */,
 				F64F92191C4AD437003257A6 /* CardModel.swift */,
-				F64F92141C4AD3C7003257A6 /* expandedImageView.swift */,
 				F64F92111C4AD385003257A6 /* BrowseViewController.swift */,
 			);
 			name = Browse;
+			sourceTree = "<group>";
+		};
+		F6A9537A1C5ED0FF003D1CC4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F66779A41C595A65005EB56E /* Fabric.framework */,
+				F66779A51C595A65005EB56E /* Crashlytics.framework */,
+				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
+				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
+				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
+				F66779A11C579444005EB56E /* yuanti-SC.ttf */,
+				F6FB6B401C4AAACD00B167AF /* Info.plist */,
+				F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F6A9537B1C5ED131003D1CC4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
+				F6FF69C21C4C7BF200230FB4 /* loginViewController.swift */,
+				F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		F6A9537C1C5ED19B003D1CC4 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F64F921B1C4B0638003257A6 /* ProfileViewController.swift */,
+				F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */,
+				F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		F6A9537D1C5ED1BA003D1CC4 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				F64F92131C4AD3C7003257A6 /* DetailView.swift */,
+				F64F92141C4AD3C7003257A6 /* expandedImageView.swift */,
+			);
+			name = Item;
 			sourceTree = "<group>";
 		};
 		F6FB6B251C4AAACD00B167AF = {
 			isa = PBXGroup;
 			children = (
 				F64F92051C4AB2A9003257A6 /* README.md */,
-				F66779A41C595A65005EB56E /* Fabric.framework */,
-				F66779A51C595A65005EB56E /* Crashlytics.framework */,
 				F6FB6B301C4AAACD00B167AF /* Luxyy */,
 				F6FB6B481C4AAACD00B167AF /* LuxyyTests */,
 				F6FB6B531C4AAACD00B167AF /* LuxyyUITests */,
@@ -175,23 +214,13 @@
 		F6FB6B301C4AAACD00B167AF /* Luxyy */ = {
 			isa = PBXGroup;
 			children = (
-				F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */,
-				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
-				F64F921B1C4B0638003257A6 /* ProfileViewController.swift */,
-				F6FF69BF1C4B1C9100230FB4 /* FullListView.swift */,
-				F6FF69BD1C4B179A00230FB4 /* PlayListCollectionViewCell.swift */,
-				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
-				F6FF69C21C4C7BF200230FB4 /* loginViewController.swift */,
-				F64F92071C4ABC9E003257A6 /* AHPagingMenuViewController.swift */,
+				F6A9537B1C5ED131003D1CC4 /* Core */,
+				F6A9537A1C5ED0FF003D1CC4 /* Supporting Files */,
+				F6A9537C1C5ED19B003D1CC4 /* Profile */,
 				F6FF69C11C4C188000230FB4 /* Messages */,
 				F64F18F61C55DC4800E093CF /* Browse */,
-				F64F92131C4AD3C7003257A6 /* DetailView.swift */,
-				F64F92171C4AD3F5003257A6 /* ShareButton.swift */,
-				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
-				F66779A11C579444005EB56E /* yuanti-SC.ttf */,
+				F6A9537D1C5ED1BA003D1CC4 /* Item */,
 				F6FB6B3B1C4AAACD00B167AF /* Assets.xcassets */,
-				F6FB6B401C4AAACD00B167AF /* Info.plist */,
-				F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */,
 			);
 			path = Luxyy;
 			sourceTree = "<group>";
@@ -433,7 +462,6 @@
 				F64F92101C4AD33C003257A6 /* CardView.swift in Sources */,
 				F64F92151C4AD3C7003257A6 /* DetailView.swift in Sources */,
 				F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */,
-				F64F92181C4AD3F5003257A6 /* ShareButton.swift in Sources */,
 				F6FF69BE1C4B179A00230FB4 /* PlayListCollectionViewCell.swift in Sources */,
 				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
 				F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */,
