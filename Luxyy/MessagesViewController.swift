@@ -100,16 +100,31 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
             
             for object in objects {
                 let senderID = (object.objectForKey("user")?.objectId)!
-                print(senderID)
-                let text = object.objectForKey("text") as! String
-                self.messages.append(JSQMessage(senderId: senderID, displayName: "name", text: text))
-                self.finishSendingMessage()
+                var photoMediaItem:JSQMessageMediaData!
+                var mediaData:JSQMessageMediaData!
+                if let picture = object.objectForKey("picture") as? PFFile {
+                    do {
+                        let data = try picture.getData()
+                        let image = UIImage(data: data)
+                        photoMediaItem = JSQPhotoMediaItem(image: image)
+                        mediaData = photoMediaItem
+                    } catch {
+                        print(error)
+                    }
+                    
+                    let photoMessage = JSQMessage(senderId: senderID, displayName: "name", media: mediaData)
+                    self.messages.append(photoMessage)
+                } else {
+                    let text = object.objectForKey("text") as! String
+                    self.messages.append(JSQMessage(senderId: senderID, displayName: "name", text: text))
+                }
             }
         
             if self.messages.count == 0 {
                 print("loading onboarding messages if there haven't been any messages yet")
                 self.loadOnboardingMessages()
             }
+            self.finishReceivingMessage()
         }
     }
     
@@ -229,9 +244,26 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let photoItem         = JSQPhotoMediaItem(image: appDelegate.globalImage)
             let photoMessage      = JSQMessage(senderId: PFUser.currentUser()?.objectId!, displayName: PFUser.currentUser()?.objectId!, media:photoItem)
-            messages.append(photoMessage)
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
-            self.collectionView!.reloadData()
+            
+            let png = UIImagePNGRepresentation(appDelegate.globalImage)
+            let file = PFFile(data: png!)
+            let newMessage = PFObject(className: "Message")
+            newMessage["user"] = PFUser.currentUser()
+            if PFUser.currentUser()?.objectId == "E0u5zMTSEW" {
+                newMessage["groupId"] = "E0u5zMTSEW\(otherUser)"
+            } else {
+                newMessage["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
+            }
+            newMessage["picture"] = file
+            
+            do {
+                try newMessage.save()
+                messages.append(photoMessage)
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                self.finishSendingMessage()
+            } catch {
+                print(error)
+            }
 
         case 3:
             delegate.removeThisChat(self)
@@ -266,13 +298,16 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate {
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.messages.count
     }
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
         let msg = self.messages[indexPath.row]
-        if(msg.senderId == self.senderId){
-            cell.textView!.textColor = UIColor.blackColor()
-        }else{
-            cell.textView!.textColor = UIColor.whiteColor()
+        if cell.textView != nil {
+            if(msg.senderId == self.senderId){
+                cell.textView!.textColor = UIColor.blackColor()
+            }else{
+                cell.textView!.textColor = UIColor.whiteColor()
+            }
         }
         return cell
     }

@@ -65,4 +65,4 @@
 - ~~setup push notifications / real time updating~~
 - ~~add message sending/receiving sound~~
 - ~~allow admin to chat with all users~~
-- add photo send/receiving support
+- ~~add photo send/receiving support~~
