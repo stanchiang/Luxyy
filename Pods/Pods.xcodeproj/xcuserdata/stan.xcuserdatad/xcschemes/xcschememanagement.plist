@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MediumProgressView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>OMGHTTPURLRQ.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,7 +97,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>257A884F495B0C9AA760B4A01E2DA58A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>316EAF57D9E68510D687D921E3D2584C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>38A5CB8DD871E0C5D1E09A63048B9E01</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CB41B0ACDD3D8C272744C3CFC1529E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,17 +122,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E29B1B6B0FC139C9B3010C457F1C1B8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>75083C20B94C91955443AC6147851BDB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>79F80AA965FE584E7AC51F5BA98FDAFA</key>
+		<key>582F547BDAC191D87DA991AE9955F055</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,12 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B717ED787A28B9F8DDF28F72D47BDB3</key>
+		<key>A1BF58736B6CCECB5DB30E2108366143</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1BF58736B6CCECB5DB30E2108366143</key>
+		<key>A4CA9AB0F04320AE7E2C94743B546FA1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +157,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D01A8DFAD6A69FF366BFCD6C56A7225D</key>
+		<key>CFB4C04B89A6AD6201A30E5850E4414F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

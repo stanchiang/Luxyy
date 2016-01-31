@@ -1,0 +1,6 @@
+framework module MediumProgressView {
+  umbrella header "MediumProgressView-umbrella.h"
+
+  export *
+  module * { export * }
+}

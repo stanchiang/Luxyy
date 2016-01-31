@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F5D5F6B1DA7649B929485216'
-               BlueprintName = 'Alamofire'
+               BlueprintIdentifier = '0F3104045E9846F8CE02C222'
+               BlueprintName = 'MediumProgressView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Alamofire.framework'>
+               BuildableName = 'MediumProgressView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

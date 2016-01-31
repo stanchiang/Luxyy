@@ -68,3 +68,4 @@
 - ~~add photo library send/receiving support~~
 - ~~add cammera photo send/receiving support~~
 - ~~take current item's photo send support~~
+- implement progress bar for image uploading

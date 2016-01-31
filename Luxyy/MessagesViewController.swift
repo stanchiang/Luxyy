@@ -12,6 +12,7 @@ import Cartography
 import Parse
 import Analytics
 import MobileCoreServices
+import MediumProgressView
 
 protocol messagesDelegate {
     func removeThisChat(chat:MessagesViewController)
@@ -30,6 +31,8 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     var outgoingBubble:JSQMessagesBubbleImage!
     var botBubble:JSQMessagesBubbleImage!
     
+    let progressViewManager = MediumProgressViewManager.sharedInstance
+    
     override func viewDidLayoutSubviews() {
         constrain(view) { view in
             view.edges == view.superview!.edges
@@ -39,6 +42,8 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        progressViewManager.color = UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateChat:", name: "updateChat", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadOnboardingMessages:", name: "loadOnboardingMessages", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissKeyBoard:", name: "dismissKeyBoard", object: nil)
@@ -266,15 +271,15 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
                 newMessage["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
             }
             newMessage["picture"] = file
-            
-            do {
-                try newMessage.save()
-                messages.append(photoMessage)
-                JSQSystemSoundPlayer.jsq_playMessageSentSound()
-                self.finishSendingMessage()
-            } catch {
-                print(error)
-            }
+            progressViewManager.show()
+            newMessage.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if success {
+                    self.messages.append(photoMessage)
+                    JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                    self.finishSendingMessage()
+                }
+                self.progressViewManager.hide()
+            })
 
         case 4:
             delegate.removeThisChat(self)
@@ -383,18 +388,22 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
             newMessage["groupId"] = "E0u5zMTSEW\((PFUser.currentUser()?.objectId!)!)"
         }
         newMessage["picture"] = file
-
-        do {
-            try newMessage.save()
-            let photoItem         = JSQPhotoMediaItem( image: image)
-            let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
-            messages.append(photoMessage)
-            JSQSystemSoundPlayer.jsq_playMessageSentSound()
-            self.finishSendingMessage()            
-        } catch {
-            print(error)
-        }
         
+        progressViewManager.show()
+        
+        newMessage.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                let photoItem         = JSQPhotoMediaItem( image: image)
+                let photoMessage      = JSQMessage(     senderId: PFUser.currentUser()?.objectId!, displayName:PFUser.currentUser()?.objectId!, media:photoItem)
+                self.messages.append(photoMessage)
+                JSQSystemSoundPlayer.jsq_playMessageSentSound()
+                self.finishSendingMessage()
+                self.progressViewManager.hide()
+            } else {
+                print(error)
+                self.progressViewManager.hide()
+            }
+        }
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
