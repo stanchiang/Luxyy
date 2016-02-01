@@ -18,7 +18,7 @@ protocol messagesDelegate {
     func removeThisChat(chat:MessagesViewController)
 }
 
-class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, expandedDelegate {
     
     var signUpButton: UIButton!
     var logInButton: UIButton!
@@ -32,6 +32,8 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     var botBubble:JSQMessagesBubbleImage!
     
     let progressViewManager = MediumProgressViewManager.sharedInstance
+    
+    var expanded:expandedImageView!
     
     override func viewDidLayoutSubviews() {
         constrain(view) { view in
@@ -330,6 +332,16 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
         print(indexPath.item)
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! JSQMessagesCollectionViewCell
+        
+        if cell.messageBubbleContainerView?.subviews.count == 1 {
+            if let imageView = cell.messageBubbleContainerView?.subviews.first as? UIImageView {
+                expanded = expandedImageView(frame: self.view.frame)
+                self.view.addSubview(expanded)
+                expanded.expandedDel = self
+                expanded.setup(imageView)
+            }
+        }
     }
     
     func loadOnboardingMessages() {
@@ -411,4 +423,15 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func addDismissExpandedHandler(sender: AnyObject){
+        let button:UIButton = sender as! UIButton
+        button.addTarget(self, action: "dismissDetailExpandedView:", forControlEvents: .TouchUpInside)
+        
+    }
+    
+    func dismissDetailExpandedView(sender: AnyObject) {
+        expanded.removeFromSuperview()
+    }
+
 }

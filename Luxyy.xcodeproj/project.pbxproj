@@ -69,8 +69,8 @@
 		F64F92191C4AD437003257A6 /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		F64F921B1C4B0638003257A6 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F66779A11C579444005EB56E /* yuanti-SC.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "yuanti-SC.ttf"; sourceTree = "<group>"; };
-		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = ../Fabric.framework; sourceTree = "<group>"; };
-		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = ../Crashlytics.framework; sourceTree = "<group>"; };
+		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F66779A81C59F285005EB56E /* ConversationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +120,8 @@
 		A94AF58CC5AE42FFA0B04DCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F66779A41C595A65005EB56E /* Fabric.framework */,
+				F66779A51C595A65005EB56E /* Crashlytics.framework */,
 				B468B3F4E88AF8774C6BC047 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -147,8 +149,6 @@
 		F6A9537A1C5ED0FF003D1CC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F66779A41C595A65005EB56E /* Fabric.framework */,
-				F66779A51C595A65005EB56E /* Crashlytics.framework */,
 				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
 				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
 				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
@@ -550,6 +550,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "647e046f-45d7-4e33-a827-e4e173f43d22";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -587,6 +588,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "647e046f-45d7-4e33-a827-e4e173f43d22";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -598,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -607,7 +610,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7495c6cb-7221-443a-ae03-514424be0d5d";
+				PROVISIONING_PROFILE = "647e046f-45d7-4e33-a827-e4e173f43d22";
 			};
 			name = Debug;
 		};
@@ -617,6 +620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -626,7 +630,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stan.Luxyy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7495c6cb-7221-443a-ae03-514424be0d5d";
+				PROVISIONING_PROFILE = "647e046f-45d7-4e33-a827-e4e173f43d22";
 			};
 			name = Release;
 		};

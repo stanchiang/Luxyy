@@ -69,4 +69,4 @@
 - ~~add cammera photo send/receiving support~~
 - ~~take current item's photo send support~~
 - ~~implement progress bar for image uploading~~
-- receive push notifications
+- ~~receive push notifications~~
