@@ -39,12 +39,18 @@
 - ~~allow updating swipe decision~~
 - ~~apply some layouts to the text~~
 - ~~prevent crashing where there are enough cards in the back to swipe~~
+- make sure scroll view when scrolled to the bottom does not overlap with the buttons
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
 - ~~design a UI for the cells~~
 - ~~disallow tapping if there aren't any decision records for save/skip~~
-- add settings for signout and take user to login page
+- add settings cell 
+- settings cell: signout/take user to login page
+- settings cell: give app store review
+- refactor so that refreshing doesn't show the base 'x' and 'star' images
+- updating decision should also reload collectionview 
+- add pull to refresh
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
@@ -56,7 +62,7 @@
 - ~~update lists on each decision~~
 - ~~solve collection view crashing when scrolling too fast~~
 - set up back, search, and filter buttons
-
+- add pull to refresh
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~

@@ -33,10 +33,14 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var variations:String!
     
     var selectedObject:PFObject!
+    var selectedIndexPath:NSIndexPath!
+    
     var listName:String!
     var expanded: expandedImageView!
     
     var goBack:UIGestureRecognizer!
+    var filter:UIGestureRecognizer!
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,40 +82,27 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         toolBar.addSubview(filterButton)
         
         goBack = UITapGestureRecognizer(target: self, action: "backButtonAction:")
-        backButton.addGestureRecognizer(self.goBack)
+        backButton.addGestureRecognizer(goBack)
         
+        filter = UITapGestureRecognizer(target: self, action: "filterAction:")
+        filterButton.addGestureRecognizer(filter)
         
         list = delegate.getList(name)
         listName = name
         
         collectionView = UICollectionView(frame: CGRectMake(0, cellWidth / 3, self.frame.width, self.frame.height - cellWidth / 3), collectionViewLayout: layout)
-//        collectionView.collectionViewLayout = layout
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.registerClass(PlayListCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.whiteColor()
         self.addSubview(collectionView)
-        
-//        constrain(toolBar, collectionView) { t, c in
-//            t.width == t.superview!.width
-//            t.height == 50
-//            t.leading == t.superview!.leading
-//            t.trailing == t.superview!.trailing
-//            c.top == t.bottom
-//            c.leading == c.superview!.leading
-//            c.trailing == c.superview!.trailing
-//            c.bottom == c.superview!.bottom
-//        }
-//        collectionView.setNeedsDisplay()
-//        collectionView.setNeedsUpdateConstraints()
+
     }
     
     func reloadCollectionView(note: NSNotification){
         print("reloading full list collection")
-        print("before count \(list.count)")
         list = delegate.getList(listName)
         collectionView.reloadData()
-        print("after count \(list.count)")
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -123,7 +114,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PlayListCollectionViewCell
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         appDelegate.backgroundThread(0, background: { () -> AnyObject in
@@ -160,51 +151,27 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("tapped cell \(indexPath.item + 1)")
-//        if indexPath.item == 0 {
-//            delegate.dismissFullList()
-//        } else if indexPath.item == 1 {
-//            if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
-//                PFUser.logOut()
-//                do {
-//                    try PFUser.logInWithUsername("stanley@getluxyy.com", password: "aVD336af")
-//                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
-//                    UIAlertView(title: "logged in as stanley@getLuxyy.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
-//                } catch {
-//                    print(error)
-//                }
-//            } else {
-//                PFUser.logOut()
-//                do {
-//                    try PFUser.logInWithUsername("stanchiang23@gmail.com", password: "aVD336af")
-//                    let cancelButtonTitle = NSLocalizedString("OK", comment: "")
-//                    UIAlertView(title: "logged in as stanchiang23@gmail.com", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
-//                } catch {
-//                    print(error)
-//                }
-//            }
-//        }else{
-            let selected: PlayListCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
-            print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
-            let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
-            
-            expandedImage = selected.imageView
-            itemBrand = selected.object.objectForKey("itemBrand") as! String
-            itemName = selected.object.objectForKey("itemName") as! String
-            price = selected.object.objectForKey("price") as! Double
-            movement = selected.object.objectForKey("movement") as! String
-            functions = selected.object.objectForKey("functions") as! String
-            band = selected.object.objectForKey("band") as! String
-            refNum = selected.object.objectForKey("refNum") as! String
-            variations = selected.object.objectForKey("variations") as! String
-            
-            selectedObject = selected.object
-            
-            detailView = DetailView(frame: viewFrame)
-            detailView.delegate = self
-            detailView.setup()
-            self.addSubview(detailView)
-//        }
+        let selected: PlayListCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
+        print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
+        let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
+        
+        expandedImage = selected.imageView
+        itemBrand = selected.object.objectForKey("itemBrand") as! String
+        itemName = selected.object.objectForKey("itemName") as! String
+        price = selected.object.objectForKey("price") as! Double
+        movement = selected.object.objectForKey("movement") as! String
+        functions = selected.object.objectForKey("functions") as! String
+        band = selected.object.objectForKey("band") as! String
+        refNum = selected.object.objectForKey("refNum") as! String
+        variations = selected.object.objectForKey("variations") as! String
+        
+        selectedObject = selected.object
+        selectedIndexPath = indexPath
+        
+        detailView = DetailView(frame: viewFrame)
+        detailView.delegate = self
+        detailView.setup()
+        self.addSubview(detailView)
     }
     
     func dismissDetailView(sender: AnyObject) {
@@ -277,6 +244,10 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         delegate.dismissFullList()
     }
     
+    func filterAction(sender: AnyObject){
+        print("filter")
+    }
+    
     func saveDecision(liked: Bool){
         
         liked ? print("liked") : print("skipped")
@@ -300,7 +271,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                     item.saveInBackgroundWithBlock({ (success, error) -> Void in
                         if success {
                             print("was \(previousDecisionLiked) now \(liked)")
-//                            print((self.swipeableView.topView() as! CardView).itemObject.objectForKey("liked"))
+                            self.removeItem()
                         }else {
                             print("error \(error)")
                         }
@@ -309,19 +280,6 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                 
             } else{
                 print("same decision")
-            }
-        } else{
-            print("new decision")
-            let save = PFObject(className: "Decision")
-            save["user"] = PFUser.currentUser()
-            save["liked"] = liked
-            save["item"] = selectedObject
-            save.saveInBackgroundWithBlock { (success, error) -> Void in
-                if success {
-                    print("saved")
-                } else{
-                    print("error: \(error)")
-                }
             }
         }
         NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
@@ -346,6 +304,11 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         } catch {
             return nil
         }
+    }
+    
+    func removeItem(){
+        list.removeAtIndex(selectedIndexPath.item)
+        collectionView.deleteItemsAtIndexPaths([selectedIndexPath])
     }
     
     func loadDecision() {
