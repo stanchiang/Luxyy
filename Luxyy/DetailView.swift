@@ -72,10 +72,10 @@ class DetailView: UIView, UIScrollViewDelegate {
             loadVisiblePages()
         }
         
-        let height = stackView.frame.size.height + scrollView.frame.size.height + 50
+        let height = stackView.frame.size.height + scrollView.frame.size.height
         
         scrollBaseView.contentSize = CGSizeMake(scrollBaseView.frame.size.width, height)
-        
+        scrollBaseView.contentInset.bottom = 75
     }
     
     func setup(){

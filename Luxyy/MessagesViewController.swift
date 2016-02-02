@@ -106,20 +106,31 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
             
             for object in objects {
                 let senderID = (object.objectForKey("user")?.objectId)!
-                var photoMediaItem:JSQMessageMediaData!
                 var mediaData:JSQMessageMediaData!
                 if let picture = object.objectForKey("picture") as? PFFile {
-                    do {
-                        let data = try picture.getData()
-                        let image = UIImage(data: data)
-                        photoMediaItem = JSQPhotoMediaItem(image: image)
-                        mediaData = photoMediaItem
-                    } catch {
-                        print(error)
-                    }
                     
-                    let photoMessage = JSQMessage(senderId: senderID, displayName: "name", media: mediaData)
-                    self.messages.append(photoMessage)
+                    picture.getDataInBackgroundWithProgressBlock({ (percentDone) -> Void in
+                        print(percentDone)
+                    })
+
+                    picture.getDataInBackgroundWithBlock({ (data, error) -> Void in
+                        if error == nil {
+                            let image = UIImage(data: data!)
+                            mediaData = JSQPhotoMediaItem(image: image)
+                            let photoMessage = JSQMessage(senderId: senderID, displayName: "name", media: mediaData)
+                            self.messages.append(photoMessage)
+                            self.finishReceivingMessage()
+                        }
+                    })
+                    
+//                    do {
+//                        let data = try picture.getData()
+//                        let image = UIImage(data: data)
+//                        mediaData = JSQPhotoMediaItem(image: image)
+//                    } catch {
+//                        print(error)
+//                    }
+                    
                 } else {
                     let text = object.objectForKey("text") as! String
                     self.messages.append(JSQMessage(senderId: senderID, displayName: "name", text: text))

@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -92,7 +92,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                 return cell
                 
                 }, completion: nil)
-        } else {
+        } else if indexPath.item == 1 {
             cell.imageView.image = UIImage(named: "skip")
             appDelegate.backgroundThread(0, background: { () -> AnyObject in
                 
@@ -131,19 +131,31 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
                 
                 }, completion: nil)
         }
+        
         cell.backgroundColor = UIColor.lightGrayColor()
+        
+        if indexPath.item == 2 {
+            cell.backgroundColor = UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000)
+            cell.centerLabel.text = ""
+            cell.bottomlabel.text = "PROFILE"
+            cell.bottomlabel.font = UIFont(name: "yuanti-SC", size: 20)
+            cell.bottomlabel.textColor = UIColor.whiteColor()
+            cell.overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
+        }
+        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         print("tapped cell \(indexPath.item + 1)")
+        let currentWindow = UIApplication.sharedApplication().keyWindow
         
         if (indexPath.item == 0) {
             if likedCount > 0 {
-                fullList = FullListView(frame: self.view.frame)
+                fullList = FullListView(frame: currentWindow!.frame)
                 fullList.delegate = self
                 fullList.setUp("liked")
-                self.view.addSubview(fullList)
+                currentWindow!.addSubview(fullList)
             } else {
                 let cancelButtonTitle = NSLocalizedString("OK", comment: "")
                 UIAlertView(title: "Please Swipe Right On A Watch First", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
@@ -152,14 +164,20 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
             
         if (indexPath.item == 1) {
             if passedCount > 0 {
-                fullList = FullListView(frame: self.view.frame)
+                fullList = FullListView(frame: currentWindow!.frame)
                 fullList.delegate = self
                 fullList.setUp("passed")
                 self.view.addSubview(fullList)
+                
+                currentWindow!.addSubview(fullList)
             } else {
                 let cancelButtonTitle = NSLocalizedString("OK", comment: "")
                 UIAlertView(title: "Please Swipe Left On A Watch First", message: nil, delegate: nil, cancelButtonTitle: cancelButtonTitle).show()
             }
+        }
+        
+        if indexPath.item == 2 {
+            print("load settings")
         }
     }
     

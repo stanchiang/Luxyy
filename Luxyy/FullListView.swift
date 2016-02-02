@@ -59,33 +59,16 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         let cellWidth = self.frame.width / 2 - 15
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
-        let toolBar = UIView(frame: CGRectMake(0, 0, self.frame.width, cellWidth / 3))
-        self.addSubview(toolBar)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let navBar = UINavigationBar(frame: CGRectMake(0, 0, self.frame.width, appDelegate.controller.NAV_HEIGHT))
+        self.addSubview(navBar)
+        navBar.backgroundColor = UIColor.greenColor()
         
-        let backButton = UIButton()
-        backButton.frame = CGRectMake(0, 0, toolBar.frame.width / 4, toolBar.frame.height)
-        backButton.backgroundColor = UIColor.whiteColor()
-        backButton.setTitle("Back", forState: UIControlState.Normal)
-        backButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        toolBar.addSubview(backButton)
-
-        let searchButton = UIButton()
-        searchButton.frame = CGRectMake(toolBar.frame.width / 4, 0, toolBar.frame.width / 2, toolBar.frame.height)
-        searchButton.layer.backgroundColor = UIColor.lightGrayColor().CGColor
-        searchButton.setTitle("Search", forState: UIControlState.Normal)
-        toolBar.addSubview(searchButton)
-
-        let filterButton = UIButton()
-        filterButton.frame = CGRectMake(toolBar.frame.width * 3 / 4, 0, toolBar.frame.width / 4, toolBar.frame.height)
-        filterButton.layer.backgroundColor = UIColor.darkGrayColor().CGColor
-        filterButton.setTitle("Filter", forState: UIControlState.Normal)
-        toolBar.addSubview(filterButton)
-        
-        goBack = UITapGestureRecognizer(target: self, action: "backButtonAction:")
-        backButton.addGestureRecognizer(goBack)
-        
-        filter = UITapGestureRecognizer(target: self, action: "filterAction:")
-        filterButton.addGestureRecognizer(filter)
+        let rightButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: "backButtonAction:")
+        let item = UINavigationItem(title: "Title")
+        item.rightBarButtonItem = rightButton
+        item.hidesBackButton = true
+        navBar.pushNavigationItem(item, animated: false)
         
         list = delegate.getList(name)
         listName = name

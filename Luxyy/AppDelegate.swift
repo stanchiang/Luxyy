@@ -103,9 +103,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     }
     
     func userAuthenticated() {
-        
-//        defaultACL.setWriteAccess(true, forUser: PFUser.currentUser()!)
-        
         let profileVC = ProfileViewController()
         let browseVC = BrowseViewController()
         let messageVC:UIViewController = MessengerContainerViewController()
@@ -119,7 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         controller.setSelectColor(UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000))
         
         controller.delegate = self
-        
         unreadMessagesBadge = GIBadgeView()
         controller.iconsMenu?.lastObject!.addSubview(unreadMessagesBadge)
 

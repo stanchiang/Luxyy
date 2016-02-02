@@ -41,18 +41,21 @@
 - ~~allow updating swipe decision~~
 - ~~apply some layouts to the text~~
 - ~~prevent crashing where there are enough cards in the back to swipe~~
-- make sure scroll view when scrolled to the bottom does not overlap with the buttons
+- ~~make sure scroll view when scrolled to the bottom does not overlap with the bottom buttons~~
 
 ### profile page
 - ~~have a collection view with 2 playlists liked and disliked~~
 - ~~design a UI for the cells~~
 - ~~disallow tapping if there aren't any decision records for save/skip~~
-- add settings cell 
+- ~~add settings cell~~ 
 - settings cell: signout/take user to login page
 - settings cell: give app store review
 - refactor so that refreshing doesn't show the base 'x' and 'star' images
 - updating decision should also reload collectionview 
+
+#### login page
 - play mp4 in background of login page
+- move buttons to bottom of page
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
@@ -63,7 +66,8 @@
 - ~~load all images async~~
 - ~~update lists on each decision~~
 - ~~solve collection view crashing when scrolling too fast~~
-- load view as full screen modal
+- ~~load view as full screen modal~~
+- style nav bar
 - updating decision automatically updates the other list
 - disable user interaction while cell is loading
 
@@ -79,5 +83,5 @@
 - ~~take current item's photo send support~~
 - ~~implement progress bar for image uploading~~
 - ~~receive push notifications~~
-- upload image to parse with progress bar callback
+- upload/download image to parse with progress bar callback
 - loading messages needs to be async, especially when there are photos
