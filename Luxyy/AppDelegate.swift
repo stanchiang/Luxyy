@@ -254,5 +254,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         }
     }
     
+    func finishLoggingOut(){
+        for subviews in (window?.subviews)! {
+            subviews.removeFromSuperview()
+        }
+        let login = loginViewController()
+        login.delegate = self
+        self.window!.rootViewController = login
+    }
 }
 

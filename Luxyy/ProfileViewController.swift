@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Cartography
 
 class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, fullListDelegate {
 
@@ -135,12 +136,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         cell.backgroundColor = UIColor.lightGrayColor()
         
         if indexPath.item == 2 {
+            cell.imageView.image = UIImage(named: "defaultProfilePic")
             cell.backgroundColor = UIColor(red: 70/255.0, green: 130/255.0, blue: 180/255.0, alpha: 1.000)
             cell.centerLabel.text = ""
-            cell.bottomlabel.text = "PROFILE"
+            cell.bottomlabel.text = "LOG OUT"
             cell.bottomlabel.font = UIFont(name: "yuanti-SC", size: 20)
-            cell.bottomlabel.textColor = UIColor.whiteColor()
+            cell.bottomlabel.textColor = UIColor.blackColor()
             cell.overlayView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
+            print("cell.bottomlabel.frame:\(cell.bottomlabel.frame)")
         }
         
         return cell
@@ -177,7 +180,11 @@ class ProfileViewController: UIViewController, UICollectionViewDelegateFlowLayou
         }
         
         if indexPath.item == 2 {
-            print("load settings")
+            print("logout")
+            PFUser.logOut()
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.finishLoggingOut()
+            print("take user to login page")
         }
     }
     
