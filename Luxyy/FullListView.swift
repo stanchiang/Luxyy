@@ -60,20 +60,32 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let navBar = UINavigationBar(frame: CGRectMake(0, 0, self.frame.width, appDelegate.controller.NAV_HEIGHT))
-        self.addSubview(navBar)
-        navBar.backgroundColor = UIColor.greenColor()
+        let navHeight = appDelegate.controller.NAV_HEIGHT
         
-        let rightButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: nil, action: "backButtonAction:")
-        let item = UINavigationItem(title: "Title")
-        item.rightBarButtonItem = rightButton
-        item.hidesBackButton = true
-        navBar.pushNavigationItem(item, animated: false)
+        let navBar = UINavigationBar(frame: CGRectMake(0, 0, self.frame.width, navHeight))
+        self.addSubview(navBar)
+        navBar.barTintColor = UIColor.whiteColor()
+        
+        //NOTE: there appears to be a bottom border even though we didn't create one because we pushed this view's collection view down one pixel so users are still seeing the bottom border from the underlying view
+        
+        let rightButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneAction:")
+        
+        let rightButtonPadding = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        rightButtonPadding.width = 10
+        
+        let items = UINavigationItem()
+        items.title = name.uppercaseString
+        items.rightBarButtonItems = [rightButtonPadding,rightButton]
+        items.hidesBackButton = true
+
+        navBar.pushNavigationItem(items, animated: false)
+        //navline color
+        //right button padding
         
         list = delegate.getList(name)
         listName = name
         
-        collectionView = UICollectionView(frame: CGRectMake(0, cellWidth / 3, self.frame.width, self.frame.height - cellWidth / 3), collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRectMake(0, navHeight+1, self.frame.width, self.frame.height - cellWidth / 3), collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.registerClass(PlayListCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -81,7 +93,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         self.addSubview(collectionView)
 
     }
-    
+
     func reloadCollectionView(note: NSNotification){
         print("reloading full list collection")
         list = delegate.getList(listName)
@@ -223,7 +235,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
         print("locating source from the collection view")
     }
 
-    func backButtonAction(sender: AnyObject){
+    func doneAction(sender: AnyObject){
         delegate.dismissFullList()
     }
     

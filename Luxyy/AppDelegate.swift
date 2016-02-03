@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         SEGAnalytics.setupWithConfiguration(configuration)
         
         Fabric.with([Crashlytics.self()])
-
+//        application.statusBarHidden = true
         window!.makeKeyAndVisible()
         
         return true
@@ -136,12 +136,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print("got push notification")
-        
+        //need to set up proper badge counts
+        UIApplication.sharedApplication().applicationIconBadgeNumber++
         if let payLoad = userInfo["aps"], alert = payLoad["alert"] {
             print(alert)
             if controller.currentPage != 2 {
                 unreadMessagesBadge.increment()
-                UIApplication.sharedApplication().applicationIconBadgeNumber++
             }
             print("reload page")
             NSNotificationCenter.defaultCenter().postNotificationName("updateChat", object: nil)

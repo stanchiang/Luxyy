@@ -62,6 +62,11 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
         
         // lets me toggle the appearance of the attachments button
         print("\(PFUser.currentUser()?.objectId!) is talking to \(otherUser)")
+        
+        if PFUser.currentUser()?.objectId != "E0u5zMTSEW" {
+            self.inputToolbar?.contentView?.leftBarButtonItem = nil
+        }
+        
 //        showSignUpOptions()
         loadMessages()
         

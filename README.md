@@ -15,7 +15,7 @@
 - ~~get unread messages badge on message icon~~
 - ~~need to be able to pick which icon to set badge on~~
 - ~~clear unread when user goes to message page~~
-- update badge count on push notification when user is not on the message page
+- <Later>update badge count on push notification when user is not on the message page
 
 ### browse page
 - ~~load images from parse~~
@@ -30,7 +30,7 @@
 - ~~overlay UI~~
 - ~~user interaction is disabled before images are populated~~
 - rethink the autolayout for the buttons to acommodate smaller phone sizes
-- rethink the trigger for the share functionality
+- <Later>rethink the trigger for the share functionality
 
 ##### browseDetail
 - ~~initial zoom on image is set by width of view~~
@@ -49,13 +49,13 @@
 - ~~disallow tapping if there aren't any decision records for save/skip~~
 - ~~add settings cell~~ 
 - settings cell: signout/take user to login page
-- settings cell: give app store review
-- refactor so that refreshing doesn't show the base 'x' and 'star' images
-- updating decision should also reload collectionview 
+- <Later>settings cell: give app store review
+- <Later>refactor so that refreshing doesn't show the base 'x' and 'star' images
+- <Later>updating decision should also reload liked/passed list
 
 #### login page
-- play mp4 in background of login page
-- move buttons to bottom of page
+- <Later>play mp4 in background of login page
+- <Later>move buttons to bottom of page
 
 ##### playlistDetail
 - ~~tapping on playlist loads a collection view of items~~
@@ -67,9 +67,9 @@
 - ~~update lists on each decision~~
 - ~~solve collection view crashing when scrolling too fast~~
 - ~~load view as full screen modal~~
-- style nav bar
-- updating decision automatically updates the other list
-- disable user interaction while cell is loading
+- ~~style nav bar~~
+- <Later>updating decision automatically updates the other list
+- <Later>disable user interaction while cell is loading
 
 #### message page
 - ~~send and receive text messages with JSQMessagesViewController~~
@@ -83,5 +83,6 @@
 - ~~take current item's photo send support~~
 - ~~implement progress bar for image uploading~~
 - ~~receive push notifications~~
-- upload/download image to parse with progress bar callback
-- loading messages needs to be async, especially when there are photos
+- ~~hide the attachments button unless user is admin~~
+- <Later>upload/download image to parse with progress bar callback
+- <Later>loading messages needs to be async, especially when there are photos
