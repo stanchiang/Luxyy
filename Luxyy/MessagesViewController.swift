@@ -25,7 +25,7 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
     
     var delegate:messagesDelegate!
     var otherUser:String!
-    
+    var otherUserObject:PFObject!
     var messages:[JSQMessage]!
     var incomingBubble:JSQMessagesBubbleImage!
     var outgoingBubble:JSQMessagesBubbleImage!
@@ -219,6 +219,24 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
             self.messages.append(message)
             self.finishSendingMessage()
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
+            
+            if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
+                let otherUserObjectQuery = PFUser.query()
+                otherUserObjectQuery?.whereKey("objectId", equalTo: self.otherUser)
+                do {
+                    if let receiver = try otherUserObjectQuery?.findObjects().first {
+                        self.otherUserObject = receiver
+                        let pushQuery = PFQuery(className: "Installation")
+                        pushQuery.whereKey("user", equalTo: self.otherUserObject)
+                        let push = PFPush()
+                        push.setMessage(text)
+                        push.sendPushInBackground()
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            
             SEGAnalytics.sharedAnalytics().track("message", properties: [text : messageObject.objectForKey("text")!])
         }
     }

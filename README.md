@@ -85,5 +85,5 @@
 - ~~receive push notifications~~
 - ~~hide the attachments button unless user is admin~~
 - push notifications must be confirmed to work
+- loading messages needs to be async, especially when there are photos
 - <Later>upload/download image to parse with progress bar callback
-- <Later>loading messages needs to be async, especially when there are photos
