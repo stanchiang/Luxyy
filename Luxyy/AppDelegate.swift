@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         application.registerForRemoteNotifications()
         
         window!.makeKeyAndVisible()
-        clearUnreadBadgeCount()
+        clearUnreadBadgeCount() 
         return true
     }
     
