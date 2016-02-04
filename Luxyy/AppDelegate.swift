@@ -39,12 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             self.window!.rootViewController = login
         } else {
             userAuthenticated()
-            
-            let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
-            
-            let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-            application.registerUserNotificationSettings(settings)
-            application.registerForRemoteNotifications()
         }
         
         let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)
@@ -52,8 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         
         Fabric.with([Crashlytics.self()])
 //        application.statusBarHidden = true
-        window!.makeKeyAndVisible()
         
+        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
+        
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
+        
+        window!.makeKeyAndVisible()
+        clearUnreadBadgeCount()
         return true
     }
     
@@ -83,6 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             print("now on messenger screen")
             SEGAnalytics.sharedAnalytics().screen("Messenger")
         }
+        
+        clearUnreadBadgeCount()
     }
     
     func clearUnreadBadgeCount() {
