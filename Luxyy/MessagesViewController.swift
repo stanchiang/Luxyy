@@ -220,21 +220,23 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
             self.finishSendingMessage()
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
             
-            if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
-                let otherUserObjectQuery = PFUser.query()
-                otherUserObjectQuery?.whereKey("objectId", equalTo: self.otherUser)
-                do {
-                    if let receiver = try otherUserObjectQuery?.findObjects().first {
-                        self.otherUserObject = receiver
-                        let pushQuery = PFQuery(className: "Installation")
+            let otherUserObjectQuery = PFUser.query()
+            otherUserObjectQuery?.whereKey("objectId", equalTo: self.otherUser)
+            do {
+                if let receiver = try otherUserObjectQuery?.findObjects().first {
+                    self.otherUserObject = receiver
+                    let pushQuery = PFQuery(className: "Installation")
+                    if (PFUser.currentUser()?.objectId!)! == "E0u5zMTSEW" {
                         pushQuery.whereKey("user", equalTo: self.otherUserObject)
-                        let push = PFPush()
-                        push.setMessage(text)
-                        push.sendPushInBackground()
+                    } else {
+                        pushQuery.whereKey("user", equalTo: "E0u5zMTSEW")
                     }
-                } catch {
-                    print(error)
+                    let push = PFPush()
+                    push.setMessage(text)
+                    push.sendPushInBackground()
                 }
+            } catch {
+                print(error)
             }
             
             SEGAnalytics.sharedAnalytics().track("message", properties: [text : messageObject.objectForKey("text")!])
