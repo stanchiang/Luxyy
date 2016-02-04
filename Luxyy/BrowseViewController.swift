@@ -102,23 +102,22 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             view.addSubview(button)
         }
         
-        constrain(buttons[1], swipeableView) { button2, card in
-            button2.top == card.bottom + 60
-            button2.bottom == button2.superview!.bottom - 60
-            button2.width == button2.height
-            button2.centerX == button2.superview!.centerX
-        }
-        
-        constrain(buttons[0], buttons[1], buttons[2]) { button1, button2, button3 in
-            button1.leading == button1.superview!.leading + 30
-            button1.trailing == button2.leading - 20
-            button1.height == button1.width
-            button1.centerY == button2.centerY
+        constrain(buttons[0], buttons[1], buttons[2], swipeableView) { first, second, third, card in
             
-            button3.leading == button2.trailing + 20
-            button3.trailing == button3.superview!.trailing - 30
-            button3.height == button3.width
-            button3.centerY == button2.centerY
+            second.top == card.bottom + 60
+            second.bottom == second.superview!.bottom - 60
+            second.width == second.height
+            second.centerX == second.superview!.centerX
+
+            first.width == first.height
+            first.leading == first.superview!.leading + 10
+            first.trailing == second.leading - 10
+            first.centerY == second.centerY
+            
+            third.width == third.height
+            third.leading == second.trailing + 10
+            third.trailing == third.superview!.trailing - 10
+            third.centerY == first.centerY
         }
         
         for button in buttons {
@@ -128,7 +127,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
             button.layer.borderColor = UIColor.lightGrayColor().CGColor
             button.backgroundColor = UIColor.clearColor()
         }
-
 
         swipeableView.allowedDirection = Direction.Horizontal
         

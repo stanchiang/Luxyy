@@ -29,7 +29,7 @@
 - ~~button UI~~
 - ~~overlay UI~~
 - ~~user interaction is disabled before images are populated~~
-- rethink the autolayout for the buttons to acommodate smaller phone sizes
+- ~~rethink the autolayout for the buttons to acommodate smaller phone sizes~~
 - <Later>rethink the trigger for the share functionality
 
 ##### browseDetail
