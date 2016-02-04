@@ -296,6 +296,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                         if success {
                             self.enableAllUserInteractions()
                             print("new decision saved")
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
                         } else{
                             self.enableAllUserInteractions()
                             print("error: \(error)")
@@ -320,6 +321,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
                         if success {
                             self.enableAllUserInteractions()
                             print("old decision updated")
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
                         }else {
                             self.enableAllUserInteractions()
                             print("error \(error)")

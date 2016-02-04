@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         SEGAnalytics.setupWithConfiguration(configuration)
         
         Fabric.with([Crashlytics.self()])
-//        application.statusBarHidden = true
         
         let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
         
@@ -54,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         application.registerForRemoteNotifications()
         
         window!.makeKeyAndVisible()
-        clearUnreadBadgeCount() 
         return true
     }
     
@@ -67,11 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         if form == 1 && to == 2 {
             print("moving from browser to messages tab")
             clearUnreadBadgeCount()
-        }
-        
-        if form == 1 && to == 0 {
-            print("moving from browser tab to collectionviews")
-            NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
         }
         
         if to == 0 {

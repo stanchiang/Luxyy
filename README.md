@@ -49,6 +49,7 @@
 - ~~disallow tapping if there aren't any decision records for save/skip~~
 - ~~add settings cell~~ 
 - ~~settings cell: signout/take user to login page~~
+- investigate why sometimes the logout cell image gets loaded with a watch image
 - <Later>settings cell: give app store review
 - <Later>refactor so that refreshing doesn't show the base 'x' and 'star' images
 - <Later>updating decision should also reload liked/passed list
@@ -84,6 +85,6 @@
 - ~~implement progress bar for image uploading~~
 - ~~receive push notifications~~
 - ~~hide the attachments button unless user is admin~~
-- push notifications must be confirmed to work
-- loading messages needs to be async, especially when there are photos
+- ~~push notifications must be confirmed to work~~
+- <Later>loading messages needs to be async, especially when there are photos
 - <Later>upload/download image to parse with progress bar callback

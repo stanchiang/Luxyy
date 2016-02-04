@@ -277,7 +277,6 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
                 print("same decision")
             }
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
     }
     
     func checkForPossibleExistingDecision() -> Bool? {
@@ -304,6 +303,7 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     func removeItem(){
         list.removeAtIndex(selectedIndexPath.item)
         collectionView.deleteItemsAtIndexPaths([selectedIndexPath])
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadCollectionView", object: nil)
     }
     
     func loadDecision() {

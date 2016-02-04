@@ -114,19 +114,19 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
                 var mediaData:JSQMessageMediaData!
                 if let picture = object.objectForKey("picture") as? PFFile {
                     
-                    picture.getDataInBackgroundWithProgressBlock({ (percentDone) -> Void in
-                        print(percentDone)
-                    })
-
-                    picture.getDataInBackgroundWithBlock({ (data, error) -> Void in
-                        if error == nil {
-                            let image = UIImage(data: data!)
-                            mediaData = JSQPhotoMediaItem(image: image)
-                            let photoMessage = JSQMessage(senderId: senderID, displayName: "name", media: mediaData)
-                            self.messages.append(photoMessage)
-                            self.finishReceivingMessage()
-                        }
-                    })
+//                    picture.getDataInBackgroundWithProgressBlock({ (percentDone) -> Void in
+//                        print(percentDone)
+//                    })
+//
+//                    picture.getDataInBackgroundWithBlock({ (data, error) -> Void in
+//                        if error == nil {
+//                            let image = UIImage(data: data!)
+//                            mediaData = JSQPhotoMediaItem(image: image)
+//                            let photoMessage = JSQMessage(senderId: senderID, displayName: "name", media: mediaData)
+//                            self.messages.append(photoMessage)
+//                            self.finishReceivingMessage()
+//                        }
+//                    })
                     
 //                    do {
 //                        let data = try picture.getData()
@@ -232,7 +232,7 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
                         pushQuery.whereKey("user", equalTo: "E0u5zMTSEW")
                     }
                     let push = PFPush()
-                    push.setMessage(text)
+                    push.setData(["alert":text, "sound":"chime.aiff"])
                     push.sendPushInBackground()
                 }
             } catch {
@@ -385,10 +385,8 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
         
         let onboardingMessages:[String] = [
             "Welcome to Luxyy!",
-            "I'm Stanley, the developer of this app.",
-            "Over time, I hope this app becomes an indespensable tool to help you discover, track, and buy watches",
-            "Note: This is an Early Pre-Release Test, so please don't be too mad if there are still some kinks in the product",
-            "I highly encourage feedback through either this private chat or directly email me at stanley@getLuxyy.com",
+            "I take all constructive feedback very seriously.",
+            "Send me your thoughts either through this private chat or by directly emailing me at stanley@getLuxyy.com",
         ]
         
         do {
