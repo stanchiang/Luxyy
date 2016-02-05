@@ -44,6 +44,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Kanna.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWFeedParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MediumProgressView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,17 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>316EAF57D9E68510D687D921E3D2584C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>38A5CB8DD871E0C5D1E09A63048B9E01</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3CB41B0ACDD3D8C272744C3CFC1529E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>582F547BDAC191D87DA991AE9955F055</key>
+		<key>4D35C7A8CEFEABEEEC2FF16D5CF8ED7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65DDDA45F12DACA0ECE5F65C2FD6F602</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83A658DB26B2C846F0A4E2E157D6EA62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,12 +147,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4CA9AB0F04320AE7E2C94743B546FA1</key>
+		<key>B0214E86E9E229E292863BC821997C4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0214E86E9E229E292863BC821997C4D</key>
+		<key>B6312CAD7E18804AD5E11308495CFD52</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7F1C6C3F98DDC87A1FFC3127F630219</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,7 +172,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CFB4C04B89A6AD6201A30E5850E4414F</key>
+		<key>C8DF847CF6AAF5D6D00344B27D7F7FE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB6E6419EB076F64589A808BDF489AEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '639A12FDF3265CD7444B3BDC'
+               BlueprintIdentifier = '483F18E751431570D0EB9CDC'
                BlueprintName = 'EZSwipeController'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'EZSwipeController.framework'>

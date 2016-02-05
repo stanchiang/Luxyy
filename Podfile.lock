@@ -9,7 +9,17 @@ PODS:
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - Kanna (1.0.4)
   - MediumProgressView (1.0.7)
+  - MWFeedParser (1.0.1):
+    - MWFeedParser/FeedParser (= 1.0.1)
+    - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
+    - MWFeedParser/NSString+HTML (= 1.0.1)
+  - MWFeedParser/FeedParser (1.0.1):
+    - MWFeedParser/NSDate+InternetDateTime
+    - MWFeedParser/NSString+HTML
+  - MWFeedParser/NSDate+InternetDateTime (1.0.1)
+  - MWFeedParser/NSString+HTML (1.0.1)
   - OMGHTTPURLRQ (3.0.2):
     - OMGHTTPURLRQ/RQ (= 3.0.2)
   - OMGHTTPURLRQ/FormURLEncode (3.0.2)
@@ -45,7 +55,9 @@ DEPENDENCIES:
   - Cartography
   - EZSwipeController
   - JSQMessagesViewController
+  - Kanna
   - MediumProgressView
+  - MWFeedParser
   - Parse
   - ParseUI
   - PromiseKit
@@ -62,7 +74,9 @@ SPEC CHECKSUMS:
   EZSwipeController: 49aa0f869e66049ac433483120f458434272ee32
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  Kanna: 537762df5e2203714769f8351340b3c724adb2bd
   MediumProgressView: cb137a3977b05430256cbfb454fa495dbfcbeedd
+  MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
   OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e

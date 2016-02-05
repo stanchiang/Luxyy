@@ -69,7 +69,7 @@
 - ~~solve collection view crashing when scrolling too fast~~
 - ~~load view as full screen modal~~
 - ~~style nav bar~~
-- <Later>updating decision automatically updates the other list
+- ~~updating decision automatically updates the other list~~
 - <Later>disable user interaction while cell is loading
 
 #### message page
