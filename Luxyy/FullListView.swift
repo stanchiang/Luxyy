@@ -38,10 +38,6 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     var listName:String!
     var expanded: expandedImageView!
     
-    var goBack:UIGestureRecognizer!
-    var filter:UIGestureRecognizer!
-    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

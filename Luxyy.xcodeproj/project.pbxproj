@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BE78255FB2F5B5EC77B7539D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B468B3F4E88AF8774C6BC047 /* Pods.framework */; };
+		F6168A571C67C46400DB61D4 /* ParsedRSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6168A561C67C46400DB61D4 /* ParsedRSS.swift */; };
+		F6168A591C67C8C300DB61D4 /* compacthodinkeersstest.html in Resources */ = {isa = PBXBuildFile; fileRef = F6168A581C67C8C300DB61D4 /* compacthodinkeersstest.html */; };
+		F626E0461C66CEEE00EF554F /* OldDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F626E0451C66CEEE00EF554F /* OldDetailView.swift */; };
 		F64D7EC31C4FECE600DF9CBB /* uploadFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */; };
 		F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */ = {isa = PBXBuildFile; fileRef = F64D7EC41C4FED5F00DF9CBB /* fullList.json */; };
 		F64F18F81C560E9A00E093CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64F18F71C560E9A00E093CF /* LaunchScreen.xib */; };
@@ -56,6 +59,9 @@
 		320B4C4D5CE183ECB9B35003 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B468B3F4E88AF8774C6BC047 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C48326E826094B6EF928D8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		F6168A561C67C46400DB61D4 /* ParsedRSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsedRSS.swift; sourceTree = "<group>"; };
+		F6168A581C67C8C300DB61D4 /* compacthodinkeersstest.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = compacthodinkeersstest.html; sourceTree = "<group>"; };
+		F626E0451C66CEEE00EF554F /* OldDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldDetailView.swift; sourceTree = "<group>"; };
 		F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadFilesViewController.swift; sourceTree = "<group>"; };
 		F64D7EC41C4FED5F00DF9CBB /* fullList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fullList.json; sourceTree = "<group>"; };
 		F64F18F71C560E9A00E093CF /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
+				F6168A581C67C8C300DB61D4 /* compacthodinkeersstest.html */,
 				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
 				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
 				F66779A11C579444005EB56E /* yuanti-SC.ttf */,
@@ -183,6 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				F64F92131C4AD3C7003257A6 /* DetailView.swift */,
+				F6168A561C67C46400DB61D4 /* ParsedRSS.swift */,
+				F626E0451C66CEEE00EF554F /* OldDetailView.swift */,
 				F64F92141C4AD3C7003257A6 /* expandedImageView.swift */,
 			);
 			name = Item;
@@ -374,6 +383,7 @@
 				F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */,
 				F64F18F81C560E9A00E093CF /* LaunchScreen.xib in Resources */,
 				F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */,
+				F6168A591C67C8C300DB61D4 /* compacthodinkeersstest.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,11 +474,13 @@
 				F64F920A1C4ABF46003257A6 /* MessagesViewController.swift in Sources */,
 				F6FF69BE1C4B179A00230FB4 /* PlayListCollectionViewCell.swift in Sources */,
 				F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */,
+				F626E0461C66CEEE00EF554F /* OldDetailView.swift in Sources */,
 				F64F921A1C4AD437003257A6 /* CardModel.swift in Sources */,
 				F64D7EC31C4FECE600DF9CBB /* uploadFilesViewController.swift in Sources */,
 				F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */,
 				F64F92061C4AB2A9003257A6 /* README.md in Sources */,
 				F6FF69C01C4B1C9100230FB4 /* FullListView.swift in Sources */,
+				F6168A571C67C46400DB61D4 /* ParsedRSS.swift in Sources */,
 				F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */,
 				F64F92161C4AD3C7003257A6 /* expandedImageView.swift in Sources */,
 				F6FF69C31C4C7BF200230FB4 /* loginViewController.swift in Sources */,
