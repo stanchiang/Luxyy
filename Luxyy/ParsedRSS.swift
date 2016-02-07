@@ -93,11 +93,11 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
         if let noTags:String = stripTagsFrom(html) {
             let didExtractImageLinksAndPositions:[(String, Range<String.Index>)] = extractImageLinksAndPositionsFrom(html, noTags: noTags)
             let didEmbedHyperlinks:NSMutableAttributedString = addHyperLink(html, noTags: noTags)
-            
+
             /*
             we will consider the base case to be alternating between 1 textview and then 1 image view and assume that they alternate --done--
             edge case #1: starting with an image --done--
-            edge case #2: ending on text <missing>
+            edge case #2: ending on text --done--
             */
             
             var prevLocation:Int = 0
@@ -132,6 +132,15 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
                         }
                     })
                     stack.append(imageLink)
+                    
+                    if didExtractImageLinksAndPositions.last!.0 == link {
+                        let finalLength = noTags.characters.count - prevLocation
+                        let label:UILabel = UILabel()
+                        let substring = didEmbedHyperlinks.attributedSubstringFromRange(NSMakeRange(prevLocation, finalLength))
+                        label.numberOfLines = 0
+                        label.attributedText = substring
+                        stack.append(label)
+                    }
                 }
             }
         }

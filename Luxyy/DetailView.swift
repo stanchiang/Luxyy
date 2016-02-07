@@ -472,7 +472,6 @@ class DetailView: UIView, UIScrollViewDelegate {
             share.alpha = 0
             
         }
-        
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
