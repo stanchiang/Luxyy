@@ -23,7 +23,7 @@ protocol detailDelegate {
     func loadDecision()
 }
 
-class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
+class DetailView: UIView, UIScrollViewDelegate, postDelegate {
     
     var delegate: detailDelegate!
     var parentData = [String:AnyObject]()
@@ -57,9 +57,11 @@ class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
     var watchrefNum:String!
     var watchvariations:String!
     
+    var lastContentOffset:CGFloat!
     
     var skip:UIButton!
     var save:UIButton!
+    var share:UIButton!
     
     override func layoutSubviews() {
         scrollBaseView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
@@ -211,19 +213,16 @@ class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
     }
     
     func addBlogPosts(){
-        //create a feed object
-        let feed = FeedModel()
-        feed.delegate = self
-        //request the data from a rss url
-        //        feed.request("http://fulltextrssfeed.com/www.hodinkee.com/blog/atom.xml")
-        feed.request("https://www.wired.com/category/gear/feed/")
+        let post = PostModel(url: "https://api.watchville.co/v2/posts/20039")
+        post.delegate = self
+        post.getHTMLFromURL()
         
     }
     
-    func transferBlogPost(post: BlogPostModel) {
-        if post.content.count > 0 {
-            print("blog post has content \(post.content.count)")
-            for view in post.content {
+    func sendPostContentToView(content: [AnyObject]) {
+        if content.count > 0 {
+            print("blog post has content \(content.count)")
+            for view in content {
                 stackView.addArrangedSubview(view as! UIView)
             }
         }else {
@@ -422,7 +421,7 @@ class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
         skip.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         skip.addTarget(self, action: "itemSkipAction:", forControlEvents: .TouchUpInside)
         
-        let share = UIButton()
+        share = UIButton()
         let shareImage = UIImage(named: "share")
         let tintedShare = shareImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         share.setImage(tintedShare, forState: UIControlState.Normal)
@@ -492,6 +491,23 @@ class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
         if scrollView.contentOffset.y < -140 {
             delegate.dismissDetailView(self)
         }
+        
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+            dismiss.alpha = 1
+            skip.alpha = 1
+            save.alpha = 1
+            share.alpha = 1
+        } else if (self.lastContentOffset < scrollView.contentOffset.y) {
+            dismiss.alpha = 0
+            skip.alpha = 0
+            save.alpha = 0
+            share.alpha = 0
+            
+        }
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        lastContentOffset = scrollView.contentOffset.y;
     }
     
 }

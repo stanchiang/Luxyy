@@ -10,19 +10,34 @@ import UIKit
 import Kanna
 import MWFeedParser
 
-class ParsedRSS: NSObject, MWFeedParserDelegate {
+class ParseHTMLHelper: NSObject, MWFeedParserDelegate {
 
     var images = [UIImageView]()
     
     func setup(htmlString:String) -> [AnyObject] {
-//        let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
-//        let htmlTESTString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
-//        return restructureText(htmlTESTString!)
-        return restructureText(htmlString)
+        let didRemoveIFrames = removeIFrames(htmlString)
+        return restructureText(didRemoveIFrames)
     }
 
     func getImages() -> [UIImageView] {
         return images
+    }
+    
+    func removeIFrames(var rawHTML:String) -> String {
+        if let doc = Kanna.HTML(html: rawHTML, encoding: NSUTF8StringEncoding) {
+            let tag = "figure"
+            for figure in doc.css(tag) {
+                for _ in figure.css("iframe") {
+                    let nodeToDelete = "<\(tag)>\(figure.innerHTML!)</\(tag)>"
+                    print(nodeToDelete)
+                    if let rangeToDelete = rawHTML.rangeOfString(nodeToDelete) {
+                        rawHTML.removeRange(rangeToDelete)
+                    }
+                    break
+                }
+            }
+        }
+        return rawHTML
     }
     
     func addHyperLink(html:String, noTags:String) -> NSMutableAttributedString {
@@ -44,19 +59,34 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
     
     func extractImageLinksAndPositionsFrom(html:String, noTags:String) -> [(String, Range<String.Index>)] {
         var imagesLinkAndPosition = [(String, Range<String.Index>)]()
+        
+        var url:String?
+        var range:Range<String.Index>?
+        
         if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
-            for node in doc.css("div.embed-img"){
-                if let imageId = node.css("p").innerHTML {
-                    for link in node.css("img") {
-                        if let url = link["src"], _ = link["src"]?.rangeOfString("hodinkee"){
-                            if let range = noTags.rangeOfString(imageId) {
-                                imagesLinkAndPosition.append((url, range))
+            for node in doc.css("figure"){
+                url = nil
+                range = nil
+                for link in node.css("img") {
+                    if let src = link["src"]{
+                        url = src
+                        for cap in node.css("figcaption") {
+                            if let cap = cap.innerHTML {
+                                if let getRange = noTags.rangeOfString(cap) {
+                                    range = getRange
+                                    break
+                                }
                             }
+                        }
+                        if let url = url, range = range {
+                            imagesLinkAndPosition.append((url, range))
+                            break
                         }
                     }
                 }
             }
         }
+
         return imagesLinkAndPosition
     }
     
