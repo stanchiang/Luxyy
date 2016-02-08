@@ -44,9 +44,8 @@ class FeedModel: NSObject, MWFeedParserDelegate {
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
         let blogPost = BlogPostModel(title: item.title)
         print(item.summary)
-        if let htmlString = try? String(contentsOfFile: item.summary, encoding: NSUTF8StringEncoding) {
-            blogPost.parsePost(htmlString)
-        }
+        blogPost.parsePost(item.summary)
+
         
         blogPosts.append(blogPost)
         delegate.transferBlogPost(blogPosts.first!)

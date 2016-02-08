@@ -16,7 +16,8 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
     
     func setup(htmlString:String) -> [AnyObject] {
 //        let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
-//        let htmlString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
+//        let htmlTESTString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
+//        return restructureText(htmlTESTString!)
         return restructureText(htmlString)
     }
 
