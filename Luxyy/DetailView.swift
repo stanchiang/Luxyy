@@ -23,7 +23,7 @@ protocol detailDelegate {
     func loadDecision()
 }
 
-class DetailView: UIView, UIScrollViewDelegate {
+class DetailView: UIView, UIScrollViewDelegate, feedDelegate {
     
     var delegate: detailDelegate!
     var parentData = [String:AnyObject]()
@@ -107,8 +107,10 @@ class DetailView: UIView, UIScrollViewDelegate {
         }
         
         addItemDetails()
-        //        addLocationButton()
-        //        addBlogPosts()
+        
+        
+//        addLocationButton()
+        addBlogPosts()
         
         addDismissButton()
         addActionButtons()
@@ -209,23 +211,25 @@ class DetailView: UIView, UIScrollViewDelegate {
     }
     
     func addBlogPosts(){
+        //create a feed object
+        let feed = FeedModel()
+        feed.delegate = self
+        //request the data from a rss url
+        //        feed.request("http://fulltextrssfeed.com/www.hodinkee.com/blog/atom.xml")
+        feed.request("https://www.wired.com/category/gear/feed/")
         
-        let blogStart = UILabel()
-        blogStart.text = "What the Experts Say"
-        stackView.addArrangedSubview(blogStart)
-        
-        for i in 1 ..< 25 {
-            let post = UIButton(type: UIButtonType.System)
-            post.backgroundColor = UIColor.orangeColor()
-            post.layer.borderColor = UIColor.blackColor().CGColor
-            post.layer.borderWidth = 1
-            post.setTitle("blog post \(i)", forState: .Normal)
-            self.stackView.addArrangedSubview(post)
-            
-        }
     }
     
-    
+    func transferBlogPost(post: BlogPostModel) {
+        if post.content.count > 0 {
+            print("blog post has content \(post.content.count)")
+            for view in post.content {
+                stackView.addArrangedSubview(view as! UIView)
+            }
+        }else {
+            print("parsed and ready to display, but no content")
+        }
+    }
     
     func setupSlideShow() {
         //1

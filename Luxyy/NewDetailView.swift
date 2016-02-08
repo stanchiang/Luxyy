@@ -141,12 +141,12 @@ class newDetailView: UIView, UIScrollViewDelegate {
     
     func addItemDetails() {
         
-        let parsedRss = ParsedRSS()
-        let views = parsedRss.setup()
-        
-        for view in views {
-            stackView.addArrangedSubview(view as! UIView)
-        }
+//        let parsedRss = ParsedRSS()
+//        let views = parsedRss.setup()
+//        
+//        for view in views {
+//            stackView.addArrangedSubview(view as! UIView)
+//        }
         
 //        pageViews = parsedRss.images
 

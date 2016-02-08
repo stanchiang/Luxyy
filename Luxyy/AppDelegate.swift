@@ -33,15 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         self.application = application
-        
-        //create a feed object
-        let feed = FeedModel()
-        
-        //request the data from a rss url
-        feed.request("http://fulltextrssfeed.com/www.hodinkee.com/blog/atom.xml")
-        
-        
-        
         setupParse()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -51,9 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             self.window!.rootViewController = login
             
         } else {
-            userAuthenticated()
-        
-            
+            userAuthenticated()    
         }
         
         let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)

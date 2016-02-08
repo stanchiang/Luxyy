@@ -8,10 +8,15 @@
 
 import UIKit
 import MWFeedParser
+
+protocol feedDelegate {
+    func transferBlogPost(post: BlogPostModel)
+}
+
 class FeedModel: NSObject, MWFeedParserDelegate {
     var rssLink: String!
-    var blogPosts:[BlogPostModel]?
-    
+    var blogPosts:[BlogPostModel]!
+    var delegate: feedDelegate!
     override init(){
         super.init()
         blogPosts = [BlogPostModel]()
@@ -37,17 +42,14 @@ class FeedModel: NSObject, MWFeedParserDelegate {
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        let blogPost = BlogPostModel(title: item.title, rawHtml: item.summary)
-
-//        let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
-        
-        if let htmlString = try? String(contentsOfFile: blogPost.rawHtml, encoding: NSUTF8StringEncoding) {
-            blogPost.rawHtml = htmlString
+        let blogPost = BlogPostModel(title: item.title)
+        print(item.summary)
+        if let htmlString = try? String(contentsOfFile: item.summary, encoding: NSUTF8StringEncoding) {
+            blogPost.parsePost(htmlString)
         }
         
-        print(blogPost.title)
-        print(blogPost.rawHtml)
-        blogPosts?.append(blogPost)
+        blogPosts.append(blogPost)
+        delegate.transferBlogPost(blogPosts.first!)
         parser.stopParsing()
     }
 }

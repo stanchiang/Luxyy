@@ -29,6 +29,7 @@
 		F66779A61C595A65005EB56E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A41C595A65005EB56E /* Fabric.framework */; };
 		F66779A71C595A65005EB56E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66779A51C595A65005EB56E /* Crashlytics.framework */; };
 		F66779A91C59F285005EB56E /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66779A81C59F285005EB56E /* ConversationListViewController.swift */; };
+		F6D6CAF31C68A9FE0071A338 /* wired.html in Resources */ = {isa = PBXBuildFile; fileRef = F6D6CAF21C68A9FE0071A338 /* wired.html */; };
 		F6FB6B321C4AAACD00B167AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */; };
 		F6FB6B341C4AAACD00B167AF /* MessengerContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */; };
 		F6FB6B3A1C4AAACD00B167AF /* Luxyy.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6FB6B381C4AAACD00B167AF /* Luxyy.xcdatamodeld */; };
@@ -82,6 +83,7 @@
 		F66779A41C595A65005EB56E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		F66779A51C595A65005EB56E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		F66779A81C59F285005EB56E /* ConversationListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
+		F6D6CAF21C68A9FE0071A338 /* wired.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = wired.html; sourceTree = "<group>"; };
 		F6FB6B2E1C4AAACD00B167AF /* Luxyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Luxyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6FB6B311C4AAACD00B167AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6FB6B331C4AAACD00B167AF /* MessengerContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerContainerViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			children = (
 				F64D7EC41C4FED5F00DF9CBB /* fullList.json */,
 				F6168A581C67C8C300DB61D4 /* compacthodinkeersstest.html */,
+				F6D6CAF21C68A9FE0071A338 /* wired.html */,
 				F64D7EC21C4FECE600DF9CBB /* uploadFilesViewController.swift */,
 				F64F18F71C560E9A00E093CF /* LaunchScreen.xib */,
 				F66779A11C579444005EB56E /* yuanti-SC.ttf */,
@@ -387,6 +390,7 @@
 			files = (
 				F66779A21C5796C7005EB56E /* yuanti-SC.ttf in Resources */,
 				F64D7EC51C4FED5F00DF9CBB /* fullList.json in Resources */,
+				F6D6CAF31C68A9FE0071A338 /* wired.html in Resources */,
 				F64F18F81C560E9A00E093CF /* LaunchScreen.xib in Resources */,
 				F6FB6B3C1C4AAACD00B167AF /* Assets.xcassets in Resources */,
 				F6168A591C67C8C300DB61D4 /* compacthodinkeersstest.html in Resources */,

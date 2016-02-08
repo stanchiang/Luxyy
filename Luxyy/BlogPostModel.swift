@@ -11,19 +11,16 @@ import UIKit
 class BlogPostModel: NSObject {
 
     var title:String!
-    var rawHtml:String!
     var content:[AnyObject]!
     
-    init(title: String, rawHtml:String) {
+    init(title: String) {
         self.title = title
-        self.rawHtml = rawHtml
+        content = [AnyObject]()
     }
     
-    func parsePost(){
+    func parsePost(rawHTML: String){
         let parsedRSS = ParsedRSS()
-        
-        //need to make
-        content = parsedRSS.setup()
-        
+        content = parsedRSS.setup(rawHTML)
+        print(content)
     }
 }

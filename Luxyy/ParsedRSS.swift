@@ -14,10 +14,10 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
 
     var images = [UIImageView]()
     
-    func setup() -> [AnyObject] {
-        let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
-        let htmlString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
-        return restructureText(htmlString!)
+    func setup(htmlString:String) -> [AnyObject] {
+//        let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
+//        let htmlString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
+        return restructureText(htmlString)
     }
 
     func getImages() -> [UIImageView] {
@@ -59,25 +59,6 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
         return imagesLinkAndPosition
     }
     
-    func feedParserDidStart(parser: MWFeedParser!) {
-        print("started parsing")
-    }
-    
-    func feedParserDidFinish(parser: MWFeedParser!) {
-        print("finished parsing")
-    }
-    
-    func feedParser(parser: MWFeedParser, didParseFeedItem item: MWFeedItem) {
-        parser.stopParsing()
-    }
-    
-    func request() {
-        let URL = NSURL(string: "http://fulltextrssfeed.com/www.hodinkee.com/blog/atom.xml")
-        let feedParser = MWFeedParser(feedURL: URL);
-        feedParser.delegate = self
-        feedParser.parse()
-    }
-    
     func stripTagsFrom(html: String) -> String? {
         let encodedString:String = html
         let encodedData:NSData = encodedString.dataUsingEncoding(NSUTF8StringEncoding)!
@@ -99,7 +80,7 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
         if let noTags:String = stripTagsFrom(html) {
             let didExtractImageLinksAndPositions:[(String, Range<String.Index>)] = extractImageLinksAndPositionsFrom(html, noTags: noTags)
             let didEmbedHyperlinks:NSMutableAttributedString = addHyperLink(html, noTags: noTags)
-
+            print(didEmbedHyperlinks)
             /*
             we will consider the base case to be alternating between 1 textview and then 1 image view and assume that they alternate --done--
             edge case #1: starting with an image --done--
