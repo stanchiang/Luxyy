@@ -28,7 +28,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
     let ParseClientKeyString: String = "Z6k85eiuum4IfAqLkfVXmeqrXWvKaCrdSd3nsCN0"
     let SegmentWriteKey: String = "PLmeZdWun17I5KL55aXH5Q4kvqUXyA6u"
     
+    var application:UIApplication!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        self.application = application
+        
+        //create a feed object
+        let feed = FeedModel()
+        
+        //request the data from a rss url
+        feed.request("http://fulltextrssfeed.com/www.hodinkee.com/blog/atom.xml")
+        
+        
         
         setupParse()
         
@@ -37,20 +49,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
             let login = loginViewController()
             login.delegate = self
             self.window!.rootViewController = login
+            
         } else {
             userAuthenticated()
+        
+            
         }
         
         let configuration = SEGAnalyticsConfiguration(writeKey: SegmentWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         
         Fabric.with([Crashlytics.self()])
-        
-        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
-        
-        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
         
         window!.makeKeyAndVisible()
         return true
@@ -120,11 +129,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AHPagingMenuDelegate, log
         unreadMessagesBadge.badgeValue = 0
         UIApplication.sharedApplication().applicationIconBadgeNumber = unreadMessagesBadge.badgeValue
         self.window!.rootViewController = controller
+        
+        registerForNotifications()
+    }
+    
+    func registerForNotifications(){
+        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
+        
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         print("registering for notifications")
         let installation = PFInstallation.currentInstallation()
+        
         installation.setValue(PFUser.currentUser(), forKey: "user")
         installation.setDeviceTokenFromData(deviceToken)
         installation.saveInBackground()

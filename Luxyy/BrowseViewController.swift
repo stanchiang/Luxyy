@@ -374,7 +374,11 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func handleExpand(sender: UIGestureRecognizer){
-        thecardView.expand(swipeableView.topView()!)
+        if let _ = (swipeableView.topView() as? CardView)?.imageView.image{
+            thecardView.expand(swipeableView.topView()!)
+        }else {
+            print("didn't finish set up yet")
+        }
     }
     
     func nextCardView() -> UIView? {
@@ -514,7 +518,7 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
     }
     
     func getParentData() -> [String:AnyObject] {
-        
+
         var parent = [String:AnyObject]()
         let imageArray:[UIImageView] = [expandedImage]
         parent.updateValue(imageArray, forKey: "imageArray")
@@ -527,7 +531,6 @@ class BrowseViewController: UIViewController, cardDelegate, detailDelegate, expa
         parent.updateValue(currentItem.objectForKey("band")!, forKey: "band")
         parent.updateValue(currentItem.objectForKey("refNum")!, forKey: "refNum")
         parent.updateValue(currentItem.objectForKey("variations")!, forKey: "variations")
-        
         
         return parent
     }

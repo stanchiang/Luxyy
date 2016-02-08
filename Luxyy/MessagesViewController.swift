@@ -385,7 +385,6 @@ class MessagesViewController: JSQMessagesViewController, UIActionSheetDelegate, 
         
         let onboardingMessages:[String] = [
             "Welcome to Luxyy!",
-            "I take all constructive feedback very seriously.",
             "Send me your thoughts either through this private chat or by directly emailing me at stanley@getLuxyy.com",
         ]
         

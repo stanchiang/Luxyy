@@ -30,7 +30,7 @@ class ConversationListViewController: UIViewController, UITableViewDataSource, U
         conversations!.findObjectsInBackgroundWithBlock { (object, error) -> Void in
             if object != nil && object?.count > 0 {
                 for user in object! {
-                    print("we have a userid: \(user.objectId!)")
+//                    print("we have a userid: \(user.objectId!)")
                     self.convoList.append(user.objectForKey("username") as! String)
                     self.IDList.append(user.objectId!)
                 }

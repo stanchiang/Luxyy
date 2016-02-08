@@ -10,7 +10,7 @@ import UIKit
 import Cartography
 import Parse
 
-protocol olddetailDelegate {
+protocol newdetailDelegate {
     func dismissDetailView(sender: AnyObject)
     func addDismissHandler(sender: AnyObject)
     func addImageHandler(sender: UIGestureRecognizer)
@@ -23,9 +23,9 @@ protocol olddetailDelegate {
     func loadDecision()
 }
 
-class oldDetailView: UIView, UIScrollViewDelegate {
-    
-    var delegate: olddetailDelegate!
+class newDetailView: UIView, UIScrollViewDelegate {
+
+    var delegate: newdetailDelegate!
     var parentData = [String:AnyObject]()
     var parentImageView: UIImageView!
     
@@ -57,9 +57,11 @@ class oldDetailView: UIView, UIScrollViewDelegate {
     var watchrefNum:String!
     var watchvariations:String!
     
+    var lastContentOffset:CGFloat!
     
     var skip:UIButton!
     var save:UIButton!
+    var share:UIButton!
     
     override func layoutSubviews() {
         scrollBaseView.contentSize = CGSize(width: stackView.frame.width, height: stackView.frame.height)
@@ -76,10 +78,17 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         
         scrollBaseView.contentSize = CGSizeMake(scrollBaseView.frame.size.width, height)
         scrollBaseView.contentInset.bottom = 75
+
+        for view in stackView.arrangedSubviews {
+            constrain(view, self) { view, superview in
+                view.leading == superview.leading + 30
+                view.trailing == superview.trailing - 30
+            }
+        }
     }
     
     func setup(){
-        
+
         processModel()
         
         self.backgroundColor = UIColor.whiteColor()
@@ -107,8 +116,8 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         }
         
         addItemDetails()
-        //        addLocationButton()
-        //        addBlogPosts()
+//        addLocationButton()
+//        addBlogPosts()
         
         addDismissButton()
         addActionButtons()
@@ -126,78 +135,28 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         delegate.loadDecision()
     }
     
+    func toggleAdditionalInfo(sender:UIGestureRecognizer){
+        print("toggle")
+    }
+    
     func addItemDetails() {
-        let nameLabel = UILabel()
-        nameLabel.text = watchName
-        let brandLabel = UILabel()
-        brandLabel.text = watchBrand
-        let priceLabel = UILabel()
-        priceLabel.text = "$\(NSString(format: "%.02f", watchprice))"
         
-        let additionalInfoLabel = UILabel()
-        additionalInfoLabel.text = "Additional Information"
+        let parsedRss = ParsedRSS()
+        let views = parsedRss.setup()
         
-        let primaryInfo = [nameLabel, brandLabel, priceLabel, additionalInfoLabel]
-        
-        for label in primaryInfo {
-            
-            if label == primaryInfo[0] || label == primaryInfo[3] {
-                let gapView = UIView()
-                stackView.addArrangedSubview(gapView)
-                constrain(gapView) { view in
-                    view.height == 30
-                }
-            }
-            stackView.addArrangedSubview(label)
+        for view in views {
+            stackView.addArrangedSubview(view as! UIView)
         }
         
-        let movementLabel = UILabel()
-        let movementHeader = "Movement:"
-        movementLabel.text = watchmovement
+//        pageViews = parsedRss.images
+
+//        pageCount = pageImages.count
+//        self.layoutSubviews()
         
-        let functionLabel = UILabel()
-        let functionHeader = "Functions:"
-        functionLabel.text = watchfunctions
+//        let additionalInfoStackView = UIStackView()
+//        additionalInfoStackView.axis = .Vertical
+//        stackView.addArrangedSubview(additionalInfoStackView)
         
-        let bandLabel = UILabel()
-        let bandHeader = "Band:"
-        bandLabel.text = watchband
-        
-        let variationsLabel = UILabel()
-        let variationHeader = "Variations:"
-        variationsLabel.text = watchvariations
-        
-        let refNumLabel = UILabel()
-        let refNumHeader = "Reference Number:"
-        refNumLabel.text = watchrefNum
-        
-        let infoArray:[String:UILabel] = ["1":nameLabel, "2":brandLabel, "3":priceLabel, "4":additionalInfoLabel, movementHeader:movementLabel, functionHeader:functionLabel, bandHeader:bandLabel, variationHeader:variationsLabel, refNumHeader:refNumLabel]
-        
-        for (header, label) in infoArray {
-            label.numberOfLines = 0
-            
-            if header == "1" || header == "2" || header == "3" || header == "4" {
-                label.font = UIFont(name: "Avenir", size: 20)
-                if header == "4" {
-                    label.font = UIFont.boldSystemFontOfSize(20.0)
-                }
-            } else {
-                let fullString = "\(header) \(label.text!)"
-                print(fullString)
-                let start = fullString.characters.count - label.text!.characters.count
-                var myMutableString = NSMutableAttributedString()
-                myMutableString = NSMutableAttributedString(string: fullString, attributes: [NSFontAttributeName:UIFont(name: "Avenir", size: 20)!])
-                myMutableString.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(15), range: NSMakeRange(start, label.text!.characters.count))
-                label.attributedText = myMutableString
-                stackView.addArrangedSubview(label)
-            }
-            
-            
-            constrain(label) { label in
-                label.leading == label.superview!.leading + 30
-                label.trailing == label.superview!.trailing - 30
-            }
-        }
     }
     
     func addLocationButton(){
@@ -265,7 +224,7 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         pageControl = UIPageControl()
         scrollBaseView.addSubview(pageControl)
         
-        
+
         constrain(pageControl, scrollView) { view1, view2 in
             view1.leading == view1.superview!.leading
             view1.trailing == view1.superview!.trailing
@@ -285,7 +244,6 @@ class oldDetailView: UIView, UIScrollViewDelegate {
     
     //MARK: UIScrollViewDelegate
     func scrollViewDidEndDecelerating(scrollView: UIScrollView){
-        
         loadVisiblePages()
     }
     
@@ -316,11 +274,14 @@ class oldDetailView: UIView, UIScrollViewDelegate {
             
             // 4
             pageViews[page] = newPageView
-            
+        
             pageViews[page]!.userInteractionEnabled = true
-            let imageExpand = UITapGestureRecognizer(target: self, action: Selector("addExpandHandler:"))
-            pageViews[page]!.addGestureRecognizer(imageExpand)
-            
+            if pageViews[page]?.image != nil {
+                let imageExpand = UITapGestureRecognizer(target: self, action: Selector("addExpandHandler:"))
+                pageViews[page]!.addGestureRecognizer(imageExpand)
+            } else {
+                print(")no picture to expand")
+            }
         }
     }
     
@@ -368,7 +329,7 @@ class oldDetailView: UIView, UIScrollViewDelegate {
             purgePage(index)
         }
     }
-    
+
     
     func processModel(){
         parentData = delegate.getParentData()
@@ -383,7 +344,7 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         watchrefNum = parentData["refNum"] as! String
         watchvariations = parentData["variations"] as! String
     }
-    
+
     func addDismissButton() {
         dismiss = UIButton()
         dismiss.setImage(UIImage(named: "dismiss"), forState: .Normal)
@@ -407,7 +368,7 @@ class oldDetailView: UIView, UIScrollViewDelegate {
     }
     
     func addActionButtons() {
-        
+
         let edge:CGFloat = 15
         
         skip = UIButton()
@@ -417,8 +378,8 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         skip.tintColor = UIColor(red: 255/255.0, green: 93/255.0, blue: 47/255.0, alpha: 1)
         skip.imageEdgeInsets = UIEdgeInsets(top: edge, left: edge, bottom: edge, right: edge)
         skip.addTarget(self, action: "itemSkipAction:", forControlEvents: .TouchUpInside)
-        
-        let share = UIButton()
+
+        share = UIButton()
         let shareImage = UIImage(named: "share")
         let tintedShare = shareImage?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         share.setImage(tintedShare, forState: UIControlState.Normal)
@@ -438,7 +399,7 @@ class oldDetailView: UIView, UIScrollViewDelegate {
         
         for action in actionArray {
             addSubview(action)
-            
+
             constrain(action) { view in
                 view.height == 50
                 view.width == 50
@@ -449,17 +410,17 @@ class oldDetailView: UIView, UIScrollViewDelegate {
             action.layer.cornerRadius = 0.5 * action.bounds.size.width
             action.layer.borderWidth = 5
             action.layer.borderColor = UIColor.lightGrayColor().CGColor
-            
+
         }
         
         constrain(actionArray[1]){ obj1 in
             obj1.centerX == obj1.superview!.centerX
         }
-        
+
         constrain(skip, share, save) { obj1, obj2, obj3 in
             distribute(by: 30, horizontally: obj1, obj2, obj3)
         }
-        
+
     }
     
     func itemSkipAction(sender: UIButton) {
@@ -484,10 +445,27 @@ class oldDetailView: UIView, UIScrollViewDelegate {
     //MARK: UIScrollViewDelegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //FIXME: get a dynamic value of when to collapse scroll view; currently hard coded to some distance below where we set the original card down from top
-        
+
         if scrollView.contentOffset.y < -140 {
             delegate.dismissDetailView(self)
         }
+        
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+            dismiss.alpha = 1
+            skip.alpha = 1
+            save.alpha = 1
+            share.alpha = 1
+        } else if (self.lastContentOffset < scrollView.contentOffset.y) {
+            dismiss.alpha = 0
+            skip.alpha = 0
+            save.alpha = 0
+            share.alpha = 0
+            
+        }
     }
     
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        lastContentOffset = scrollView.contentOffset.y;
+    }
+
 }

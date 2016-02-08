@@ -106,6 +106,9 @@ class loginViewController: UIViewController, PFLogInViewControllerDelegate, PFSi
         SEGAnalytics.sharedAnalytics().track("Signed Up")
         self.dismissViewControllerAnimated(true, completion: nil)
         NSNotificationCenter.defaultCenter().postNotificationName("loadOnboardingMessages", object: nil)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("registerForNotifications", object: nil)
+        
         delegate.userAuthenticated()
     }
     

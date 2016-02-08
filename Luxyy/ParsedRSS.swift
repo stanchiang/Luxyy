@@ -12,12 +12,18 @@ import MWFeedParser
 
 class ParsedRSS: NSObject, MWFeedParserDelegate {
 
+    var images = [UIImageView]()
+    
     func setup() -> [AnyObject] {
         let htmlFile = NSBundle.mainBundle().pathForResource("compacthodinkeersstest", ofType: "html")
         let htmlString = try? String(contentsOfFile: htmlFile!, encoding: NSUTF8StringEncoding)
         return restructureText(htmlString!)
     }
 
+    func getImages() -> [UIImageView] {
+        return images
+    }
+    
     func addHyperLink(html:String, noTags:String) -> NSMutableAttributedString {
         let didEmbedHyperlinks:NSMutableAttributedString = NSMutableAttributedString(string: noTags)
         if let doc = Kanna.HTML(html: html, encoding: NSUTF8StringEncoding) {
@@ -126,6 +132,7 @@ class ParsedRSS: NSObject, MWFeedParserDelegate {
                     NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: { (response, data, error) -> Void in
                         if error == nil {
                             imageLink.image = UIImage(data: data!)
+                            self.images.append(imageLink)
                         }
                         else {
                             print("Error: \(error!.localizedDescription)")

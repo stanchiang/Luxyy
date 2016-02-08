@@ -143,26 +143,29 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selected: PlayListCollectionViewCell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayListCollectionViewCell
-        print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
-        let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
-        
-        expandedImage = selected.imageView
-        itemBrand = selected.object.objectForKey("itemBrand") as! String
-        itemName = selected.object.objectForKey("itemName") as! String
-        price = selected.object.objectForKey("price") as! Double
-        movement = selected.object.objectForKey("movement") as! String
-        functions = selected.object.objectForKey("functions") as! String
-        band = selected.object.objectForKey("band") as! String
-        refNum = selected.object.objectForKey("refNum") as! String
-        variations = selected.object.objectForKey("variations") as! String
-        
-        selectedObject = selected.object
-        selectedIndexPath = indexPath
-        
-        detailView = DetailView(frame: viewFrame)
-        detailView.delegate = self
-        detailView.setup()
-        self.addSubview(detailView)
+        if selected.object != nil {
+            print("\(selected.object.objectId) \(selected.object.objectForKey("itemBrand")) \(selected.object.objectForKey("itemName")) ")
+            let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
+            
+            expandedImage = selected.imageView
+            itemBrand = selected.object.objectForKey("itemBrand") as! String
+            itemName = selected.object.objectForKey("itemName") as! String
+            price = selected.object.objectForKey("price") as! Double
+            movement = selected.object.objectForKey("movement") as! String
+            functions = selected.object.objectForKey("functions") as! String
+            band = selected.object.objectForKey("band") as! String
+            refNum = selected.object.objectForKey("refNum") as! String
+            variations = selected.object.objectForKey("variations") as! String
+            
+            selectedObject = selected.object
+            selectedIndexPath = indexPath
+            
+            detailView = DetailView(frame: viewFrame)
+            detailView.delegate = self
+            detailView.setup()
+            self.addSubview(detailView)
+
+        }
     }
     
     func dismissDetailView(sender: AnyObject) {
@@ -177,20 +180,23 @@ class FullListView: UIView, UICollectionViewDelegateFlowLayout, UICollectionView
     func addDismissExpandedHandler(sender: AnyObject){
         let button:UIButton = sender as! UIButton
         button.addTarget(self, action: "dismissDetailExpandedView:", forControlEvents: .TouchUpInside)
-        
+        print("addDismissExpandedHandler")
     }
     
     func dismissDetailExpandedView(sender: AnyObject) {
         expanded.removeFromSuperview()
+        print("dismissDetailExpandedView")
     }
     
     func addImageHandler(sender: UIGestureRecognizer){
         let theImageView = sender.view as! UIImageView
         let viewFrame = CGRectMake(0, 0, self.frame.width, self.frame.height)
         expanded = expandedImageView(frame: viewFrame)
-        addSubview(expanded)
-        expanded.expandedDel = self
-        expanded.setup(theImageView)
+        if expanded.imageView != nil {
+            addSubview(expanded)
+            expanded.expandedDel = self
+            expanded.setup(theImageView)
+        }
     }
     
     func getParentData() -> [String:AnyObject] {
