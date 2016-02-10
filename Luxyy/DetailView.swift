@@ -29,7 +29,6 @@ class DetailView: UIView, UIScrollViewDelegate, postDelegate {
     var parentData = [String:AnyObject]()
     var parentImageView: UIImageView!
     
-    
     var stackContainerView: UIStackView!
     var expandedImage: UIImageView!
     var contentviewconstraints: ConstraintGroup!
@@ -213,10 +212,9 @@ class DetailView: UIView, UIScrollViewDelegate, postDelegate {
     }
     
     func addBlogPosts(){
-        let post = PostModel(url: "https://api.watchville.co/v2/posts/20039")
+        let post = PostModel(url: "https://api.watchville.co/v2/posts/20044")
         post.delegate = self
         post.getHTMLFromURL()
-        
     }
     
     func sendPostContentToView(content: [AnyObject]) {
