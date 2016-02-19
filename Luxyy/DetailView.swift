@@ -111,7 +111,7 @@ class DetailView: UIView, UIScrollViewDelegate, postDelegate {
         
         
 //        addLocationButton()
-        addBlogPosts()
+//        addBlogPosts()
         
         addDismissButton()
         addActionButtons()
